@@ -15,5 +15,6 @@ class Speedway {
     render() {
         this.ctx.beginPath();
         this.ctx.moveTo(this.h / 2, this.h/2 + 10);
+        this.ctx.arc(this.h / 2, this.h/2 + 10, this.h/2, Math.PI / 2, Math.PI / 2 + Math.PI);
     }
 }
