@@ -1,32 +1,46 @@
 class Cart {
-    ctx; // current canvas context
-    pos = {x: 0, y: 0}; // {x, y}
-    vel = 2; // 
-    angle = 0; // radians
-    angle_vel = ((2 * Math.PI) / 360) * 5;
-
+    ctx; // Obecny kontekst płótna
+    pos = { x: 0, y: 0 }; // Pozycja {x, y}
+    vel = 1; // Prędkość
+    angle = 0; // Kąt w radianach
+    angle_vel = 0;
 
     constructor(ctx, startingPos) {
         this.ctx = ctx;
         this.pos = startingPos;
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key == "d") {
+                this.angle_vel += ((2 * Math.PI) / (360 * 2));
+                return;
+            }
+            if (e.key == "a") {
+                this.angle_vel -= ((2 * Math.PI) / (360 * 2));
+                return;
+            }
+        });
     }
 
     update() {
+        this.angle += this.angle_vel;
+        this.angle_vel *= 0.7;
         this.pos.x += this.vel * Math.cos(this.angle);
         this.pos.y += this.vel * Math.sin(this.angle);
         this.draw();
     }
 
     draw() {
-        const [w, h] = [24, 12]
-        this.ctx.beginPath();
-        this.ctx.rect(this.pos.x, this.pos.y, w, h);
-        this.ctx.fillStyle = "#4287f5";
-        this.ctx.fill();
-        this.ctx.closePath();
-    }
+        const [w, h] = [24, 12];
 
+        this.ctx.save(); // Zapisz obecny stan kontekstu
+        this.ctx.translate(this.pos.x + w / 2, this.pos.y + h / 2);
+        this.ctx.rotate(this.angle);
+        this.ctx.fillStyle = "#4287f5";
+        this.ctx.fillRect(-w / 2, -h / 2, w, h); // Rysuj koszyk
+        this.ctx.restore(); // Przywróć poprzedni stan kontekstu
+    }
 }
+
 
 class Speedway {
     ctx; // current canvas context
