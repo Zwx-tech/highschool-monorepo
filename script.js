@@ -11,7 +11,7 @@ function update(step) {
     speedway.render();
     carts.forEach(c => {
         c.update()
-        // chech every corner
+        // check every corner
         c.getRectBoundaries().forEach(p => {
             ctx.beginPath()
             ctx.fillStyle = "#f00";

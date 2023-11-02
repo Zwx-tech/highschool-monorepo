@@ -3,11 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/7.css">
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-    <canvas style="border: 1px solid #000;" width="1000" height="600"></canvas>
+        <div class="window active glass ">
+            <div class="title-bar">
+                <div class="title-bar-text">Gra żużel - Stanisław Dębicki</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body has-space">
+                <canvas width="1000" height="600"></canvas>
+            </div>
+        </div>
+        <!-- <div class="window active form-window">
+            <div class="title-bar">
+                <div class="title-bar-text">Gra żużel - Stanisław Dębicki</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body has-space">
+                <form class="">
+                    <section class="tabs">
+                        <menu role="tablist" aria-label="Sample Tabs">
+                          <button role="tab" aria-controls="tab-A" aria-selected="true">Players</button>
+                          <button role="tab" aria-controls="tab-B">Game</button>
+                        </menu>
+                        <article role="tabpanel" id="tab-A">
+                            <fieldset class="player player-card">
+                                <button class="add-player__button">Add player</button>
+                            </fieldset>
+                            <fieldset class="player">
+                                <button class="add-player__button">Add player</button>
+                            </fieldset>
+                        </article>
+                        <article role="tabpanel" id="tab-B" hidden>
+                            <p>About game</p>
+                        </article>
+                    </section>
+                </form>
+            </div>
+        </div> -->
 </body>
 </html>

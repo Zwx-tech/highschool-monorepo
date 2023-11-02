@@ -1,24 +1,38 @@
+// helper func 
+function clamp(num, min, max) {
+    return num <= min 
+        ? min 
+        : num >= max 
+        ? max 
+        : num
+}
+
 class Cart {
     ctx; // current canvas context
     pos = { x: 0, y: 0 }; // pos {x, y}
     vel = 3; 
     angle = 0; // angle in radians
     angle_vel = 0;
-    w = 24;
-    h = 12;
+    angle_acc = ((2 * Math.PI) / (360)) * 6.7;
+    w = 34;
+    h = 21;
     isEngineOn = true;
+    cartImg;
 
     constructor(ctx, startingPos) {
         this.ctx = ctx;
         this.pos = startingPos;
+        this.cartImg = new Image();
+        this.cartImg.src = './img/car-1.png';
         document.addEventListener("keydown", (e) => {
-            const angle_acc = ((2 * Math.PI) / (360)) * 4;
+            if(Math.abs(this.angle_vel) > this.angle_acc)
+                return;
             if (e.key == "d") {
-                this.angle_vel += angle_acc;
+                this.angle_vel += this.angle_acc;
                 return;
             }
             if (e.key == "a") {
-                this.angle_vel -= angle_acc;
+                this.angle_vel -= this.angle_acc;
                 return;
             }
         });
@@ -27,51 +41,35 @@ class Cart {
     update() {
         if (this.isEngineOn){
             this.angle += this.angle_vel;
-            this.angle_vel *= 0.7;
+            const speedReduction = Math.abs(clamp(((2 * Math.PI) / (360)) * 4 / this.angle_vel, 0.5, 0.7));
+            console.log(speedReduction)
+            this.angle_vel *= speedReduction;
             this.pos.x += this.vel * Math.cos(this.angle);
             this.pos.y += this.vel * Math.sin(this.angle);
         }
         this.draw();
     }
 
-    // draw() {
-
-    //     this.ctx.save(); // save current ctx
-    //     this.ctx.translate(this.pos.x + this.w / 2, this.pos.y + this.h / 2); // change projection matrix so it origin will be in pos of player
-    //     this.ctx.rotate(this.angle);
-    //     this.ctx.fillStyle = "#4287f5";
-    //     this.ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h); // draw player (origin point of the cnavas is in poistion of player)
-    //     this.ctx.restore(); // restore ctx
-    // }
 
     draw() {
         this.ctx.save();
-        this.ctx.translate(this.pos.x, this.pos.y); // Przesunięcie do pozycji początkowej
-        this.ctx.rotate(this.angle); // Obrót na podstawie kąta
+        this.ctx.translate(this.pos.x, this.pos.y); // 
+        this.ctx.rotate(this.angle);
     
-        // Rysowanie prostokąta
-        this.ctx.fillStyle = "#4287f5";
-        this.ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h); 
-    
+        // draw player
+        // this.ctx.fillStyle = "#4287f5";
+        // this.ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h); 
+        this.ctx.drawImage(this.cartImg, -this.w / 2, -this.h / 2);
         this.ctx.restore();
     }
     
-    // getRectBounderies() {
-    //     const d = Math.sqrt(Math.pow(this.w, 2) + Math.pow(this.h, 2));
-    //     console.log(d);
-    //     return [
-    //         this.pos,
-    //         {x: (this.pos.x) + this.w, y: (this.pos.y) + this.h},
-    //         {x: this.pos.x + this.w, y: this.pos.y},
-    //         {x: this.pos.x , y: this.pos.y + this.h},
-    //     ]
-    // }
 
     getRectBoundaries() {
+        // precalculate cos and sin to speed up the process
         const cosA = Math.cos(this.angle);
         const sinA = Math.sin(this.angle);
     
-        // Pobieramy współrzędne punktów w lokalnym układzie współrzędnych
+        // bounding points relative to current player pos
         const localPoints = [
             { x: -this.w / 2, y: -this.h / 2 },
             { x: this.w / 2, y: -this.h / 2 },
@@ -79,7 +77,7 @@ class Cart {
             { x: -this.w / 2, y: this.h / 2 },
         ];
     
-        // Transformacja każdego punktu z lokalnego układu współrzędnych do globalnego
+        // Translate each of points using our pos to get global coordinates
         const boundaries = localPoints.map(point => {
             const x = this.pos.x + cosA * point.x - sinA * point.y;
             const y = this.pos.y + sinA * point.x + cosA * point.y;
@@ -96,18 +94,31 @@ class Speedway {
     ctx; // current canvas context
     w; // width of speedway
     h; // height of speedway
-
+    groundPattern;
+    grassPattern;
     constructor(ctx, w, h) {
         this.ctx = ctx;
         this.w = w;
         this.h = h;
+
+        const grassImg = new Image();
+        grassImg.src = "./img/grass.png";
+        grassImg.onload = () => {
+            this.grassPattern = this.ctx.createPattern(grassImg, 'repeat')
+        }
+        const groundImg = new Image();
+        groundImg.src = "./img/ground.png";
+        groundImg.onload = () => {
+            this.groundPattern = this.ctx.createPattern(groundImg, 'repeat')
+        }
     }
 
     render() {
         let offset = 10;
         this.ctx.beginPath();
         this.ctx.rect(0, 0, this.w, this.h);
-        this.ctx.fillStyle = "#474747";
+        // this.ctx.fillStyle = "#474747";
+        this.ctx.fillStyle = this.grassPattern;
         this.ctx.fill();
         this.ctx.closePath();
         this.ctx.beginPath();
@@ -115,7 +126,8 @@ class Speedway {
         this.ctx.lineTo(this.w - this.h/2, 2 * offset);
         this.ctx.arc(this.w - this.h/2, this.h/2, this.h/2 - 2 * offset, Math.PI / 2 + Math.PI, Math.PI / 2);
         this.ctx.lineTo(this.h/2, this.h - offset * 2);
-        this.ctx.fillStyle = "#0aab23";
+        // this.ctx.fillStyle = "#0aab23";
+        this.ctx.fillStyle = this.groundPattern;
         this.ctx.fill();
         this.ctx.closePath();
         offset = 100;
@@ -124,7 +136,7 @@ class Speedway {
         this.ctx.lineTo(this.w - this.h/2, 2 * offset);
         this.ctx.arc(this.w - this.h/2, this.h/2, this.h/2 - 2 * offset, Math.PI / 2 + Math.PI, Math.PI / 2);
         this.ctx.lineTo(this.h/2, this.h - offset * 2);
-        this.ctx.fillStyle = "#474747";
+        this.ctx.fillStyle = this.grassPattern;
         this.ctx.fill();
         this.ctx.closePath();
     }
@@ -136,7 +148,6 @@ class Speedway {
         innerPath.lineTo(this.w - this.h/2, 2 * offset);
         innerPath.arc(this.w - this.h/2, this.h/2, this.h/2 - 2 * offset, Math.PI / 2 + Math.PI, Math.PI / 2);
         innerPath.lineTo(this.h/2, this.h - offset * 2);
-        innerPath.fillStyle = "#474747";
         innerPath.closePath();
         offset = 11;
         const outerPath = new Path2D();
@@ -144,7 +155,6 @@ class Speedway {
         outerPath.lineTo(this.w - this.h/2, 2 * offset);
         outerPath.arc(this.w - this.h/2, this.h/2, this.h/2 - 2 * offset, Math.PI / 2 + Math.PI, Math.PI / 2);
         outerPath.lineTo(this.h/2, this.h - offset * 2);
-        outerPath.fillStyle = "#474747";
         outerPath.closePath();
         return (!this.ctx.isPointInPath(innerPath, x, y) && this.ctx.isPointInPath(outerPath, x, y))
     }

@@ -1,5 +1,43 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
 body {
     min-height: 100vh;
     display: grid;
     place-items: center;
+    background-image: url("img/bg.webp");
+    background-size: contain;
+    background-size: 100% 100%;
+}
+
+.window-body {
+    background-color: #ddd;
+}
+
+.form-window {
+    position: absolute;
+    width: 800px;
+}
+/* Player form */
+
+.form-window form .player {
+    width: 25%;
+    aspect-ratio: 1 / 1;
+}
+.form-window form .player:has(.add-player__button) {
+    display: grid;
+    place-items: center;
+}
+
+#tab-A {
+    display: flex;
+    gap: .5em
 }
