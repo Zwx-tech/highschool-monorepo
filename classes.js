@@ -49,6 +49,7 @@ class Cart {
             this.pos.y += this.vel * Math.sin(this.angle) * dTime;
             this.trail.addPoint({x: this.pos.x, y: this.pos.y});
         }
+        // console.log(dTime)
         this.trail.draw();
         this.draw();
     }
@@ -197,8 +198,6 @@ class Trail {
             this.ctx.stroke();
             this.ctx.closePath();
         }
-
-        console.log(this.points)
     }
 
     addPoint(p) {

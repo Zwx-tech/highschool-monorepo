@@ -37,7 +37,13 @@ function createFieldSet(id) {
 formElement.addEventListener("submit", (e) => {
     e.preventDefault();
     const values = Array.from(e.target.querySelectorAll('input')).map(el => [el.id, el.value])
-    console.log(values);
+    console.log(e.target.parent);
+    e.target.parentNode.parentNode.style.visibility = "hidden"; 
+    carts.forEach(c => c.isEngineOn = false)
+    isGamePaused = false;
+    setTimeout(() => {
+        carts.forEach(c => c.isEngineOn = true)
+    }, 1000)
 })
 
 newPlayerButton.addEventListener("click", e => {
@@ -63,8 +69,9 @@ removeLastPlayerButton.addEventListener("click", e => {
 function update(step) {
     // render track
     speedway.render();
-
+    console.log(isGamePaused)
     if(isGamePaused){
+        prevStep = step;
         requestAnimationFrame(update);
         return;
     }
