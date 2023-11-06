@@ -19,10 +19,10 @@
                 </div>
             </div>
             <div class="window-body has-space">
-                <canvas width="1000" height="600"></canvas>
+                <canvas width="1200" height="600"></canvas>
             </div>
         </div>
-        <!-- <div class="window active form-window">
+        <div class="window active form-window">
             <div class="title-bar">
                 <div class="title-bar-text">Gra żużel - Stanisław Dębicki</div>
                 <div class="title-bar-controls">
@@ -32,19 +32,40 @@
                 </div>
             </div>
             <div class="window-body has-space">
-                <form class="">
+                <form id="player-form">
                     <section class="tabs">
                         <menu role="tablist" aria-label="Sample Tabs">
                           <button role="tab" aria-controls="tab-A" aria-selected="true">Players</button>
                           <button role="tab" aria-controls="tab-B">Game</button>
                         </menu>
                         <article role="tabpanel" id="tab-A">
-                            <fieldset class="player player-card">
-                                <button class="add-player__button">Add player</button>
-                            </fieldset>
-                            <fieldset class="player">
-                                <button class="add-player__button">Add player</button>
-                            </fieldset>
+                            <div class="taba__wrapper">
+                                <fieldset class="player player-card">
+                                    <h2>Player 1</h2>
+                                    <h5>Player</h5>
+                                    <div class="field-row">
+                                        <label for="player-1-nickname">Nickname</label>
+                                        <input id="player-1-nickname" type="text">
+                                    </div>
+                                    <h5>Controls</h5>
+                                    <div class="field-row">
+                                        <label for="player-1-l" style="width: max-content;">Key left</label>
+                                        <input id="player-1-l" type="text">
+                                    </div>
+                                    <div class="field-row">
+                                        <label for="player-1-r">Key right</label>
+                                        <input id="player-1-r" type="text">
+                                    </div>
+                                </fieldset>
+                                <fieldset class="player"></fieldset>
+                                <fieldset class="player"></fieldset>
+                                <fieldset class="player"></fieldset>
+                            </div>
+                            <div class="button__wrapper">
+                                <button class="add-player__button" type="button">Add player</button>
+                                <button class="remove-player__button" type="button">Remove last</button>
+                                <button class="start__button">Start!</button>
+                            </div>
                         </article>
                         <article role="tabpanel" id="tab-B" hidden>
                             <p>About game</p>
@@ -52,6 +73,6 @@
                     </section>
                 </form>
             </div>
-        </div> -->
+        </div>
 </body>
 </html>

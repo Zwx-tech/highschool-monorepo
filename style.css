@@ -23,13 +23,14 @@ body {
 }
 
 .form-window {
+    --size: 14rem;
     position: absolute;
-    width: 800px;
+    /* width: 800px; */
 }
 /* Player form */
 
 .form-window form .player {
-    width: 25%;
+    width: var(--size);
     aspect-ratio: 1 / 1;
 }
 .form-window form .player:has(.add-player__button) {
@@ -37,7 +38,38 @@ body {
     place-items: center;
 }
 
-#tab-A {
+.player-card h2{
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    margin: .4rem 0;
+    margin-bottom: 1rem;
+}
+.player-card h5{
+    margin: .4rem 0;
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+.player-card .field-row{
+    justify-content: space-between;
+    margin-bottom: .6rem;
+}
+.player-card .field-row+.field-row{
+    margin-top: .6rem;
+}
+
+.player-card .field-row label {
+    width: max-content;
+}
+.taba__wrapper {
     display: flex;
-    gap: .5em
+    gap: .5rem;
+}
+.player:not(.player-card) {
+    order: 1;
+}
+.button__wrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: .5rem;
 }

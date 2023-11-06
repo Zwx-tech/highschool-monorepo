@@ -10,18 +10,20 @@ function clamp(num, min, max) {
 class Cart {
     ctx; // current canvas context
     pos = { x: 0, y: 0 }; // pos {x, y}
-    vel = 3; 
+    vel = 250; 
     angle = 0; // angle in radians
     angle_vel = 0;
     angle_acc = ((2 * Math.PI) / (360)) * 6.7;
     w = 34;
     h = 21;
-    isEngineOn = true;
+    isEngineOn = true; 
     cartImg;
+    trail;
 
     constructor(ctx, startingPos) {
         this.ctx = ctx;
         this.pos = startingPos;
+        this.trail = new Trail(ctx);
         this.cartImg = new Image();
         this.cartImg.src = './img/car-1.png';
         document.addEventListener("keydown", (e) => {
@@ -38,15 +40,16 @@ class Cart {
         });
     }
 
-    update() {
+    update(dTime) {
         if (this.isEngineOn){
             this.angle += this.angle_vel;
             const speedReduction = Math.abs(clamp(((2 * Math.PI) / (360)) * 4 / this.angle_vel, 0.5, 0.7));
-            console.log(speedReduction)
             this.angle_vel *= speedReduction;
-            this.pos.x += this.vel * Math.cos(this.angle);
-            this.pos.y += this.vel * Math.sin(this.angle);
+            this.pos.x += this.vel * Math.cos(this.angle) * dTime;
+            this.pos.y += this.vel * Math.sin(this.angle) * dTime;
+            this.trail.addPoint({x: this.pos.x, y: this.pos.y});
         }
+        this.trail.draw();
         this.draw();
     }
 
@@ -163,5 +166,47 @@ class Speedway {
         return points.every((p) => this.isPointInSpeedway(p.x, p.y))
     }
 }
+class Trail {
+    ctx; // current canvas context
+    points = []; // {x, y}
+    maxLength = 100;
+
+    constructor(ctx) {
+        this.ctx = ctx;
+    }
+
+    draw() {
+        // this.points = this.points.filter((p, i) => i < this.maxLength);
+
+        if (this.points.length < 2) {
+            return;
+        }
+
+        for (let i = 1; i < this.points.length; i++) {
+            this.ctx.beginPath();
+            const p1 = this.points[i - 1];
+            const p2 = this.points[i];
+
+            const alphaBase = (this.maxLength - i) / this.maxLength;
+            const stroke = `rgba(0, 0, 0, ${alphaBase.toPrecision(3)})`
+            this.ctx.strokeStyle = stroke;
+            this.ctx.lineWidth = 20; // You can adjust the line width
+            
+            this.ctx.moveTo(p1.x, p1.y);
+            this.ctx.lineTo(p2.x, p2.y);
+            this.ctx.stroke();
+            this.ctx.closePath();
+        }
+
+        console.log(this.points)
+    }
+
+    addPoint(p) {
+        this.points.unshift(p);
+        if(this.points.length > this.maxLength)
+            this.points.pop();
+    }
+}
+
 
 export { Speedway, Cart };
