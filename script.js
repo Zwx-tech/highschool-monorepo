@@ -12,9 +12,21 @@ let isGamePaused = true;
 let prevStep = 0;
 let playerCount = 1;
 
+function addKeyDownListners() {
+    const currentFieldset = document.querySelectorAll(`.key-input`);
+    currentFieldset.forEach(el => {
+        el.addEventListener('keydown', e => {
+            e.preventDefault();
+            e.target.value = e.key;
+            e.target.dataset.key = e.key;
+        })
+    });
+}
 function createFieldSet(id) {
-    return `         
-    <fieldset class="player player-card">                           
+    const fieldsetElement = document.createElement('fieldset');
+    fieldsetElement.className = "player player-card";
+    fieldsetElement.id = `player-${id}`;
+    fieldsetElement.innerHTML = `                              
         <h2>Player ${id}</h2>
         <h5>Player</h5>
         <div class="field-row">
@@ -24,20 +36,22 @@ function createFieldSet(id) {
         <h5>Controls</h5>
         <div class="field-row">
             <label for="player-${id}-l" style="width: max-content;">Key left</label>
-            <input id="player-${id}-l" type="text">
+            <input id="player-${id}-l" class="key-input" type="text">
         </div>
         <div class="field-row">
             <label for="player-${id}-r">Key right</label>
-            <input id="player-${id}-r" type="text">
+            <input id="player-${id}-r" class="key-input" type="text">
         </div>
-    </fieldset>
-    `
+    `.trim();
+    return fieldsetElement;
 }
 
 formElement.addEventListener("submit", (e) => {
     e.preventDefault();
     const values = Array.from(e.target.querySelectorAll('input')).map(el => [el.id, el.value])
-    console.log(e.target.parent);
+    if(!values.every(el => el[1])){
+        return;
+    }
     e.target.parentNode.parentNode.style.visibility = "hidden"; 
     carts.forEach(c => c.isEngineOn = false)
     isGamePaused = false;
@@ -52,7 +66,8 @@ newPlayerButton.addEventListener("click", e => {
     const parent = document.querySelector(".taba__wrapper");
     const playerCards = document.querySelectorAll('.player:not(.player-card)');
     playerCards[playerCards.length - 1].remove();
-    parent.innerHTML += createFieldSet(playerCount+1);
+    parent.appendChild(createFieldSet(playerCount+1));
+    addKeyDownListners();
     playerCount++;
 })
 
@@ -62,14 +77,15 @@ removeLastPlayerButton.addEventListener("click", e => {
     const parent = document.querySelector(".taba__wrapper");
     const playerCards = document.querySelectorAll('.player-card');
     playerCards[playerCards.length - 1].remove();
-    parent.innerHTML += `<fieldset class="player"></fieldset>`
+    const fieldsetElement = document.createElement('fieldset');
+    fieldsetElement.className = "player"
+    parent.appendChild(fieldsetElement);
     playerCount--;
 })
 
 function update(step) {
     // render track
     speedway.render();
-    console.log(isGamePaused)
     if(isGamePaused){
         prevStep = step;
         requestAnimationFrame(update);
@@ -93,4 +109,6 @@ function update(step) {
     });
     requestAnimationFrame(update);
 }
+
+addKeyDownListners()
 requestAnimationFrame(update);

@@ -167,6 +167,7 @@ class Speedway {
         return points.every((p) => this.isPointInSpeedway(p.x, p.y))
     }
 }
+
 class Trail {
     ctx; // current canvas context
     points = []; // {x, y}
