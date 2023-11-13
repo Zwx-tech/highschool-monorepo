@@ -11,8 +11,10 @@ body {
 
 body {
     min-height: 100vh;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .1rem;
     background-image: url("img/bg.webp");
     background-size: contain;
     background-size: 100% 100%;
@@ -21,7 +23,10 @@ body {
 .window-body {
     background-color: #ddd;
 }
-
+.scoreboard .scoreboard__content{
+    height: 600px;
+    width: 250px;
+}
 .form-window {
     --size: 14rem;
     position: absolute;
@@ -41,9 +46,9 @@ body {
 .player-card h2{
     width: 100%;
     text-align: center;
-    font-size: 2rem;
-    margin: .4rem 0;
-    margin-bottom: 1rem;
+    /* font-size: 2rem; */
+    /* margin: .4rem 0; */
+    margin: 0;
 }
 .player-card h5{
     margin: .4rem 0;
@@ -72,4 +77,43 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: .5rem;
+}
+
+
+.scoreboard__content > h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.scoreboard ul {
+    font-size: 1.3em;
+}
+
+.scoreboard ul li {
+    margin-bottom: .7rem;
+}
+
+.player-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.player-card__header img {
+    margin-top: 3px;
+    margin-left: .4rem;
+    height: 21px;
+    rotate: -90deg;
+    aspect-ratio: 34 / 21;
+}
+
+.window-result {
+    position: absolute;
+    min-width: 300px;
+}
+
+.window-result p {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    font-weight: Bold;
 }
