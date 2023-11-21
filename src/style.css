@@ -1,53 +1,82 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --gradient-sm: linear-gradient(90deg, #7047eb 0%, #b447eb 95%);
+  --gradient-lg: linear-gradient(90deg, #b447eb 0%, #57aeff 95%);
+  --bg-color: #141414;
+  --secondary: #1b1b1b;
+  --light: #222;
+
+  --text: rgba(255, 255, 255, 1);
+  --text-secondary: rgba(240, 240, 240, .4);
 }
 
-.card {
-  background-color: #1a1a1a;
-  border: 1px solid transparent;
-  border-radius: .5rem;
-  border-color: #646cff;
+body {
+  background-color: var(--bg-color);
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding-inline: .7em;
+  aspect-ratio: 1 / 1;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--bg-color);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: 0.25s linear;
+  color: var(--text-secondary);
 }
+
 button:hover {
-  border-color: #646cff;
+  background-color: var(--secondary);
+  color: var(--text);
 }
-button:focus,
+
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+#addCardBtn {
+  margin: 1rem;
+}
+.card {
+  position: absolute;
+  background-color: var(--secondary);
+  border: 1px solid transparent;
+  border-radius: .5rem;
+  border-color: #646cff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card button {
+  margin-left: auto;
+  background-color: var(--secondary);
+}
+.card button:hover {
+  background-color: var(--light);
 }
