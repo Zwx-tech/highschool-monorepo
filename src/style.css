@@ -80,3 +80,10 @@ button:focus-visible {
 .card button:hover {
   background-color: var(--light);
 }
+
+.fridge-count__wrapper{
+  position: absolute;
+  right: 5rem;
+  top: 1rem;
+  /* transform: translate(-100%, 0); */
+}

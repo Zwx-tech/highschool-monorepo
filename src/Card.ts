@@ -21,11 +21,13 @@ class Card {
   isResizing: boolean = false;
   offsetX: number = 0;
   offsetY: number = 0;
+  updateCountCallback: () => void;
 
-  constructor(id: number, width = 200, height = 200) {
+  constructor(id: number, updateCountCallback: () => void, width = 200, height = 200) {
     this.id = id;
     this.width = width;
     this.height = height;
+    this.updateCountCallback = updateCountCallback;
     // create html element that represents our card in dom
     this.create(this.width, this.height);
   }
@@ -39,8 +41,10 @@ class Card {
     // create close button
     const closeButton = document.createElement("button");
     closeButton.innerHTML = closeSvg;
-    closeButton.addEventListener("click", () => {
+    closeButton.addEventListener("click", (e) => {
+      e.preventDefault();
       this.ref?.remove();
+      this.updateCountCallback();
     });
 
     // create resize button
@@ -71,6 +75,7 @@ class Card {
   }
 
   handleDragStart(event: MouseEvent) {
+    this.pushToTheFront();
     console.log("mouse down");
     this.isDragging = true;
     this.offsetX = event.offsetX;
@@ -110,6 +115,17 @@ class Card {
       this.ref!.style.top = `${newY}px`;
     }
   }
+
+  pushToTheFront() {
+    const highestZIndex = Math.max(
+      ...Array.from(document.querySelectorAll(".card")).map((card) => {
+        return parseFloat(window.getComputedStyle(card).zIndex) || 0;
+      })
+    );
+
+    this.ref!.style.zIndex = `${(highestZIndex + 1)}`;
+  }
+
 }
 
 export { Card };
