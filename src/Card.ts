@@ -78,8 +78,14 @@ class Card {
     this.pushToTheFront();
     console.log("mouse down");
     this.isDragging = true;
-    this.offsetX = event.offsetX;
-    this.offsetY = event.offsetY;
+    console.log(event);
+    const vTop = parseInt(this.ref?.style.top.replace("px", "")!);
+    const vLeft = parseInt(this.ref?.style.left.replace("px", "")!);
+    this.offsetX = event.clientX - vLeft || event.offsetX;
+    this.offsetY = event.clientY - vTop || event.offsetY;
+    console.log(vTop);
+    console.log(this.offsetY);
+    console.log(event.offsetY);
   }
 
   handleResizeStart(event: MouseEvent) {
@@ -89,8 +95,6 @@ class Card {
   }
 
   handleMouseUp() {
-    console.log("mouse up");
-    console.log(this.isDragging)
     this.isDragging = false;
     this.isResizing = false;
   }
