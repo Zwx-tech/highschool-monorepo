@@ -16,7 +16,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --gradient-sm: linear-gradient(90deg, #7047eb 0%, #b447eb 95%);
+  --gradient-sm: linear-gradient(90deg, #7047eb 0%, hsl(280, 80%, 60%) 95%);
   --gradient-lg: linear-gradient(90deg, #b447eb 0%, #57aeff 95%);
   --bg-color: #141414;
   --secondary: #1b1b1b;
@@ -86,4 +86,56 @@ button:focus-visible {
   right: 5rem;
   top: 1rem;
   /* transform: translate(-100%, 0); */
+}
+
+.modal {
+  display: none;
+  width: 40vw;
+  height: 30rem;
+  background-color: var(--secondary);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 1rem;
+}
+
+.modal>form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.modal>form input{
+  position: relative;
+  width: 20rem;
+  height: 3rem;
+  font-size: 1.2rem;
+  border-radius: .5rem;
+  background-color: transparent;
+  border: 2px solid transparent;
+  padding-inline: 1rem;
+  transition: .2s linear;
+}
+
+.modal>form input:hover {
+  background-color: #222;
+  cursor: pointer;
+}
+
+.modal>form input:focus {
+  outline: none;
+  cursor: text;
+  border-color: hsla(280, 80%, 60%, 90%);
+}
+
+.modal>form button {
+  width: 10rem;
+  height: 3rem;
+  margin-top: 1rem;
+}
+.modal>form h2 {
+  margin-bottom: 1rem;
 }

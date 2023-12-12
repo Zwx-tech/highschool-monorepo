@@ -20,6 +20,5 @@ document.querySelector("button#addCardBtn")?.addEventListener("click", () => {
         new Card(cardCount, () => {updateCount()})
     );
     cardCount += 1;
-    console.log(cardCount);
     updateCount();
 });

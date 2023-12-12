@@ -11,17 +11,20 @@ const resizeSvg = `
 </svg>`
 
 class Card {
-  width?: number;
-  height?: number;
-  minWidth = 100;
-  minHeight = 100;
-  ref?: HTMLDivElement;
-  id?: number;
-  isDragging: boolean = false;
-  isResizing: boolean = false;
-  offsetX: number = 0;
-  offsetY: number = 0;
-  updateCountCallback: () => void;
+   
+   width?: number;
+   height?: number;
+   minWidth = 100;
+   minHeight = 100;
+   ref?: HTMLDivElement;
+   id?: number;
+   isDragging: boolean = false;
+   isResizing: boolean = false;
+   offsetRX: number = 0;
+   offsetRY: number = 0;
+   offsetX: number = 0;
+   offsetY: number = 0;
+   readonly updateCountCallback: () => void;
 
   constructor(id: number, updateCountCallback: () => void, width = 200, height = 200) {
     this.id = id;
@@ -76,23 +79,20 @@ class Card {
 
   handleDragStart(event: MouseEvent) {
     this.pushToTheFront();
-    console.log("mouse down");
     this.isDragging = true;
-    console.log(event);
     const vTop = parseInt(this.ref?.style.top.replace("px", "")!);
     const vLeft = parseInt(this.ref?.style.left.replace("px", "")!);
     this.offsetX = event.clientX - vLeft || event.offsetX;
     this.offsetY = event.clientY - vTop || event.offsetY;
-    console.log(vTop);
-    console.log(this.offsetY);
-    console.log(event.offsetY);
   }
 
   handleResizeStart(event: MouseEvent) {
     this.isResizing = true;
-    this.offsetX = event.clientX - this.ref!.getBoundingClientRect().right;
-    this.offsetY = event.clientY - this.ref!.getBoundingClientRect().bottom;
-  }
+
+    // Calculate the offset based on the left and top edges
+    this.offsetRX = event.clientX - this.ref!.getBoundingClientRect().left;
+    this.offsetRY = event.clientY - this.ref!.getBoundingClientRect().top;
+}
 
   handleMouseUp() {
     this.isDragging = false;
@@ -102,10 +102,10 @@ class Card {
   handleMouseMove(event: MouseEvent) {
     if (this.isResizing) {
         const newWidth =
-          event.clientX - this.ref!.getBoundingClientRect().left + this.offsetX;
+          event.clientX + this.ref!.getBoundingClientRect().left - this.offsetRX;
         const newHeight =
-          event.clientY - this.ref!.getBoundingClientRect().top + this.offsetY;
-  
+          event.clientY + this.ref!.getBoundingClientRect().top - this.offsetRY;
+        console.table([[newWidth, newHeight], [this.ref!.style.width, this.ref!.style.height], [this.ref!.getBoundingClientRect().left, this.ref!.getBoundingClientRect().top]]);
         this.ref!.style.width = `${Math.max(newWidth, this.minWidth)}px`;
         this.ref!.style.height = `${Math.max(newHeight, this.minHeight)}px`;
         return;
