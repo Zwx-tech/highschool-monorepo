@@ -11,10 +11,15 @@
   <body>
     <div id="app">
       <div class="modal">
-        <form action="">
+        <form id="boardSelectForm">
           <h2>Select board</h2>
-          <input placeholder="Type name of your board" type="text">
-          <button>Send</button>
+          <input placeholder="Type name of your board" name="boardName" type="text">
+          <button type="submit" >Send</button>
+        </form>
+      </div>
+      <div class="editor__wrapper">
+        <form>
+          <textarea name="editor" id="editor" cols="30" rows="10"></textarea>
         </form>
       </div>
       <button id="addCardBtn">

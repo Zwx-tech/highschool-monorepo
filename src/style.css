@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Inter:wght@200;400;600&family=Italianno&family=Open+Sans:wght@400;500&display=swap');
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -28,6 +29,7 @@
 
 body {
   background-color: var(--bg-color);
+  margin: 0 !important;
 }
 
 button {
@@ -61,6 +63,8 @@ button:focus-visible {
 #addCardBtn {
   margin: 1rem;
 }
+
+/* card */
 .card {
   position: absolute;
   background-color: var(--secondary);
@@ -71,16 +75,25 @@ button:focus-visible {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  animation: .5s ease forwards fadeIn;
 }
 
 .card button {
   margin-left: auto;
   background-color: var(--secondary);
 }
+
 .card button:hover {
   background-color: var(--light);
 }
 
+.card__content {
+  flex: 1;
+  width: 100%;
+  padding: .5rem 1rem;
+  font-weight: 200;
+  overflow: auto;
+}
 .fridge-count__wrapper{
   position: absolute;
   right: 5rem;
@@ -88,8 +101,8 @@ button:focus-visible {
   /* transform: translate(-100%, 0); */
 }
 
+/* modal */
 .modal {
-  display: none;
   width: 40vw;
   height: 30rem;
   background-color: var(--secondary);
@@ -98,6 +111,8 @@ button:focus-visible {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 1rem;
+  transition: .2s ease;
+  transition-property: opacity;
 }
 
 .modal>form {
@@ -118,8 +133,8 @@ button:focus-visible {
   border: 2px solid transparent;
   padding-inline: 1rem;
   transition: .2s linear;
+  text-align: center;
 }
-
 .modal>form input:hover {
   background-color: #222;
   cursor: pointer;
@@ -136,6 +151,47 @@ button:focus-visible {
   height: 3rem;
   margin-top: 1rem;
 }
+
 .modal>form h2 {
   margin-bottom: 1rem;
+}
+
+/* tinymce */
+#editor {
+  display: none !important;
+}
+.tox-tinymce {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(40rem, 70vw, 100rem);
+  height: 30vw !important;
+  z-index: 2000;
+  overflow: visible;
+}
+.tox-tinymce::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .5);
+  transition: .5s ease;
+}
+
+.tox-tinymce .tox-menubar > * {
+  width: 3rem !important;
+} 
+
+.tox-promotion {
+  display: none;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to { opacity: 1; }
 }

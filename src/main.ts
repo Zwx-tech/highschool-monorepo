@@ -1,24 +1,46 @@
-import { Card } from "./Card"
-import "./style.css"
+import "./tinyMC";
+import "./style.css";
+import { APIData } from "../types/types";
+import { Fridge } from "./Fridge";
 
+// env vars
+const env = import.meta.env;
 // element refs
-const appRef: HTMLDivElement | null = document.querySelector("#app");
-// card vars
-const countWrapperChildrenRef = document.querySelectorAll(".fridge-count__wrapper>*");
-let cardCount = 0;
-let cards: Card[] = [];
+const modalRef = document.querySelector('.modal');
+const modalFormRef = document.querySelector('.modal>#boardSelectForm');
 
-function updateCount() {
-    const current = document.querySelectorAll(".card");
-    countWrapperChildrenRef[0].innerHTML = `przebieg: ${cardCount}`
-    countWrapperChildrenRef[1].innerHTML = `przebieg: ${current.length}`
+let currentFridge: Fridge | null;
+
+async function fetchFridgeData(fridgeName: string): Promise<APIData | null> {
+    try {
+        const data = await fetch(`http://${env.VITE_ENDPOINT_URL}/fridge/index.php?fridgeName=${fridgeName}`);
+        if(!data.ok) {
+            throw new Error("")
+        }
+        const parsedData: APIData = await data.json();
+        return parsedData;
+    } catch(e) {
+        console.log(`Something went wrong while fetching api data ${e}`);
+        return null;
+    }
+    
 }
 
-// handle add button click
-document.querySelector("button#addCardBtn")?.addEventListener("click", () => {
-    cards.push(
-        new Card(cardCount, () => {updateCount()})
-    );
-    cardCount += 1;
-    updateCount();
-});
+// select board form submit event
+modalFormRef?.addEventListener('submit', async (event) => {
+    // check if event exists
+    if(!event.target) return;
+    // prevent site refresh
+    await event.preventDefault();
+    // get data from form
+    const data = [...await new FormData(event.target as HTMLFormElement)];
+    const fridgeName = `${data[0][1]}`;
+    const fridgeData = await fetchFridgeData(fridgeName);
+    console.log(fridgeData)
+    // check if data was fetch successfully 
+    if(fridgeData === null)
+        return;
+    currentFridge = Fridge.createFromApiData(fridgeData);
+    console.log(currentFridge);
+    modalRef?.setAttribute('style', 'opacity: 0;');
+})
