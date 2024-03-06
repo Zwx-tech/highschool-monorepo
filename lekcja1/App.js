@@ -1,11 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, View } from "react-native";
+import Row from "./components/Row";
+
+
+//? there is problably easier way to do it tho...
+const colors = ["teal", "blueviolet", "indigo", "forestgreen", "purple", 'cornflowerblue'];
+const colorsFirst = colors.filter((_, id) => id % 2 == 0)
+const colorsSecond = colors.filter((_, id) => id % 2 == 1)
+const checker = [...colorsFirst, ...colorsSecond]
+const checkerReversed = [...colorsFirst, ...colorsSecond].reverse()
 
 export default function App() {
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+        <StatusBar />
+        <Row colors={[...checker]}/>
+        <Row colors={[...checker]} reversed/>      
+        <Row colors={[...checker]}/>      
+        <Row colors={[...checker]} reversed/>      
     </View>
   );
 }
@@ -13,8 +25,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
   },
 });
