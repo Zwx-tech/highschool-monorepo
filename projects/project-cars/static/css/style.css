@@ -1,0 +1,16 @@
+.navbar-nav > .nav-link {
+    color: #fff;
+    font-size: 1.2em;
+}
+
+.project-name {
+    font-size: 5em;
+    font-weight: 300;
+    margin-top: 2rem;
+}
+
+.project-name + h2 {
+    font-size: 4em;
+    font-weight: 300;
+    margin-top: 1rem;
+}
