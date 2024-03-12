@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: #333;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+.heading {
+    width: 100%;
+    padding: 5rem;
+    border: .2rem solid #fff;
+    text-align: center;
+}
+
+body {
+    display: flex;
+    flex-wrap: wrap;
+}
+.block {
+    aspect-ratio: 1 / 1;
+    width: 5rem;
+}

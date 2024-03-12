@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            box-sizing: border-box;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            background-color: #888;
+            border-radius: 3rem;
+            padding: 2rem;
+            width: fit-content;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Form - file upload</h1>
+    <form action="/handleUpload" enctype="multipart/form-data" method="POST">
+        <span>data: <input type="text" name="text"></span>
+        <span>nazwa: <input type="date" name="date"></span>
+        <span>zdjęcie: <input type="file" required accept="image/*" name="imagetoupload"></span>
+        <button>Send</button>
+    </form>
+</body>
+</html>

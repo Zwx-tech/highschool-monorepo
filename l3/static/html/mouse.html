@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .click {
+            margin-top: 1rem;
+            width: 6rem;
+            aspect-ratio: 1 / 1;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background-color: #f00;
+        }
+        p {
+            margin: 0;
+            margin-bottom: .5rem;;
+        }
+        .color-square {
+            width: 20rem;
+            aspect-ratio: 1 / 1;
+            background-color: #444;
+            position: relative;
+        }
+        .color-square__wrapper:first-of-type > .color-square{
+            background-color: plum;
+        }
+        .header {
+            width: 100%;
+            text-align: center;
+            background-color: #888;
+            color: #fff;
+            padding: .5rem 0;
+        }
+        .color-square__wrapper:first-of-type > .header {
+            background-color: #444;
+        }
+        .wrapper {
+            display: flex;
+            gap: 1rem
+        }
+        .pin {
+            position: absolute;
+            width: 4rem;
+            transform: translate(-50%, -50%);
+            aspect-ratio: 1 / 1;
+            background-color: red;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: .8rem;
+        }
+        .pin.server {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="color-square__wrapper">
+            <div class="header">pozycja</div>
+            <div class="color-square" id="client"></div>
+        </div>
+        <div class="color-square__wrapper">
+            <div class="header">opoznienie</div>
+            <div class="color-square" id="server"></div>
+        </div>
+    </div>
+</body>
+<script defer>
+
+    
+    const clientSquareRef = document.querySelector("#client");
+    const serverSquareRef = document.querySelector("#server");
+    function createPin(x, y) {
+        const pin = document.createElement('div');
+        pin.className = "pin";
+        pin.innerHTML = `x: ${x} <br> t: ${y}`
+        pin.style.left = x + "px";
+        pin.style.top = y + "px";
+        return pin;
+    }
+    
+    function createServerPin(x, y, delay) {
+        const pin = document.createElement('div');
+        pin.className = "pin server";
+        pin.innerHTML = `${delay}`
+        pin.style.left = x + "px";
+        pin.style.top = y + "px";
+        return pin;
+    }
+    const addSquare = async (e) => {
+        console.log(e);
+        // add pin on client side
+        clientSquareRef.appendChild(createPin(e.offsetX, e.offsetY));
+        const data = await JSON.stringify({
+            x: e.offsetX,
+            y: e.offsetY
+        });
+        
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: data
+        };
+
+        const response = await fetch('/handleFetch', options);
+        const { color } = await response.json();
+        clientSquareRef.style.background = color;
+    }
+
+    clientSquareRef.addEventListener('click', (e) => addSquare(e));
+</script>
+</html>
