@@ -1,13 +1,22 @@
 <div class="container">
   <h1 class="project-name">add car page</h1>
-  <table class="table mt-4">
-     <tr>
-      <th scope="col">_id</th>
-      <th scope="col">ubezpieczony</th>
-      <th scope="col">benzyna</th>
-      <th scope="col">uszkodzony</th>
-      <th scope="col">napęd4x4</th>
-      <th scope="col"></th>
-    </tr>
-  </table>
+  <form action="/add" method="post">
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="ubezpieczenie" name="ubezpieczenie">
+      <label class="form-check-label" for="ubezpieczenie">Ubezpiecznie</label>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="benzyna" name="benzyna">
+      <label class="form-check-label" for="benzyna">Benzyna</label>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="uszkodzony" name="uszkodzony">
+      <label class="form-check-label" for="uszkodzony">Uszkodzony</label>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="naped" name="naped">
+      <label class="form-check-label" for="naped">napęd 4x4</label>
+    </div>
+    <button type="submit" class="btn btn-dark">Add</button>
+  </form>
 </div>
