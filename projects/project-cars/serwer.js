@@ -51,6 +51,13 @@ function parseCar(car) {
     }    
 }
 
+const templateDbOjbect = {
+    ubezpiecznie: false,
+    benzyna: false,
+    uszkodzony: false,
+    naped: false
+}
+
 //? GET
 //* BASE route
 app.get("/", function (req, res) {
@@ -59,7 +66,6 @@ app.get("/", function (req, res) {
 
 //* ADD route
 app.get("/add", function (req, res) {
-    console.log(req.body)
     res.render('add.hbs'); 
 })
 
@@ -79,6 +85,13 @@ app.get("/delete", function (req, res) {
 //* EDIT route
 app.get("/edit", function (req, res) {
     res.render('edit.hbs');
+})
+
+app.post('/add', function (req, res) {
+    const carData = structuredClone(templateDbOjbect);
+    1
+    console.log(carData);
+    res.render('add.hbs'); 
 })
 
 //* static
