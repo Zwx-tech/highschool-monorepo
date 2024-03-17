@@ -1,5 +1,63 @@
 <div class="container">
-  <h1 class="project-name">cars project</h1>
-  <h2>
-    Edit page</h2>
+  <h1 class="project-name">edit car page</h1>
+  <form action="">
+    <table class="table mt-4">
+      <thead>
+      <tr>
+        <th scope="col">_id</th>
+        <th scope="col">ubezpieczony</th>
+        <th scope="col">benzyna</th>
+        <th scope="col">uszkodzony</th>
+        <th scope="col">napęd4x4</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+        {{#each cars as | car |}}
+        {{#isCarSelected car._id}}
+        <tr>
+            <th>{{ car._id }}</th>
+            <td>
+              {{> carSelect name="ubezpiecznie" startingValue=car.ubezpiecznie }}
+            </td>
+            <td>
+              {{> carSelect name="benzyna" startingValue=car.benzyna }}
+            </td>
+            <td>
+              {{> carSelect name="uszkodzony" startingValue=car.uszkodzony }}
+            </td>
+            <td>
+              {{> carSelect name="naped" startingValue=car.naped }}
+            </td>
+            <td>
+              <button type="submit" formmethod="post" formaction="/update" name="{{car._id}}" class="btn btn-danger"
+              >
+                UPDATE
+              </button>
+              <button type="submit" formaction="/edit" class="btn btn-dark"
+              >
+                CANCEL
+              </button>
+            </td>
+        </tr>
+        {{else}}
+        <tr>
+            <th>{{ car._id }}</th>
+            <td>{{ car.ubezpiecznie }}</td>
+            <td>{{ car.benzyna }}</td>
+            <td>{{ car.uszkodzony }}</td>
+            <td>{{ car.naped }}</td>
+            <td>
+              <button type="submit" formaction="/edit" name="{{car._id}}" class="btn btn-dark"
+              >
+                EDIT
+              </button>
+              
+            </td>
+        </tr>
+        {{/isCarSelected}}
+        {{/each}}
+      </tbody>  
+    </table>
+  </form>
 </div>
