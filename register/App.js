@@ -17,12 +17,30 @@ export default function App() {
           component={RegisterView}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{
+            title: "admin page",
+            headerStyle: {
+              backgroundColor: "#8F8CC8",
+            },
+            headerTintColor: "#ffffff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
           name="admin"
           component={AdminView}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{
+            title: "details page",
+            headerStyle: {
+              backgroundColor: "#8F8CC8",
+            },
+            headerTintColor: "#ffffff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
           name="details"
           component={DetailView}
         />

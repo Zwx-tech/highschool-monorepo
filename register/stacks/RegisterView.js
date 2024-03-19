@@ -7,14 +7,20 @@ const RegisterView = ({ route, navigation }) => {
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
 
-  function handleUserRegister() {
-    fetch("127.0.0.1:3000/register", {
-      method: "POST",
-      body: JSON.stringify({
-        firstName,
-        secondName,
-      }),
-    });
+  async function handleUserRegister() {
+    const apiUrl = `http://${process.env.EXPO_PUBLIC_API_URL}:${process.env.EXPO_PUBLIC_API_PORT}/register`;
+    const reqQuery = `firstName=${firstName}&pass=${secondName}`;
+    //* post req wasn't working idk why
+    try {
+      const res = await (await fetch(`${apiUrl}?${reqQuery}`)).json();
+      if (!res.succes) {
+        alert(res.message);
+        // return;
+      }
+      navigation.navigate("admin");
+    } catch {
+      console.log("Fetch err");
+    }
   }
 
   return (
@@ -56,16 +62,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     flexDirection: "column",
-    backgroundColor: "#222",
+    backgroundColor: "#010104",
   },
   header: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green",
+    backgroundColor: "#3A31D8",
   },
   headerText: {
-    fontSize: 60,
+    fontSize: 50,
     color: "#fff",
   },
   registerWrapper: {
@@ -75,20 +81,20 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   registerHeader: {
-    color: "#aaa",
+    color: "#8F8CC8",
     fontSize: 23,
   },
   registerInput: {
     paddingVertical: 10,
-    fontSize: 30,
+    fontSize: 20,
     color: "#fff",
     borderBottomWidth: 1,
-    borderBottomColor: "aquamarine",
+    borderBottomColor: "#8F8CC8",
     width: "50%",
     marginTop: 20,
   },
   registerButton: {
-    backgroundColor: "green",
+    backgroundColor: "#433BFF",
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 15,

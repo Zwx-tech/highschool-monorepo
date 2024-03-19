@@ -3,9 +3,11 @@ import React from "react";
 
 const StyledButton = ({ title, onPress, style = {}, textStyle = {} }) => {
   return (
-    <TouchableHighlight style={[styles.deafult, style]} onPress={onPress}>
-      <Text style={textStyle}>{title}</Text>
-    </TouchableHighlight>
+    <View style={[styles.deafult, style]}>
+      <TouchableHighlight onPress={onPress}>
+        <Text style={textStyle}>{title}</Text>
+      </TouchableHighlight>
+    </View>
   );
 };
 
