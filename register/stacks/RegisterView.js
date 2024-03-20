@@ -15,7 +15,7 @@ const RegisterView = ({ route, navigation }) => {
       const res = await (await fetch(`${apiUrl}?${reqQuery}`)).json();
       if (!res.succes) {
         alert(res.message);
-        // return;
+        return;
       }
       navigation.navigate("admin");
     } catch {
