@@ -1,0 +1,5 @@
+<select name="{{ name }}">
+    <option value="true" {{#if (equal startingValue "TAK")}}selected{{/if}}>TAK</option>
+    <option value="false" {{#if (equal startingValue "NIE")}}selected{{/if}}>NIE</option>
+    <option value="null" {{#if (equal startingValue "BRAK")}}selected{{/if}}>BRAK</option>
+</select>

@@ -1,8 +1,13 @@
 <div class="container">
   <h1 class="project-name">add car page</h1>
+  {{#if alert }}
+    <div class="alert alert-success" role="alert">
+      {{ alert }}
+    </div>
+  {{/if}}
   <form action="/add" method="post">
     <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="ubezpieczenie" name="ubezpieczenie">
+      <input type="checkbox" class="form-check-input" id="ubezpieczenie" name="ubezpiecznie">
       <label class="form-check-label" for="ubezpieczenie">Ubezpiecznie</label>
     </div>
     <div class="mb-3 form-check">
