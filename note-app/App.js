@@ -12,7 +12,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator(); //* create navigator
 
-import { getHeaderTitle } from "@react-navigation/elements";
+import { COLORS } from "./util/colors";
+import AddNoteScreen from "./screens/addNoteScreen";
 
 function App() {
   return (
@@ -20,10 +21,15 @@ function App() {
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
-          header: ({ navigation, route, options }) => {
-            const title = getHeaderTitle(options, route.name);
-
-            return <ScreenHeader title={title} navigation={navigation} />;
+          headerStyle: {
+            backgroundColor: COLORS.darkAccent,
+          },
+          headerTintColor: COLORS.textLighter,
+          drawerStyle: {
+            backgroundColor: COLORS.darkAccent,
+          },
+          drawerLabelStyle: {
+            color: COLORS.textLighter,
           },
         }}
       >
@@ -34,6 +40,20 @@ function App() {
             title: "My Notes",
             drawerIcon: ({ focused, size }) => (
               <MaterialIcons name="notes" size={size} color="#fff" />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="add-note"
+          component={AddNoteScreen}
+          options={{
+            title: "Add note",
+            drawerIcon: ({ focused, size }) => (
+              <MaterialIcons
+                name="add-circle-outline"
+                size={size}
+                color="#fff"
+              />
             ),
           }}
         />

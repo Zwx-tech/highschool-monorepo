@@ -14,8 +14,10 @@ const ScreenHeader = ({ title, style, navigation }) => {
         styles.headerWrapper,
       ]}
     >
-      <Text style={styles.headerSubtitle}>Hello, Stanley!</Text>
-      <Text style={styles.headerTitle}>{title} </Text>
+      <View style={styles.textWrapper}>
+        <Text style={styles.headerSubtitle}>Hello, Stanley!</Text>
+        <Text style={styles.headerTitle}>{title} </Text>
+      </View>
     </View>
   );
 };
@@ -27,13 +29,24 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.darkAccent,
     paddingHorizontal: 20,
     height: 180,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   headerSubtitle: {
     marginTop: 20,
     fontSize: 20,
-    color: COLORS.textLigher,
+    color: COLORS.textLighter,
+    textAlign: 'left',
   },
   headerTitle: {
     fontSize: 50,
+    color: COLORS.white,
+    textAlign: 'left'
   },
+  textWrapper: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  }
 });
