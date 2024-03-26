@@ -7,5 +7,5 @@ export const COLORS = {
   secondary: "#2c5b71",
   accent: "#5677bd",
   text: "#F0F4EC",
-  textLigher: "#c5c6c3",
+  textLighter: "#c5c6c3",
 };
