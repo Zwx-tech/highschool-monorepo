@@ -34,16 +34,13 @@ export async function clearNotes() {
 //* interface note: {title: string, content: string, color}
 export async function addNote(note) {
   try {
-    const noteDate = new Date();
     const noteID = `${Date.now()}`;
     await SecureStore.setItemAsync(
       noteID,
       JSON.stringify({
         ...note,
         id: noteID,
-        noteDate: `${noteDate.toLocaleDateString({
-          day: "numeric",
-        })} ${noteDate.toLocaleDateString({ month: "short" })}`,
+        noteDate: new Date(),
       })
     );
     await addNoteToNoteList(noteID);
