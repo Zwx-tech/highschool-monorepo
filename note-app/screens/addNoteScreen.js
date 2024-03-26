@@ -1,36 +1,40 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { COLORS } from "../util/colors";
+import { COLORS, randomNoteColor, useNoteColor } from "../util/colors";
 import React, { useState } from "react";
 import StyledButton from "../components/button";
-import { addNote, fetchAllNotes } from "../util/useNote";
+import { addNote } from "../util/useNote";
 
 const AddNoteScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const { noteColor } = useNoteColor();
 
   async function handleAddingNote() {
-    await addNote({ title, content, color: COLORS.primary });
+    console.log("Note added");
+    await addNote({ title, content, color: noteColor });
+    setTitle("");
+    setContent("");
     await navigation.navigate("notes");
   }
-
-  fetchAllNotes().then((data) => console.log(JSON.stringify(data, null, 5)));
 
   return (
     <View style={styles.container}>
       <TextInput
         placeholderTextColor={COLORS.textLighter}
-        style={styles.titleInput}
+        style={[styles.titleInput, { color: noteColor }]}
         placeholder="title"
         onChangeText={(newText) => setTitle(newText)}
+        defaultValue={title}
       />
       <TextInput
         placeholderTextColor={COLORS.textLighter}
         style={styles.contentInput}
         placeholder="content"
         onChangeText={(newText) => setContent(newText)}
+        defaultValue={content}
       />
       <StyledButton
-        style={{ marginTop: 40 }}
+        style={{ marginTop: 40, backgroundColor: noteColor }}
         title={"Add"}
         onPress={() => handleAddingNote()}
       />

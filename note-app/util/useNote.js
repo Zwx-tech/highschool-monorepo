@@ -5,6 +5,7 @@ export async function fetchAllNotes() {
   const noteListUnparsed = await SecureStore.getItemAsync("allNotes");
   //* resolve null
   if (noteListUnparsed === null) return [];
+  console.log(noteListUnparsed);
   return Promise.all(
     JSON.parse(noteListUnparsed).map(async (id) => {
       const item = await SecureStore.getItemAsync(id);
@@ -31,16 +32,45 @@ export async function clearNotes() {
   await SecureStore.setItemAsync("allNotes", "[]");
 }
 
+export async function deleteNoteById(id) {
+  try {
+    await SecureStore.deleteItemAsync(id);
+    await removeNoteFromNoteList(id);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function removeNoteFromNoteList(id) {
+  try {
+    //* resolve null
+    const noteListUnparsed = await SecureStore.getItemAsync("allNotes");
+    if (noteListUnparsed === null) return;
+    console.log(noteListUnparsed);
+    const updatedNoteList = JSON.parse(noteListUnparsed).filter(
+      (noteID) => noteID != id
+    );
+    await SecureStore.setItemAsync("allNotes", JSON.stringify(updatedNoteList));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 //* interface note: {title: string, content: string, color}
 export async function addNote(note) {
   try {
+    const noteDate = new Date();
+    const month = noteDate
+      .toLocaleDateString("pl-PL", { month: "short" })
+      .toUpperCase();
+    const day = noteDate.toLocaleDateString("pl-PL", { day: "2-digit" });
     const noteID = `${Date.now()}`;
     await SecureStore.setItemAsync(
       noteID,
       JSON.stringify({
         ...note,
         id: noteID,
-        noteDate: new Date(),
+        noteDate: `${day} ${month}`,
       })
     );
     await addNoteToNoteList(noteID);

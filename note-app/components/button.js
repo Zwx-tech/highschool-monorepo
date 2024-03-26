@@ -10,11 +10,11 @@ import { COLORS } from "../util/colors";
 
 const StyledButton = ({ title, onPress, style = {}, textStyle = {} }) => {
   return (
-    <View style={[styles.default, style]}>
-      <Pressable onPress={onPress}>
+    <Pressable onPress={onPress}>
+      <View style={[styles.default, style]}>
         <Text style={[styles.textDefault, textStyle]}>{title}</Text>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   );
 };
 
@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     paddingVertical: 10,
     borderRadius: 20,
+    overflow: "hidden",
   },
   textDefault: {
     color: COLORS.text,
