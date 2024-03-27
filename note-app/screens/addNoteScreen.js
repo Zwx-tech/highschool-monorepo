@@ -1,12 +1,17 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import { COLORS, randomNoteColor, useNoteColor } from "../util/colors";
 import React, { useState } from "react";
 import StyledButton from "../components/button";
 import { addNote } from "../util/useNote";
+import { Picker } from "@react-native-picker/picker";
+
+const width = Dimensions.get("window").width;
 
 const AddNoteScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState();
+
   const { noteColor } = useNoteColor();
 
   async function handleAddingNote() {
@@ -33,6 +38,17 @@ const AddNoteScreen = ({ navigation }) => {
         onChangeText={(newText) => setContent(newText)}
         defaultValue={content}
       />
+      <View style={[styles.pickerWrapper, { backgroundColor: noteColor }]}>
+        <Picker
+          mode="dropdown"
+          style={[styles.categoryPicker]}
+          itemStyle={styles.pickerItem}
+        >
+          <Picker.Item label="AAA" value="a" />
+          <Picker.Item label="BBB" value="b" />
+          <Picker.Item label="CCC" value="c" />
+        </Picker>
+      </View>
       <StyledButton
         style={{ marginTop: 40, backgroundColor: noteColor }}
         title={"Add"}
@@ -62,5 +78,21 @@ const styles = StyleSheet.create({
   contentInput: {
     color: COLORS.text,
     width: "100%",
+  },
+  categoryPicker: {
+    width: "100%",
+    height: 30,
+  },
+  pickerItem: {
+    height: 40,
+    padding: 0,
+  },
+  pickerWrapper: {
+    marginTop: 30,
+    height: 30,
+    width: width - 60,
+    paddingHorizontal: 10,
+    overflow: "hidden",
+    borderRadius: 30,
   },
 });

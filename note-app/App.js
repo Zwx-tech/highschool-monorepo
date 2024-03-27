@@ -5,7 +5,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { CustomDrawerContent } from "./components/customDrawer";
 //* screens
 import { NoteScreen } from "./screens/noteScreen";
-import { ScreenHeader } from "./components/screenHeader";
 
 //* icons
 import { MaterialIcons } from "@expo/vector-icons";
@@ -14,6 +13,7 @@ const Drawer = createDrawerNavigator(); //* create navigator
 
 import { COLORS } from "./util/colors";
 import AddNoteScreen from "./screens/addNoteScreen";
+import AddCategoryScreen from "./screens/addCategoryScreen";
 
 function App() {
   return (
@@ -54,6 +54,16 @@ function App() {
                 size={size}
                 color="#fff"
               />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="add-category"
+          component={AddCategoryScreen}
+          options={{
+            title: "Add category",
+            drawerIcon: ({ focused, size }) => (
+              <MaterialIcons name="playlist-add" size={size} color="#fff" />
             ),
           }}
         />

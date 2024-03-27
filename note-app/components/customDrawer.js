@@ -6,8 +6,9 @@ import {
 } from "@react-navigation/drawer";
 import { COLORS } from "../util/colors";
 import { clearNotes } from "../util/useNote";
-import { View, Text } from "react-native";
+
 import DrawerIcon from "./drawerIcon";
+
 export function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -22,7 +23,7 @@ export function CustomDrawerContent(props) {
         icon={({ size }) => (
           <MaterialIcons name="delete-outline" size={size} color="#fff" />
         )}
-        onPress={async () => {
+        onPress={async (route) => {
           await clearNotes();
           alert("Cleared all notes successfully!");
         }}

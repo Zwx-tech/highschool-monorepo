@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useCallback } from "react";
 import { COLORS } from "../util/colors";
-import { clearNotes, useNotes } from "../util/useNote";
+import { useNotes } from "../util/useNote";
 import NotePreview from "../components/notePreview";
 import { useFocusEffect } from "@react-navigation/native";
 
