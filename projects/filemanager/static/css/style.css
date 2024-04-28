@@ -1,3 +1,29 @@
 .page-body {
   min-height: calc(100vh - 5.1rem);
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+table td,
+table th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+table .file-icon {
+  font-size: 1.45rem;
+}
+
+.file-details {
+  font-size: 1.1em;
+}
+
+.file-details li {
+  padding: 0.7rem 0;
+}
+
+.file-details .badge {
+  font-size: 1.05em;
+  padding: 0.8rem;
+  background-color: #aaa !important;
 }

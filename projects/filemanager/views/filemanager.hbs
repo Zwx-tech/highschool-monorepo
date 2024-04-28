@@ -1,1 +1,28 @@
-<h1>Filemanager</h1>
+<div class="row page-body">
+    <div class="col-3 text-center py-2 bg-body-tertiary">
+        <h6 class="mt-2">filemanager</h6>
+        <a href="/reset" role="button" class="btn btn-secondary py-1">Delete all</a>
+    </div>
+    <div class="col-9 p-0">
+        <table class="table table-hover w-100">
+            <thead>
+                <tr>
+                <th scope="col">id</th>
+                <th scope="col">icon</th>
+                <th scope="col">name</th>
+                <th scope="col">size</th>
+                <th scope="col">type</th>
+                <th scope="col"><i class="bi bi-arrows-fullscreen"></i></th>
+                <th scope="col"><i class="bi bi-info"></i></th>
+                <th scope="col"><i class="bi bi-x-square"></i></th>
+                <th scope="col"><i class="bi bi-x-square"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each files as | file | }}
+                    {{> fileRow file=file}}
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

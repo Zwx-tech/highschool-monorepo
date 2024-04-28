@@ -1,4 +1,9 @@
 {
+  "name": "filemanager",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node --watch ./serwer.js"
+  },
   "dependencies": {
     "express": "^4.19.2",
     "express-handlebars": "^5.3.5",

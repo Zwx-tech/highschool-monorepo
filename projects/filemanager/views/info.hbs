@@ -1,1 +1,39 @@
-<h1>Info</h1>
+<div class="row page-body">
+  <div class="col-3 text-center py-2 bg-body-tertiary">
+    <h6 class="mt-2">
+      file details
+    </h6>
+  </div>
+  <div class="col-9 py-2">
+    <h2 class="text-center">Stanisław Dębicki (2024) </h2>
+    {{!-- {{ log file 'file' }} --}}
+    {{#with file }}
+      <ul class="list-group list-group-flush file-details">
+        <li class="list-group-item d-flex align-items-center gap-3">
+            <span class="badge text-bg-secondary rounded-pill">id</span>
+            <p class="m-0">{{ id }}</p>
+        </li>
+        <li class="list-group-item d-flex align-items-center gap-3">
+            <span class="badge text-bg-secondary rounded-pill">name</span>
+            <p class="m-0">{{ name }}</p>
+        </li>
+        <li class="list-group-item d-flex align-items-center gap-3">
+            <span class="badge text-bg-secondary rounded-pill">path</span>
+            <p class="m-0">{{ path }}</p>
+        </li>
+        <li class="list-group-item d-flex align-items-center gap-3">
+            <span class="badge text-bg-secondary rounded-pill">size</span>
+            <p class="m-0">{{ size }}</p>
+        </li>
+        <li class="list-group-item d-flex align-items-center gap-3">
+            <span class="badge text-bg-secondary rounded-pill">type</span>
+            <p class="m-0">{{ type }}</p>
+        </li>
+        <li class="list-group-item d-flex align-items-center gap-3">
+            <span class="badge text-bg-secondary rounded-pill">savedate</span>
+            <p class="m-0">{{ saveDate }}</p>
+        </li>
+    </ul>
+    {{/with}}
+  </div>
+</div>
