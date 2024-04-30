@@ -27,3 +27,8 @@ table .file-icon {
   padding: 0.8rem;
   background-color: #aaa !important;
 }
+
+/* RESET PARAGRAPHS */
+p {
+  margin: 0;
+}

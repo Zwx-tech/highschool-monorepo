@@ -1,0 +1,31 @@
+<form
+  action="/"
+  class="upload__form p-4 border rounded-3 mx-auto mt-5 d-flex flex-column gap-2"
+  enctype="multipart/form-data"
+  method="post"
+>
+  <input
+    type="file"
+    name="uploadedFiles"
+    id="fileUploadInput"
+    class="d-none"
+    multiple
+    required
+  />
+  <label for="fileUploadInput" class="mb-1">
+    Select files to upload
+  </label>
+  <button
+    class="btn btn-secondary mx-auto px-4"
+    style="width: max-content;"
+    id="fileUploadButton"
+  >
+    upload
+  </button>
+</form>
+<script defer>
+  const fileUploadButtonRef = document.querySelector("#fileUploadButton");
+  document.getElementById("fileUploadInput").addEventListener("change",
+  function() { fileUploadButtonRef.innerHTML = `<p>upload ${this.files.length}
+  files</p>` });
+</script>

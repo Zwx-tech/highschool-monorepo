@@ -1,0 +1,12 @@
+{
+  "name": "filemanager2",
+  "version": "0.0.2",
+  "scripts": {
+    "start": "node --watch ./serwer.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-handlebars": "^5.3.5",
+    "formidable": "^1.2.2"
+  }
+}

@@ -1,0 +1,22 @@
+<div class="row page-body">
+    <div class="col-3 text-center py-2 bg-body-tertiary d-flex flex-column px-4 gap-3">
+        <h6 class="mt-2 text-start">filemanager</h6>
+        <a href="/reset" role="button" class="btn btn-secondary py-2 text-start"><i class="bi bi-folder-plus"></i> new folder</a>
+        <a href="/reset" role="button" class="btn btn-secondary py-2 text-start"><i class="bi bi-file-earmark-plus"></i> new file</a>
+        {{> uploadForm }}
+    </div>
+    <div class="col-9 p-0">
+        <div class="folder__wrapper">
+        {{> folderCard }}
+        {{#each files as | file | }}
+            {{> folderCard }}
+        {{/each}} --}}
+        </div>
+        <div class="file__wrapper">
+        {{!-- {{> fileCard }} --}}
+        {{!-- {{#each files as | file | }}
+            {{> folderCard }}
+        {{/each}} --}}
+        </div>
+    </div>
+</div>
