@@ -5,7 +5,8 @@ const path = require("path");
 const fs = require("fs");
 const formidable = require("formidable");
 //* get JSON file
-const supportedFileExtensions = require("./data/supportedFileExtensions.json");
+const supportedFileExtensions =
+  require("./data/supportedFileExtensions.json") || [];
 
 console.log(supportedFileExtensions);
 
@@ -89,7 +90,10 @@ function handleFileUpload(file) {
     let copyNumber = 1;
     let newPath;
 
-    // * Loop until a unique filename is found
+    // * Loop until we find a unique filename
+    //* I am full aware that using while loop can cause some problems
+    //* BUT different solution would require thinking to much
+    //* Sooo I'll just leave is as it is :)
     do {
       newPath = path.join(
         uploadDir,
@@ -197,6 +201,7 @@ app.get("/delete/:entityName", (req, res) => {
 
   if (!fs.existsSync(entityPath)) {
     //* Future error handling and message display
+    //* THIS approach only make sens when we use fetch api, tho we use special url param for that
     //? return res.status(500).json(error: "Folder already exists");
     return res.redirect("/");
   }
