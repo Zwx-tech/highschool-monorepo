@@ -5,8 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const formidable = require("formidable");
 //* get JSON file
-const supportedFileExtensions =
-  require("./data/supportedFileExtensions.json") || [];
+const supportedFileExtensions = require("./data/supportedFileExtensions.json");
 
 console.log(supportedFileExtensions);
 
