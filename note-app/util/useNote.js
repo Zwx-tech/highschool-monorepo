@@ -5,7 +5,6 @@ export async function fetchAllNotes() {
   const noteListUnparsed = await SecureStore.getItemAsync("allNotes");
   //* resolve null
   if (noteListUnparsed === null) return [];
-  console.log(noteListUnparsed);
   return Promise.all(
     JSON.parse(noteListUnparsed).map(async (id) => {
       const item = await SecureStore.getItemAsync(id);

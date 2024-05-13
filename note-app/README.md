@@ -13,3 +13,12 @@ https://www.realtimecolors.com/?colors=c5c6c3-11150d-b8caa6-3c653c-61a26d&fonts=
 ## Icons
 
 https://icons.expo.fyi/Index
+
+
+## TODO
+- Ekran dodawania katergori (ZROBIONE)
+- Select z wyborem kategori podczas dosawania notatek (ZROBIONE)
+- Wyświetlanie kategorii w pogglądzie notatki (ZROBIONE)
+- Filtrowanie i wyszukiwanie notatek 
+- Edycja oraz podgląda notatki (Osobny ekran)
+- Widoczna kategoria notatki

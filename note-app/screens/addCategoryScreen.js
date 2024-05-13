@@ -1,19 +1,24 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { COLORS, randomNoteColor, useNoteColor } from "../util/colors";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StyledButton from "../components/button";
 import { useCategory } from "../util/usecategory";
 
 const AddCategoryScreen = ({ navigation }) => {
   const [category, setCategory] = useState("");
-  const { categories, setCategoires } = useCategory();
+  const { categories, addCategory } = useCategory();
   const { noteColor } = useNoteColor();
 
   async function handleAddingNote() {
     if (!categories.every((c) => c !== category)) return;
-    setCategoires((prev) => [...prev, category]);
+    addCategory(category);
     setCategory("");
   }
+
+  //* TESTING HOOKS EFFICIENCY
+  useEffect(() => {
+    console.log("Category test", categories);
+  }, [categories]);
 
   return (
     <View style={styles.container}>

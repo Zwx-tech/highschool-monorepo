@@ -1,22 +1,39 @@
 import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import { COLORS, randomNoteColor, useNoteColor } from "../util/colors";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StyledButton from "../components/button";
 import { addNote } from "../util/useNote";
 import { Picker } from "@react-native-picker/picker";
+import { useCategory } from "../util/usecategory";
+import { useFocusEffect } from "@react-navigation/native";
 
 const width = Dimensions.get("window").width;
 
 const AddNoteScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("default");
 
   const { noteColor } = useNoteColor();
+  const { categories, reloadCategories } = useCategory();
+
+  //* RELOAD CATEGORIES
+  useFocusEffect(reloadCategories);
+
+  //* TESTING HOOKS EFFICIENCY
+  useEffect(() => {
+    console.log("Category test", categories);
+  }, [categories]);
 
   async function handleAddingNote() {
     console.log("Note added");
-    await addNote({ title, content, color: noteColor });
+    console.log(selectedCategory);
+    await addNote({
+      title,
+      content,
+      color: noteColor,
+      category: selectedCategory,
+    });
     setTitle("");
     setContent("");
     await navigation.navigate("notes");
@@ -37,18 +54,25 @@ const AddNoteScreen = ({ navigation }) => {
         placeholder="content"
         onChangeText={(newText) => setContent(newText)}
         defaultValue={content}
+        multiline={true}
       />
-      <View style={[styles.pickerWrapper, { backgroundColor: noteColor }]}>
+      <View style={[styles.pickerWrapper]}>
         <Picker
           mode="dropdown"
           style={[styles.categoryPicker]}
+          dropdownIconColor={COLORS.white}
           itemStyle={styles.pickerItem}
+          themeVariant={"dark"}
+          selectedValue={selectedCategory}
+          onValueChange={(newCategory) => setSelectedCategory(newCategory)}
         >
-          <Picker.Item label="AAA" value="a" />
-          <Picker.Item label="BBB" value="b" />
-          <Picker.Item label="CCC" value="c" />
+          <Picker.Item label="Select category" value="default" />
+          {categories.map((c) => (
+            <Picker.Item label={c} value={c} key={c} />
+          ))}
         </Picker>
       </View>
+
       <StyledButton
         style={{ marginTop: 40, backgroundColor: noteColor }}
         title={"Add"}
@@ -81,17 +105,20 @@ const styles = StyleSheet.create({
   },
   categoryPicker: {
     width: "100%",
+    color: COLORS.white,
+    backgroundColor: COLORS.lightAccent,
+    paddingHorizontal: 10,
     height: 30,
   },
   pickerItem: {
-    height: 40,
+    height: 30,
     padding: 0,
+    backgroundColor: COLORS.lightAccent,
   },
   pickerWrapper: {
-    marginTop: 30,
-    height: 30,
+    marginTop: 20,
+    height: 55,
     width: width - 60,
-    paddingHorizontal: 10,
     overflow: "hidden",
     borderRadius: 30,
   },
