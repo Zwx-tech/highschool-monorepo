@@ -1,4 +1,7 @@
-<div class="file-card__wrapper">
-  <div class="header">
+<form class="file-card__wrapper" onsubmit="return confirm('czy usunąć?')">
+  <div class="d-flex align-items-center gap-3">
+    <i class="bi {{ getFileIcon file }}"></i>
+    <h6 class="m-0">{{ clipFileName file.name }}</h6>
   </div>
-</div>
+  <button formaction="/delete/{{file.name}}"><i class="bi bi-x"></i></button>
+</form>

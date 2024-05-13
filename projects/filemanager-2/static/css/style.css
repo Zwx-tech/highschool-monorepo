@@ -5,9 +5,15 @@
   --new-hover-color: hsl(210deg, 8%, 70%) !important;
   --new-hover-color-2: hsl(210deg, 8%, 90%) !important;
   --bg-2: #f8f9fa;
+  --main-darker: #dee2e6;
   --hover-border-shadow: 0 0 0 0.2rem var(--bg-2),
     0 0 0 0.3rem var(--new-hover-color-2);
 }
+
+/* .show.modal .modal-dialog {
+  margin-top: 50vh;
+  transform: translateY(-50%);
+} */
 
 body {
   font-family: "Roboto Mono", monospace !important;
@@ -75,9 +81,53 @@ p {
 }
 
 /* CARD STYLING */
-.folder-card__wrapper {
+.folder-card__wrapper,
+.file-card__wrapper {
   background-color: var(--bg-2);
   padding: 1rem;
-  width: fit-content;
+  width: 13.5rem;
   color: #000;
+  padding: 1rem;
+  padding-right: 1.5rem;
+  border-radius: 0.5rem;
+  position: relative;
+}
+.folder-card__wrapper > div > i,
+.file-card__wrapper > div > i {
+  font-size: 2rem;
+  font-weight: 100;
+  color: #666;
+  background-color: var(--main-darker);
+  padding: 0.5rem;
+  border-radius: 0.7rem;
+}
+
+.folder-card__wrapper > button,
+.file-card__wrapper > button {
+  color: #999;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  font-size: 1.3rem;
+  transition: color linear 0.2s;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.folder-card__wrapper > button:hover,
+.file-card__wrapper > button:hover {
+  color: #666;
+}
+
+.folder__wrapper {
+  min-height: 4rem;
+}
+
+.folder__wrapper,
+.file__wrapper {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
 }

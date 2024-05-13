@@ -39,11 +39,23 @@ interface File {
     id: number,
     name: string,
     path: string,
-    sizse: number,
+    size: number,
     type: string,
     savedate: number
 }
+interface Folder {
+  name: string,
+  path: string,
+  savedate: number
+}
+interface fileArr {
+  files: File[],
+  folders: Folder[];
+}
 */
+
+// * GLOBALS
+
 const fileArr = [];
 let maxID = 0;
 
@@ -65,9 +77,20 @@ function handleFileUpload(file) {
   });
 }
 
+function getFileList() {
+  const fileList = [];
+  const fileDir = fs.readdir(__dirname, (err, files) => {
+    if (err) throw err;
+    for (const f of files) {
+      fs.lstat("filepath", (err, stats) => {
+        console.log(f, stats.isDirectory());
+      });
+    }
+  });
+}
+
 //? GET
 app.get("/filemanager", (req, res) => {
-  console.log(fileArr);
   res.render("filemanager.hbs", { files: fileArr });
 });
 
