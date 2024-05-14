@@ -3,7 +3,7 @@
         <h6 class="mt-2 text-start">filemanager</h6>
         <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#addFolder" class="btn btn-secondary py-2 text-start"><i class="bi bi-folder-plus"></i> new folder</a>
         <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#addFile" class="btn btn-secondary py-2 text-start"><i class="bi bi-file-earmark-plus"></i> new text file</a>
-        {{> uploadForm }}
+        {{> uploadForm currentDir=currentDir }}
     </div>
     <div class="col-10 p-3">
         <h4>Folders</h4>
@@ -35,6 +35,7 @@
             <div class="modal-body">
                 <form action="/add" method="post">
                     <input type="hidden" name="isDirectory" value="true">
+                    <input type="hidden" name="relativePath" value="{{ currentDir }}">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="folderName" name="entityName" placeholder="New Folder">
                         <label for="folderName">Folder Name</label>
@@ -58,6 +59,7 @@
             </div>
             <div class="modal-body">
                 <form action="/add" method="post">
+                    <input type="hidden" name="relativePath" value="{{ currentDir }}">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="fileName" name="entityName" placeholder="New Folder">
                         <label for="fileName">File Name</label>

@@ -131,3 +131,21 @@ p {
   flex-wrap: wrap;
   width: 100%;
 }
+
+/* FOLDER OPENS ON HOVER */
+
+.folder-card__wrapper:hover .bi-folder2-open {
+  display: block;
+}
+
+.folder-card__wrapper:hover .bi-folder {
+  display: none;
+}
+
+.folder-card__wrapper .bi-folder2-open {
+  display: none;
+}
+
+.folder-card__wrapper .bi-folder {
+  display: block;
+}

@@ -80,8 +80,9 @@ const dateOptions = {
 };
 
 //* helpers
-function handleFileUpload(file) {
-  const originalPath = path.join(uploadDir, file.name);
+function handleFileUpload(file, currentDir) {
+  const originalPath = path.join(uploadDir, currentDir, file.name);
+  const finalPath = path.join(uploadDir, currentDir);
   if (fs.existsSync(originalPath)) {
     const fileNameWithoutExt = path.parse(originalPath).name;
     const fileExt = path.parse(originalPath).ext;
@@ -89,13 +90,13 @@ function handleFileUpload(file) {
     let copyNumber = 1;
     let newPath;
 
-    // * Loop until we find a unique filename
+    //* Loop until we find a unique filename
     //* I am full aware that using while loop can cause some problems
     //* BUT different solution would require thinking to much
     //* Sooo I'll just leave is as it is :)
     do {
       newPath = path.join(
-        uploadDir,
+        finalPath,
         `${fileNameWithoutExt} - Copy(${copyNumber})${fileExt}`
       );
       copyNumber++;
@@ -108,23 +109,27 @@ function handleFileUpload(file) {
   fs.renameSync(file.path, originalPath);
 }
 
-function readUploadDir() {
-  return fs.readdirSync(uploadDir).map((file) => {
-    const stats = fs.lstatSync(path.join(uploadDir, file));
+function readUploadDir(dir = "") {
+  console.log(path.join(uploadDir, dir));
+  return fs.readdirSync(path.join(uploadDir, dir)).map((file) => {
+    console.log(path.join(uploadDir, dir, file));
+    const stats = fs.lstatSync(path.join(uploadDir, dir, file));
     return {
       name: file,
       isDirectory: stats.isDirectory(),
       size: stats.size,
       saveDate: stats.birthtimeMs,
+      relativePath: path.join(dir, file),
     };
   });
 }
 
 //? GET
 app.get("/", async (req, res) => {
-  const fileArr = await readUploadDir();
+  const { dir } = req.query;
+  const fileArr = readUploadDir(dir || "");
   console.log(fileArr);
-  res.render("filemanager.hbs", { files: fileArr });
+  res.render("filemanager.hbs", { files: fileArr, currentDir: dir });
 });
 
 app.get("/reset", (req, res) => {
@@ -133,10 +138,13 @@ app.get("/reset", (req, res) => {
 
 //? POST
 app.post("/", (req, res) => {
+  //* EXTRACT CURRENT DIR FROM REQ
+  const { currentDir } = req.body;
+  console.log(req.body);
   //* handle file upload
   const form = formidable({});
   //* form config
-  form.uploadDir = path.join(__dirname, "static", "upload");
+  form.uploadDir = path.join(__dirname, "static", "upload", currentDir);
   form.keepExtensions = true;
   form.multiples = true;
 
@@ -144,38 +152,41 @@ app.post("/", (req, res) => {
     const files = inputs.uploadedFiles; //* extract data from input
     if (Array.isArray(files)) {
       for (const file of files) {
-        handleFileUpload(file);
+        handleFileUpload(file, currentDir);
       }
+      res.redirect("/");
       return; //* not sure if i should include this, but better safe then sorry
     }
-    handleFileUpload(files);
+    handleFileUpload(files, currentDir);
+    res.redirect("/");
   });
-  res.redirect("/");
 });
 
 app.post("/add", (req, res) => {
   //* entity stands for FileSystemEntity - File System Object that can be both file and directory
   //* FileSystemEntityName was just little too long
-  const { isDirectory, entityName } = req.body;
+  const { isDirectory, entityName, relativePath } = req.body;
 
   let fileName = entityName;
   if (!fileName.endsWith(".txt") && !isDirectory) {
     fileName += ".txt";
   }
 
-  const newEntityPath = path.join(uploadDir, fileName);
+  //* Relative path is currently selected directory in file system
+  //* this way we can add entity in correct place in out file system
+  const newEntityPath = path.join(uploadDir, relativePath, fileName);
 
   //* First we check it theres FileSystemEntity like that
   if (fs.existsSync(newEntityPath)) {
     //* Future error handling and message display
     //? return res.status(500).json(error: "Folder already exists");
-    return res.redirect("/");
+    return res.redirect(`/?dir=${relativePath}`);
   }
 
   //* DIRECTORY
   if (isDirectory) {
     fs.mkdirSync(newEntityPath);
-    res.redirect("/");
+    res.redirect(`/?dir=${path.join(relativePath, entityName)}`);
     return;
   }
 
@@ -186,7 +197,7 @@ app.post("/add", (req, res) => {
     `Created on ${new Date().toLocaleDateString("pl-PL", dateOptions)}\n`,
     "utf8"
   );
-  res.redirect("/");
+  res.redirect(`/?dir=${relativePath}`);
 });
 
 app.get("/delete/:entityName", (req, res) => {
