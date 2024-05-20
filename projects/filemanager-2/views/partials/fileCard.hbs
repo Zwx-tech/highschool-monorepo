@@ -3,5 +3,5 @@
     <i class="bi {{ getFileIcon file }}"></i>
     <h6 class="m-0">{{ clipFileName file.name }}</h6>
   </div>
-  <button formaction="/delete/{{file.name}}"><i class="bi bi-x"></i></button>
+  <button formaction="/delete/{{file.relativePath}}"><i class="bi bi-x"></i></button>
 </form>

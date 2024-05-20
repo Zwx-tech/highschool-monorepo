@@ -37,6 +37,23 @@ app.engine(
           ? `bi-filetype-${extension}`
           : "bi-file-earmark-excel";
       },
+      getRouteElements: function (dir) {
+        //* handle edge case (home route)
+        if (!dir) return [];
+
+        //* WE use path.sep, to handle both unix and windows paths
+        const dirArr = dir.split(path.sep);
+        let currentPath = "";
+
+        return dirArr.map((part, index) => {
+          if (index === 0 && part === "") {
+            currentPath = "/";
+          } else {
+            currentPath = path.join(currentPath, part);
+          }
+          return { name: part, path: currentPath };
+        });
+      },
       clipFileName: function (fileName) {
         if (fileName.length > 9) {
           return fileName.slice(0, 9) + "...";
@@ -106,13 +123,12 @@ function handleFileUpload(file, currentDir) {
     fs.renameSync(file.path, newPath);
     return;
   }
+
   fs.renameSync(file.path, originalPath);
 }
 
 function readUploadDir(dir = "") {
-  console.log(path.join(uploadDir, dir));
   return fs.readdirSync(path.join(uploadDir, dir)).map((file) => {
-    console.log(path.join(uploadDir, dir, file));
     const stats = fs.lstatSync(path.join(uploadDir, dir, file));
     return {
       name: file,
@@ -128,7 +144,6 @@ function readUploadDir(dir = "") {
 app.get("/", async (req, res) => {
   const { dir } = req.query;
   const fileArr = readUploadDir(dir || "");
-  console.log(fileArr);
   res.render("filemanager.hbs", { files: fileArr, currentDir: dir });
 });
 
@@ -137,28 +152,28 @@ app.get("/reset", (req, res) => {
 });
 
 //? POST
-app.post("/", (req, res) => {
-  //* EXTRACT CURRENT DIR FROM REQ
-  const { currentDir } = req.body;
-  console.log(req.body);
+app.post("/upload", (req, res) => {
   //* handle file upload
-  const form = formidable({});
-  //* form config
-  form.uploadDir = path.join(__dirname, "static", "upload", currentDir);
-  form.keepExtensions = true;
-  form.multiples = true;
+  const form = formidable({ keepExtensions: true, multiples: true });
+  form.uploadDir = uploadDir;
+
+  //* Redirect back to url req came from
+  const referer = req.headers.referer || "/";
 
   form.parse(req, function (Ierr, fields, inputs) {
+    const currentDir = fields.currentDir || ""; //* extract currentDir from fields
+    form.uploadDir = path.join(__dirname, "static", "upload", currentDir);
+
     const files = inputs.uploadedFiles; //* extract data from input
     if (Array.isArray(files)) {
       for (const file of files) {
         handleFileUpload(file, currentDir);
       }
-      res.redirect("/");
+      res.redirect(referer);
       return; //* not sure if i should include this, but better safe then sorry
     }
     handleFileUpload(files, currentDir);
-    res.redirect("/");
+    res.redirect(referer);
   });
 });
 
@@ -200,8 +215,34 @@ app.post("/add", (req, res) => {
   res.redirect(`/?dir=${relativePath}`);
 });
 
-app.get("/delete/:entityName", (req, res) => {
-  const { entityName } = req.params;
+app.post("/renameFolder", (req, res) => {
+  const { newFolderName, relativePath } = req.body;
+
+  //* We probably don't want user to rename home folder
+  if (relativePath == "") return res.redirect(`/?dir=${relativePath}`);
+
+  const folderPath = path.join(uploadDir, relativePath);
+  const newRelativePath = path.join(relativePath, "../", newFolderName); //* Amazing piece of code i found on stack
+  const newPath = path.join(uploadDir, newRelativePath);
+
+  //* First we check it theres FileSystemEntity like that
+  if (!fs.existsSync(folderPath)) {
+    //* Future error handling and message display
+    //? return res.status(500).json(error: "Folder already exists");
+    return res.redirect(`/?dir=${relativePath}`);
+  }
+
+  fs.renameSync(folderPath, newPath);
+  res.redirect(`/?dir=${newRelativePath}`);
+  return;
+});
+
+app.get("/delete/*", (req, res) => {
+  //* Redirect back to url req came from
+  const referer = req.headers.referer || "/";
+  const entityName = req.params[0] || ""; //* FOUND THIS ONE IN EXPRESS DOCS AND IT IMPROVES READABILITY OF THE CODE BY a lot
+  console.log(entityName);
+
   if (!entityName) {
     res.status(400).json({ message: "U have to provide correct entity name!" });
     return;
@@ -213,20 +254,20 @@ app.get("/delete/:entityName", (req, res) => {
     //* Future error handling and message display
     //* THIS approach only make sens when we use fetch api, tho we use special url param for that
     //? return res.status(500).json(error: "Folder already exists");
-    return res.redirect("/");
+    return res.redirect(referer); // TODO FIX REDIRECT TO MATCH CURRENT DIR
   }
 
   //* HANDLE DIRECTORY DELETION
   if (fs.statSync(entityPath).isDirectory) {
     //* We use force to prevent any random errors
     fs.rmSync(entityPath, { recursive: true, force: true });
-    res.redirect("/");
+    res.redirect(referer); // TODO FIX REDIRECT TO MATCH CURRENT DIR
     return;
   }
 
   //* HANDLE FILE DELETION
   fs.unlinkSync(entityPath); // ! DELETE ENTITY
-  res.redirect("/");
+  res.redirect(referer); // TODO FIX REDIRECT TO MATCH CURRENT DIR
 });
 
 //* static

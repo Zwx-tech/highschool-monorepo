@@ -149,3 +149,21 @@ p {
 .folder-card__wrapper .bi-folder {
   display: block;
 }
+
+.current-dir__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.current-dir__wrapper .route {
+  text-decoration: none;
+  color: #000;
+}
+
+.current-dir__wrapper .home-route {
+  background-color: #eee;
+  font-weight: 500;
+  padding: 0.5rem 0.9rem;
+  border-radius: 1.2rem;
+}

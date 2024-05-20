@@ -3,9 +3,21 @@
         <h6 class="mt-2 text-start">filemanager</h6>
         <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#addFolder" class="btn btn-secondary py-2 text-start"><i class="bi bi-folder-plus"></i> new folder</a>
         <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#addFile" class="btn btn-secondary py-2 text-start"><i class="bi bi-file-earmark-plus"></i> new text file</a>
+        <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#renameCurrent" class="btn btn-secondary py-2 text-start"><i class="bi bi-pencil-square"></i> rename folder</a>
         {{> uploadForm currentDir=currentDir }}
     </div>
     <div class="col-10 p-3">
+        <div class="current-dir__wrapper w-full mb-4">
+            <a href="/" class="home-route route">
+                <i class="bi bi-house"></i> home
+            </a>
+            {{#each (getRouteElements currentDir) as |route|}}
+            <div class="route-separator">/</div>
+            <a href="/?dir={{path}}" class=" route">
+                {{ route.name }}
+            </a>
+            {{/each}}
+        </div>
         <h4>Folders</h4>
         <div class="folder__wrapper">
         {{#each files as | file | }}
@@ -63,6 +75,30 @@
                     <div class="form-floating">
                         <input type="text" class="form-control" id="fileName" name="entityName" placeholder="New Folder">
                         <label for="fileName">File Name</label>
+                    </div>
+                    <div class="d-inline-flex gap-3 mt-4">
+                          <button class="btn btn-primary py-2" type="submit">Add</button>
+                          <button class="btn btn-primary py-2" type="button"  data-bs-dismiss="modal" aria-label="Close">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade in" id="renameCurrent" tabindex="-1" aria-labelledby="renameCurrentLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="renameCurrentLabel">Rename current folder</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/renameFolder" method="post">
+                    <input type="hidden" name="relativePath" value="{{ currentDir }}">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="newFolderName" name="newFolderName" placeholder="New Folder">
+                        <label for="newFolderName">File Name</label>
                     </div>
                     <div class="d-inline-flex gap-3 mt-4">
                           <button class="btn btn-primary py-2" type="submit">Add</button>
