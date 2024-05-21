@@ -1,0 +1,116 @@
+<div class="row page-body">
+  <div
+    class="col-2 text-center py-2 bg-body-tertiary d-flex flex-column px-4 gap-3"
+    style="min-height: 100vh;"
+  >
+    <h6 class="mt-2 text-start">filemanager</h6>
+    <a
+      href="#"
+      role="button"
+      data-bs-toggle="modal"
+      data-bs-target="#addFolder"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-folder-plus"></i> new folder</a>
+    <a
+      href="#"
+      role="button"
+      data-bs-toggle="modal"
+      data-bs-target="#addFile"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-file-earmark-plus"></i> new text file</a>
+    <a
+      href="#"
+      role="button"
+      data-bs-toggle="modal"
+      data-bs-target="#renameCurrent"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-pencil-square"></i> rename file</a>
+  </div>
+  <div class="col-10 p-3">
+    <div class="current-dir__wrapper w-full mb-4">
+      <a href="/" class="home-route route">
+        <i class="bi bi-eye"></i>
+        preview
+      </a>
+      {{#each (getRouteElements currentDir) as |route|}}
+        <div class="route-separator">/</div>
+        <a href="/filemanager/{{path}}" class="route">
+          {{route.name}}
+        </a>
+      {{/each}}
+    </div>
+    <form action="/updatefile/{{ currentDir }}" method="post">
+    <div class="file-preview__wrapper">
+      <div class="line-counter"></div>
+      <textarea
+        class="file-preview"
+        name="fileContent"
+        id="fileContentInput"
+      >{{fileContent}}</textarea>
+      </div>
+      <button class="btn btn-secondary py-2 text-start mt-4" type="submit"> Save</button>
+    </form>
+    </div>
+</div>
+
+<div
+  class="modal fade in"
+  id="renameCurrent"
+  tabindex="-1"
+  aria-labelledby="renameCurrentLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="renameCurrentLabel">Rename current
+          folder</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="/renameFolder" method="post">
+          <input type="hidden" name="relativePath" value="{{currentDir}}" />
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="newFolderName"
+              name="newFolderName"
+              placeholder="New Folder"
+            />
+            <label for="newFolderName">File Name</label>
+          </div>
+          <div class="d-inline-flex gap-3 mt-4">
+            <button class="btn btn-primary py-2" type="submit">Add</button>
+            <button
+              class="btn btn-primary py-2"
+              type="button"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script defer>
+  const filePreviewInputRef = document.querySelector('#fileContentInput'); 
+  const lineCounterRef = document.querySelector(".line-counter");
+  filePreviewInputRef.addEventListener("keyup", () => displayLineCount());
+  
+  function displayLineCount() {
+    const lineCount = lineCounterRef.innerHTML = '';
+    filePreviewInputRef.value.split("\n").forEach((_, i) => {
+        lineCounterRef.innerHTML += `<div class="count">${i + 1}</div?` 
+    }); 
+  }
+
+  displayLineCount();
+</script>

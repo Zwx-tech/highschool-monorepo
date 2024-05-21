@@ -13,7 +13,7 @@
             </a>
             {{#each (getRouteElements currentDir) as |route|}}
             <div class="route-separator">/</div>
-            <a href="/?dir={{path}}" class=" route">
+            <a href="/filemanager/{{path}}" class=" route">
                 {{ route.name }}
             </a>
             {{/each}}

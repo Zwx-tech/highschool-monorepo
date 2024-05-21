@@ -15,6 +15,10 @@
   transform: translateY(-50%);
 } */
 
+a {
+  text-decoration: none;
+}
+
 body {
   font-family: "Roboto Mono", monospace !important;
   font-optical-sizing: auto;
@@ -166,4 +170,38 @@ p {
   font-weight: 500;
   padding: 0.5rem 0.9rem;
   border-radius: 1.2rem;
+}
+
+/* FILE PREVIEW */
+.file-preview__wrapper {
+  width: 100%;
+  display: flex;
+  background-color: #fafafa;
+}
+.line-counter {
+  width: 2rem;
+  border-right: 0.2rem solid var(--new-color);
+  color: var(--new-color);
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+.line-counter .count {
+  padding-right: 0.5rem;
+}
+
+.file-preview {
+  width: 100%;
+  min-height: 60vh;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  padding: 0;
+  padding-left: 0.5rem;
+}
+
+.file-preview,
+.line-counter {
+  font-size: 1rem;
+  padding-top: 0.2rem;
 }

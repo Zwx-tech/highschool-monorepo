@@ -42,7 +42,7 @@ app.engine(
         if (!dir) return [];
 
         //* WE use path.sep, to handle both unix and windows paths
-        const dirArr = dir.split(path.sep);
+        const dirArr = dir.split("/");
         let currentPath = "";
 
         return dirArr.map((part, index) => {
@@ -141,14 +141,19 @@ function readUploadDir(dir = "") {
 }
 
 //? GET
-app.get("/", async (req, res) => {
-  const { dir } = req.query;
+app.get("/", (req, res) => {
+  res.redirect("/filemanager/");
+});
+
+app.get("/filemanager/*", async (req, res) => {
+  const dir = req.params[0] || "";
+  console.log(dir);
   const fileArr = readUploadDir(dir || "");
   res.render("filemanager.hbs", { files: fileArr, currentDir: dir });
 });
 
 app.get("/reset", (req, res) => {
-  res.redirect("/filemanager");
+  res.redirect("/filemanager/");
 });
 
 //? POST
@@ -195,13 +200,13 @@ app.post("/add", (req, res) => {
   if (fs.existsSync(newEntityPath)) {
     //* Future error handling and message display
     //? return res.status(500).json(error: "Folder already exists");
-    return res.redirect(`/?dir=${relativePath}`);
+    return res.redirect(`/filemanager/${relativePath}`);
   }
 
   //* DIRECTORY
   if (isDirectory) {
     fs.mkdirSync(newEntityPath);
-    res.redirect(`/?dir=${path.join(relativePath, entityName)}`);
+    res.redirect(`/filemanager/${path.join(relativePath, entityName)}`);
     return;
   }
 
@@ -212,7 +217,7 @@ app.post("/add", (req, res) => {
     `Created on ${new Date().toLocaleDateString("pl-PL", dateOptions)}\n`,
     "utf8"
   );
-  res.redirect(`/?dir=${relativePath}`);
+  res.redirect(`/filemanager/${relativePath}`);
 });
 
 app.post("/renameFolder", (req, res) => {
@@ -229,11 +234,11 @@ app.post("/renameFolder", (req, res) => {
   if (!fs.existsSync(folderPath)) {
     //* Future error handling and message display
     //? return res.status(500).json(error: "Folder already exists");
-    return res.redirect(`/?dir=${relativePath}`);
+    return res.redirect(`/filemanager/${relativePath}`);
   }
 
   fs.renameSync(folderPath, newPath);
-  res.redirect(`/?dir=${newRelativePath}`);
+  res.redirect(`/filemanager/${newRelativePath}`);
   return;
 });
 
@@ -241,7 +246,6 @@ app.get("/delete/*", (req, res) => {
   //* Redirect back to url req came from
   const referer = req.headers.referer || "/";
   const entityName = req.params[0] || ""; //* FOUND THIS ONE IN EXPRESS DOCS AND IT IMPROVES READABILITY OF THE CODE BY a lot
-  console.log(entityName);
 
   if (!entityName) {
     res.status(400).json({ message: "U have to provide correct entity name!" });
@@ -254,20 +258,20 @@ app.get("/delete/*", (req, res) => {
     //* Future error handling and message display
     //* THIS approach only make sens when we use fetch api, tho we use special url param for that
     //? return res.status(500).json(error: "Folder already exists");
-    return res.redirect(referer); // TODO FIX REDIRECT TO MATCH CURRENT DIR
+    return res.redirect(referer);
   }
 
   //* HANDLE DIRECTORY DELETION
   if (fs.statSync(entityPath).isDirectory) {
     //* We use force to prevent any random errors
     fs.rmSync(entityPath, { recursive: true, force: true });
-    res.redirect(referer); // TODO FIX REDIRECT TO MATCH CURRENT DIR
+    res.redirect(referer);
     return;
   }
 
   //* HANDLE FILE DELETION
   fs.unlinkSync(entityPath); // ! DELETE ENTITY
-  res.redirect(referer); // TODO FIX REDIRECT TO MATCH CURRENT DIR
+  res.redirect(referer);
 });
 
 //* static
@@ -277,4 +281,27 @@ app.use(express.static(path.join(__dirname, "static")));
 //* SERVE
 app.listen(PORT, () => {
   console.log(`App running at port ${PORT}`);
+});
+
+//* SHOW FILE
+app.get("/showfile/*", (req, res) => {
+  const filePath = req.params[0] || "";
+
+  const fileContent = fs.readFileSync(path.join(uploadDir, filePath), {
+    encoding: "utf8",
+    flag: "r",
+  });
+
+  console.log(fileContent);
+  res.render("showfile.hbs", { fileContent, currentDir: filePath });
+});
+
+app.post("/updatefile/*", (req, res) => {
+  const filePath = req.params[0] || "";
+  const referer = req.headers.referer || "/";
+  const { fileContent } = req.body;
+
+  fs.writeFileSync(path.join(uploadDir, filePath), fileContent, "utf-8");
+
+  res.redirect(referer);
 });
