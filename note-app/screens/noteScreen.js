@@ -12,8 +12,9 @@ import { COLORS } from "../util/colors";
 import { useNotes } from "../util/useNote";
 import NotePreview from "../components/notePreviewModern";
 import { useFocusEffect } from "@react-navigation/native";
+import ExpandableMenuButton from "../components/expandableMenuButton";
 
-const NoteScreen = () => {
+const NoteScreen = ({ navigation }) => {
   const { notes, reloadNotes } = useNotes();
   const [query, setQuery] = useState("");
 
@@ -52,9 +53,11 @@ const NoteScreen = () => {
             date={item.noteDate}
             category={item.category}
             refresh={reloadNotes}
+            navigation={navigation}
           />
         )}
       />
+      <ExpandableMenuButton navigation={navigation}></ExpandableMenuButton>
     </View>
   );
 };

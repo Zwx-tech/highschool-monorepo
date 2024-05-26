@@ -5,6 +5,7 @@ export const COLORS = {
   white: "#fff",
   black: "#000",
   lightAccent: "#2a2a2a",
+  lighterAccent: "#3a3a3a",
   background: "#212121",
   darkAccent: "#1a1a1a",
   primary: "#94d5a5",

@@ -14,6 +14,7 @@ const Drawer = createDrawerNavigator(); //* create navigator
 import { COLORS } from "./util/colors";
 import AddNoteScreen from "./screens/addNoteScreen";
 import AddCategoryScreen from "./screens/addCategoryScreen";
+import EditScreen from "./screens/editScreen";
 
 function App() {
   return (
@@ -65,6 +66,13 @@ function App() {
             drawerIcon: ({ focused, size }) => (
               <MaterialIcons name="playlist-add" size={size} color="#fff" />
             ),
+          }}
+        />
+        <Drawer.Screen
+          name="edit-note"
+          component={EditScreen}
+          options={{
+            title: "Edit note",
           }}
         />
       </Drawer.Navigator>

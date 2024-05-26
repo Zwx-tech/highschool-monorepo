@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Dimensions, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Pressable,
+  Touchable,
+} from "react-native";
 import React from "react";
 import { COLORS } from "../util/colors";
 import { deleteNoteById } from "../util/useNote";
@@ -14,6 +21,7 @@ const NotePreview = ({
   category,
   id,
   refresh,
+  navigation,
 }) => {
   async function handleNoteDeletion() {
     if (!(await nativeConfirm("Note deletion", "Are u sure?"))) return;
@@ -26,8 +34,16 @@ const NotePreview = ({
     refresh();
   }
 
+  function handleNoteEdit() {
+    console.log("EDIT NOTE");
+    // navigation.navigate("edit-note", { id: id });
+  }
+
   return (
-    <Pressable onLongPress={() => handleNoteDeletion()}>
+    <Pressable
+      onLongPress={() => handleNoteDeletion()}
+      onPress={() => handleNoteEdit()}
+    >
       <View style={[styles.wrapper, { backgroundColor: color }]}>
         <View style={styles.categoryWrapper}>
           <Text style={[styles.category, { color }]}>{category}</Text>

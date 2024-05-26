@@ -21,6 +21,7 @@ const AddNoteScreen = ({ navigation }) => {
   useFocusEffect(reloadCategories);
 
   //* TESTING HOOKS EFFICIENCY
+  //* Its fixed now but we still need to monitor this
   useEffect(() => {
     console.log("Category test", categories);
   }, [categories]);

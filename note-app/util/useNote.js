@@ -76,6 +76,28 @@ export async function addNote(note) {
   } catch {}
 }
 
+export function useLoadNote(id) {
+  const [note, setNote] = useState(null);
+  const [noteLoading, setNoteLoading] = useState(true);
+
+  const reloadNote = useCallback(async () => {
+    try {
+      const item = await SecureStore.getItemAsync(id);
+      if (!item) throw new Error("There is no such note");
+      const _note = JSON.parse(item);
+      if (!_note) throw new Error("There is no such note");
+      setNote(_note);
+    } catch (error) {
+      console.error(`ERROR occurred while loading note id: ${id}`, error);
+      setNote(null);
+    } finally {
+      setNoteLoading(false);
+    }
+  }, [id]);
+
+  return { note, noteLoading, reloadNote };
+}
+
 export function useNotes() {
   const [notes, setNotes] = useState([]);
   const [notesLoading, setNotesLoading] = useState(false);

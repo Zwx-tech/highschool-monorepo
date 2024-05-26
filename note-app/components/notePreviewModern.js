@@ -14,6 +14,7 @@ const NotePreview = ({
   category,
   id,
   refresh,
+  navigation,
 }) => {
   async function handleNoteDeletion() {
     if (!(await nativeConfirm("Note deletion", "Are u sure?"))) return;
@@ -26,8 +27,16 @@ const NotePreview = ({
     refresh();
   }
 
+  function handleNoteEdit() {
+    console.log("EDIT NOTE");
+    navigation.navigate("edit-note", { id: id });
+  }
+
   return (
-    <Pressable onLongPress={() => handleNoteDeletion()}>
+    <Pressable
+      onLongPress={() => handleNoteDeletion()}
+      onPress={() => handleNoteEdit()}
+    >
       <View style={[styles.wrapper, { backgroundColor: color }]}>
         <View style={styles.categoryWrapper}>
           <Text style={[styles.category, { color }]}>{category}</Text>
