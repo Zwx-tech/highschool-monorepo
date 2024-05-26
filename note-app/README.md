@@ -19,6 +19,7 @@ https://icons.expo.fyi/Index
 - Ekran dodawania katergori (ZROBIONE)
 - Select z wyborem kategori podczas dosawania notatek (ZROBIONE)
 - Wyświetlanie kategorii w pogglądzie notatki (ZROBIONE)
-- Filtrowanie i wyszukiwanie notatek 
-- Edycja oraz podgląda notatki (Osobny ekran)
-- Widoczna kategoria notatki
+- Filtrowanie i wyszukiwanie notatek (ZROBIONE)
+- Podgląda notatki (Osobny ekran) (ZROBIONE)
+- Edycja notatki na tym ekanie (PRAWIE ZROBIONE) 
+- Widoczna kategoria notatki(ZROBIONE)
