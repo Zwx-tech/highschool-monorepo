@@ -4,20 +4,17 @@
     style="min-height: 100vh;"
   >
     <h6 class="mt-2 text-start">filemanager</h6>
-    <a
-      href="#"
+    <div class="input-group theme-control">
+        <button class="btn btn-secondary" type="button" id="btn-add">+</button>
+        <select data-width="50%" class="form-select select-secondary" id="colorThemeSelect">
+        </select>
+        <button class="btn btn-secondary" type="button" id="btn-minus">-</button>
+    </div>
+    <button
+      id="btn-save-theme"
       role="button"
-      data-bs-toggle="modal"
-      data-bs-target="#addFolder"
       class="btn btn-secondary py-2 text-start"
-    ><i class="bi bi-folder-plus"></i> new folder</a>
-    <a
-      href="#"
-      role="button"
-      data-bs-toggle="modal"
-      data-bs-target="#addFile"
-      class="btn btn-secondary py-2 text-start"
-    ><i class="bi bi-file-earmark-plus"></i> new text file</a>
+    ><i class="bi bi-floppy"></i> save theme</button>
     <a
       href="#"
       role="button"
@@ -34,7 +31,7 @@
       </a>
       {{#each (getRouteElements currentDir) as |route|}}
         <div class="route-separator">/</div>
-        <a href="/filemanager/{{path}}" class="route">
+        <a href="/preview/{{path}}" class="route">
           {{route.name}}
         </a>
       {{/each}}
@@ -63,8 +60,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="renameCurrentLabel">Rename current
-          folder</h1>
+        <h1 class="modal-title fs-5" id="renameCurrentLabel">Rename {{ currentDir }}</h1>
         <button
           type="button"
           class="btn-close"
@@ -73,26 +69,24 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form action="/renameFolder" method="post">
+        <form action="/renameFile" method="post">
           <input type="hidden" name="relativePath" value="{{currentDir}}" />
-          <div class="form-floating">
-            <input
-              type="text"
-              class="form-control"
-              id="newFolderName"
-              name="newFolderName"
-              placeholder="New Folder"
-            />
-            <label for="newFolderName">File Name</label>
+          <div class="input-group mb-3">
+              <div class="form-floating" style="flex-grow: 8">
+                  <input type="text" class="form-control" id="newFileName" name="newFileName" placeholder="New File" value="{{getFileName currentDir}}">
+                  <label for="newFileName">File Name</label>
+              </div>
+              <span class="input-group-text" id="dot-addition">.</span>
+              <select data-width="50%" class="form-select" aria-label="FileExtensionSelect" name="newFileExtension" id="newFileExtension" style="width: 1rem !important;">
+                  <option {{isExtensionSelected currentDir "txt"}} value="txt">txt</option>
+                  <option {{isExtensionSelected currentDir "css"}} value="css">css</option>
+                  <option {{isExtensionSelected currentDir "json"}} value="json">json</option>
+                  <option {{isExtensionSelected currentDir "html"}} value="html">html</option>
+              </select>
           </div>
           <div class="d-inline-flex gap-3 mt-4">
-            <button class="btn btn-primary py-2" type="submit">Add</button>
-            <button
-              class="btn btn-primary py-2"
-              type="button"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >Close</button>
+                <button class="btn btn-primary py-2" type="submit">Add</button>
+                <button class="btn btn-primary py-2" type="button"  data-bs-dismiss="modal" aria-label="Close">Close</button>
           </div>
         </form>
       </div>
@@ -103,8 +97,66 @@
 <script defer>
   const filePreviewInputRef = document.querySelector('#fileContentInput'); 
   const lineCounterRef = document.querySelector(".line-counter");
-  filePreviewInputRef.addEventListener("keyup", () => displayLineCount());
-  
+
+  const increaseFontSizeBtn = document.querySelector("#btn-add");
+  const decreaseFontSizeBtn = document.querySelector("#btn-minus");
+  const changeColorSelect = document.querySelector("#colorThemeSelect");
+
+  const saveThemeBtn = document.querySelector("#btn-save-theme");
+
+  let themes = [
+    {
+      color: "black",
+      backgroundColor: "white",
+    },
+    {
+      color: "white",
+      backgroundColor: "black",
+    },
+    {
+      color: "blue",
+      backgroundColor: "yellow",
+    }
+  ];
+
+  async function loadThemes() {
+    try {
+      const res = await fetch("/get-theme-list", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if(res.ok) {
+        themes = await res.json();
+        console.log( Object.keys(themes)); 
+        Object.keys(themes).forEach((theme, i) => {
+          const option = document.createElement("option");
+          option.value = theme;
+          option.text = theme;
+          changeColorSelect.add(option);
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function changeColorTheme(name) {
+    const theme = themes[name];
+    filePreviewInputRef.style.color = theme.color;
+    filePreviewInputRef.style.backgroundColor = theme.backgroundColor;
+  }
+
+  function setFontSize(fontSize) {
+    filePreviewInputRef.style.fontSize = `${fontSize}px`;
+    lineCounterRef.style.fontSize = `${fontSize}px`;
+  }
+
+  function getFontSize() {
+    return parseInt(getComputedStyle(filePreviewInputRef).fontSize);
+  }
+
   function displayLineCount() {
     const lineCount = lineCounterRef.innerHTML = '';
     filePreviewInputRef.value.split("\n").forEach((_, i) => {
@@ -112,5 +164,81 @@
     }); 
   }
 
-  displayLineCount();
+  async function saveTheme() {
+    const theme = {
+      fontSize: getFontSize(),
+      colorTheme: changeColorSelect.value,
+    };
+
+    try {
+
+      const res = await fetch("/update-theme", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(theme),
+      });
+      console.log(res);
+      if(res.ok) {
+        alert("Theme saved"); 
+        return;
+      }
+
+      alert("Failed to save theme");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to save theme");
+    }
+  }
+
+  async function loadTheme() {
+    try {
+      const res = await fetch("/get-theme", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      
+      
+      if(res.ok) {
+        const {colorTheme, fontSize} = await res.json();
+
+        setFontSize(fontSize);
+
+        //* SET COLOR THEME
+        changeColorSelect.value = colorTheme;
+        changeColorTheme(colorTheme);
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  saveThemeBtn.addEventListener("click", () => saveTheme());
+
+  changeColorSelect.addEventListener("change", () => {
+    const themeName = changeColorSelect.value;
+    changeColorTheme(themeName);
+  });
+
+  increaseFontSizeBtn.addEventListener("click", () => {
+    const newFontSize = parseInt(getComputedStyle(filePreviewInputRef).fontSize) + 1;
+    setFontSize(newFontSize);
+  });
+
+  decreaseFontSizeBtn.addEventListener("click", () => {
+    const newFontSize = parseInt(getComputedStyle(filePreviewInputRef).fontSize) - 1;
+    setFontSize(newFontSize);
+  });
+
+  filePreviewInputRef.addEventListener("keyup", () => displayLineCount());
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    await loadThemes();
+    loadTheme()
+    displayLineCount();
+  });
 </script>

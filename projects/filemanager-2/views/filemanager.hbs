@@ -5,6 +5,7 @@
         <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#addFile" class="btn btn-secondary py-2 text-start"><i class="bi bi-file-earmark-plus"></i> new text file</a>
         <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#renameCurrent" class="btn btn-secondary py-2 text-start"><i class="bi bi-pencil-square"></i> rename folder</a>
         {{> uploadForm currentDir=currentDir }}
+        <a href="/edit-color-themes" style="margin-top: auto" role="button" class="btn btn-transparent py-2 text-start"><i class="bi bi-palette-fill"></i> edit themes</a>
     </div>
     <div class="col-10 p-3">
         <div class="current-dir__wrapper w-full mb-4">
@@ -72,9 +73,18 @@
             <div class="modal-body">
                 <form action="/add" method="post">
                     <input type="hidden" name="relativePath" value="{{ currentDir }}">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="fileName" name="entityName" placeholder="New Folder">
-                        <label for="fileName">File Name</label>
+                    <div class="input-group mb-3">
+                        <div class="form-floating" style="flex-grow: 8">
+                            <input type="text" class="form-control" id="fileName" name="entityName" placeholder="New File">
+                            <label for="fileName">File Name</label>
+                        </div>
+                        <span class="input-group-text" id="dot-addition">.</span>
+                        <select data-width="50%" class="form-select" aria-label="FileExtensionSelect" name="entityExtension" id="entityExtension" style="width: 1rem !important;">
+                            <option selected value="txt">txt</option>
+                            <option value="css">css</option>
+                            <option value="json">json</option>
+                            <option value="html">html</option>
+                        </select>
                     </div>
                     <div class="d-inline-flex gap-3 mt-4">
                           <button class="btn btn-primary py-2" type="submit">Add</button>

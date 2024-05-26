@@ -6,6 +6,9 @@ const fs = require("fs");
 const formidable = require("formidable");
 //* get JSON file
 const supportedFileExtensions = require("./data/supportedFileExtensions.json");
+const defaultFileContent = require("./data/fileDefaultContent.json");
+
+const defaultFileContentSupportList = Object.keys(defaultFileContent);
 
 console.log(supportedFileExtensions);
 
@@ -19,6 +22,8 @@ app.use(
     extended: true,
   })
 );
+
+app.use(express.json());
 
 //* handlebars set up
 app.set("views", path.join(__dirname, "views"));
@@ -59,6 +64,14 @@ app.engine(
           return fileName.slice(0, 9) + "...";
         }
         return fileName;
+      },
+      getFileName: function (pathToFile) {
+        return path.parse(pathToFile).name;
+      },
+      isExtensionSelected: function (pathToFile, extension) {
+        return path.parse(pathToFile).ext.slice(1) === extension
+          ? "selected"
+          : "";
       },
     },
   })
@@ -185,11 +198,11 @@ app.post("/upload", (req, res) => {
 app.post("/add", (req, res) => {
   //* entity stands for FileSystemEntity - File System Object that can be both file and directory
   //* FileSystemEntityName was just little too long
-  const { isDirectory, entityName, relativePath } = req.body;
+  const { isDirectory, entityName, entityExtension, relativePath } = req.body;
 
   let fileName = entityName;
-  if (!fileName.endsWith(".txt") && !isDirectory) {
-    fileName += ".txt";
+  if (!isDirectory) {
+    fileName += `.${entityExtension}`;
   }
 
   //* Relative path is currently selected directory in file system
@@ -211,12 +224,18 @@ app.post("/add", (req, res) => {
   }
 
   //* FILE ADDITION
-  //* Let's also add current timestamp to file, to keep track of its creation date
-  fs.writeFileSync(
-    newEntityPath,
-    `Created on ${new Date().toLocaleDateString("pl-PL", dateOptions)}\n`,
-    "utf8"
-  );
+  //* The content of file we are adding can differ depending on the file extension so we handle it here
+  //* Also The default is txt file so i set the current date i default value
+  let fileContent = `Created on ${new Date().toLocaleDateString(
+    "pl-PL",
+    dateOptions
+  )}\n`;
+
+  if (defaultFileContentSupportList.includes(entityExtension)) {
+    fileContent = defaultFileContent[entityExtension];
+  }
+
+  fs.writeFileSync(newEntityPath, fileContent, "utf8");
   res.redirect(`/filemanager/${relativePath}`);
 });
 
@@ -239,6 +258,30 @@ app.post("/renameFolder", (req, res) => {
 
   fs.renameSync(folderPath, newPath);
   res.redirect(`/filemanager/${newRelativePath}`);
+  return;
+});
+
+app.post("/renameFile", (req, res) => {
+  const { newFileName, newFileExtension, relativePath } = req.body;
+
+  const fileName = `${newFileName}.${newFileExtension}`;
+
+  //* We probably don't want user to rename home folder
+  if (relativePath == "") return res.redirect(`/?dir=${relativePath}`);
+
+  const filePath = path.join(uploadDir, relativePath);
+  const newRelativePath = path.join(relativePath, "../", fileName); //* Amazing piece of code i found on stack
+  const newPath = path.join(uploadDir, newRelativePath);
+
+  //* First we check it theres FileSystemEntity like that
+  if (!fs.existsSync(filePath)) {
+    //* Future error handling and message display
+    //? return res.status(500).json(error: "Folder already exists");
+    return res.redirect(`/filemanager/${relativePath}`);
+  }
+
+  fs.renameSync(filePath, newPath);
+  res.redirect(`/showfile/${newRelativePath}`);
   return;
 });
 
@@ -274,15 +317,6 @@ app.get("/delete/*", (req, res) => {
   res.redirect(referer);
 });
 
-//* static
-//? remember use static right before the listen func
-app.use(express.static(path.join(__dirname, "static")));
-
-//* SERVE
-app.listen(PORT, () => {
-  console.log(`App running at port ${PORT}`);
-});
-
 //* SHOW FILE
 app.get("/showfile/*", (req, res) => {
   const filePath = req.params[0] || "";
@@ -292,8 +326,13 @@ app.get("/showfile/*", (req, res) => {
     flag: "r",
   });
 
-  console.log(fileContent);
   res.render("showfile.hbs", { fileContent, currentDir: filePath });
+});
+
+app.get("/preview/*", (req, res) => {
+  const filePath = req.params[0] || "";
+
+  res.sendFile(path.join(uploadDir, filePath));
 });
 
 app.post("/updatefile/*", (req, res) => {
@@ -304,4 +343,55 @@ app.post("/updatefile/*", (req, res) => {
   fs.writeFileSync(path.join(uploadDir, filePath), fileContent, "utf-8");
 
   res.redirect(referer);
+});
+
+app.get("/get-theme", (req, res) => {
+  const theme = fs.readFileSync(path.join(__dirname, "data", "theme.json"), {});
+  try {
+    const themeObj = JSON.parse(theme);
+    res.json(themeObj);
+  } catch (err) {
+    res.status(500).json({ message: "Error while reading theme file" });
+  }
+});
+
+app.get("/get-theme-list", (req, res) => {
+  const theme = fs.readFileSync(
+    path.join(__dirname, "data", "themes.json"),
+    {}
+  );
+  try {
+    const themeObj = JSON.parse(theme);
+    res.json(themeObj);
+  } catch (err) {
+    res.status(500).json({ message: "Error while reading theme file" });
+  }
+});
+
+app.get("/edit-color-themes", (req, res) => {
+  res.render("editColorThemes.hbs");
+});
+
+app.post("/update-theme", (req, res) => {
+  const theme = req.body;
+  if (!theme || theme == {})
+    return res.status(400).json({ message: "No theme provided" });
+
+  console.log(theme);
+
+  fs.writeFileSync(
+    path.join(__dirname, "data", "theme.json"),
+    JSON.stringify(theme),
+    "utf-8"
+  );
+  res.status(200).json({ message: "Theme updated" });
+});
+
+//* static
+//? remember use static right before the listen func
+app.use(express.static(path.join(__dirname, "static")));
+
+//* SERVE
+app.listen(PORT, () => {
+  console.log(`App running at port ${PORT}`);
 });

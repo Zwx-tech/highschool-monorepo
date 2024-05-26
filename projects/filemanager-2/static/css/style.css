@@ -205,3 +205,39 @@ p {
   font-size: 1rem;
   padding-top: 0.2rem;
 }
+
+.input-group > .form-control,
+.input-group > .form-floating,
+.input-group > .form-select {
+  width: 1rem !important;
+}
+
+.theme-control > #btn-color {
+  flex-grow: 1;
+}
+
+.theme-control > :not(#btn-color) {
+  padding-inline: 1rem;
+}
+
+.btn-transparent,
+.btn-transparent:hover {
+  background-color: transparent;
+  border: none;
+  color: #000;
+}
+
+.btn-transparent:hover {
+  color: #333;
+}
+
+.select-secondary {
+  background-color: var(--new-color) !important;
+  border-color: var(--new-color) !important;
+  color: #fff;
+}
+
+.select-secondary:hover {
+  background-color: var(--new-hover-color) !important;
+  border-color: var(--new-hover-color) !important;
+}
