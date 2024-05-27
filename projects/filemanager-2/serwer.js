@@ -356,20 +356,52 @@ app.get("/get-theme", (req, res) => {
 });
 
 app.get("/get-theme-list", (req, res) => {
-  const theme = fs.readFileSync(
+  const themes = fs.readFileSync(
     path.join(__dirname, "data", "themes.json"),
     {}
   );
   try {
-    const themeObj = JSON.parse(theme);
-    res.json(themeObj);
+    const themesObj = JSON.parse(themes);
+    res.json(themesObj);
   } catch (err) {
     res.status(500).json({ message: "Error while reading theme file" });
   }
 });
 
 app.get("/edit-color-themes", (req, res) => {
-  res.render("editColorThemes.hbs");
+  const themes = fs.readFileSync(
+    path.join(__dirname, "data", "themes.json"),
+    {}
+  );
+  try {
+    const themesObj = JSON.parse(themes);
+    const themeNames = Object.keys(themesObj);
+    const themesArr = themeNames.map((themeName) => {
+      return {
+        name: themeName,
+        color: themesObj[themeName].color,
+        background: themesObj[themeName].backgroundColor,
+      };
+    });
+    res.render("editColorThemes.hbs", { themes: themesArr });
+  } catch (err) {
+    res.status(500).json({ message: "Error while reading theme file" });
+  }
+});
+
+app.post("/update-color-themes", (req, res) => {
+  const themes = req.body;
+  if (!themes || themes == {})
+    return res.status(400).json({ message: "No themes provided" });
+
+  console.log(themes);
+
+  fs.writeFileSync(
+    path.join(__dirname, "data", "themes.json"),
+    JSON.stringify(themes),
+    "utf-8"
+  );
+  res.status(200).json({ message: "Themes updated" });
 });
 
 app.post("/update-theme", (req, res) => {

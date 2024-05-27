@@ -1,14 +1,1 @@
-{
-    "light": {
-        "color": "black",
-        "backgroundColor": "white"
-    },
-    "dark": {
-        "color": "white",
-        "backgroundColor": "black"
-    },
-    "contrast": {
-        "color": "blue",
-        "backgroundColor": "yellow"
-    }
-}
+{"light":{"backgroundColor":"#ffffff","color":"#000000"},"dark":{"backgroundColor":"#000000","color":"#ffffff"},"contrast":{"backgroundColor":"#ffff00","color":"#0000ff"},"dracula":{"backgroundColor":"#282a37","color":"#ebebeb"}}
