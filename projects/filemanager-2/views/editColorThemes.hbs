@@ -117,6 +117,8 @@
 
   themeForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    //* It's really not a very readable code, but it works
+    //* So I'm not going to refactor it pffff
     const formData = new FormData(themeForm);
     console.log(formData);
     const themes = {};

@@ -394,8 +394,6 @@ app.post("/update-color-themes", (req, res) => {
   if (!themes || themes == {})
     return res.status(400).json({ message: "No themes provided" });
 
-  console.log(themes);
-
   fs.writeFileSync(
     path.join(__dirname, "data", "themes.json"),
     JSON.stringify(themes),
