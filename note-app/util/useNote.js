@@ -40,6 +40,14 @@ export async function deleteNoteById(id) {
   }
 }
 
+export async function updateNoteById(id, note) {
+  try {
+    await SecureStore.setItemAsync(id, JSON.stringify(note));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 async function removeNoteFromNoteList(id) {
   try {
     //* resolve null

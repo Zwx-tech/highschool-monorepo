@@ -67,7 +67,7 @@ const AddNoteScreen = ({ navigation }) => {
           selectedValue={selectedCategory}
           onValueChange={(newCategory) => setSelectedCategory(newCategory)}
         >
-          <Picker.Item label="Select category" value="default" />
+          <Picker.Item label="Default" value="default" />
           {categories.map((c) => (
             <Picker.Item label={c} value={c} key={c} />
           ))}

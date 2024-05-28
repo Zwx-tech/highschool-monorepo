@@ -6,6 +6,9 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
+  withTiming,
+  Easing,
+  ReduceMotion,
 } from "react-native-reanimated";
 
 const startingOffset = -30;
@@ -25,26 +28,32 @@ const ExpandableMenuButton = ({ navigation }) => {
   const labelOffset = useSharedValue(50);
   const labelOpacity = useSharedValue(0);
 
+  const animationConfig = {
+    duration: 300,
+    easing: Easing.inOut(Easing.quad),
+    reduceMotion: ReduceMotion.System,
+  };
+
   //* Animation stuff
   //* Jeeez it's long
   const toggleMenu = () => {
     setExpanded(!expanded);
     if (!expanded) {
-      offset1.value = withSpring(endOffset);
-      offset2.value = withSpring(endOffset + itemGap);
-      scale1.value = withSpring(1);
-      scale2.value = withSpring(1);
-      rotation.value = withSpring(45);
-      labelOffset.value = withSpring(0);
-      labelOpacity.value = withSpring(1);
+      offset1.value = withTiming(endOffset, animationConfig);
+      offset2.value = withTiming(endOffset + itemGap, animationConfig);
+      scale1.value = withTiming(1, animationConfig);
+      scale2.value = withTiming(1, animationConfig);
+      rotation.value = withTiming(45, animationConfig);
+      labelOffset.value = withTiming(0, animationConfig);
+      labelOpacity.value = withTiming(1, animationConfig);
     } else {
-      offset1.value = withSpring(startingOffset);
-      offset2.value = withSpring(startingOffset);
-      scale1.value = withSpring(0);
-      scale2.value = withSpring(0);
-      rotation.value = withSpring(0);
-      labelOffset.value = withSpring(50);
-      labelOpacity.value = withSpring(0);
+      offset1.value = withTiming(startingOffset, animationConfig);
+      offset2.value = withTiming(startingOffset, animationConfig);
+      scale1.value = withTiming(0, animationConfig);
+      scale2.value = withTiming(0, animationConfig);
+      rotation.value = withTiming(0, animationConfig);
+      labelOffset.value = withTiming(50, animationConfig);
+      labelOpacity.value = withTiming(0, animationConfig);
     }
   };
 
