@@ -160,7 +160,11 @@ app.get("/", (req, res) => {
 
 app.get("/filemanager/*", async (req, res) => {
   const dir = req.params[0] || "";
-  console.log(dir);
+  console.log(fs.lstatSync(path.join(uploadDir, dir)).isDirectory());
+  if (!fs.lstatSync(path.join(uploadDir, dir)).isDirectory()) {
+    res.sendFile(path.join(uploadDir, dir));
+    return;
+  }
   const fileArr = readUploadDir(dir || "");
   res.render("filemanager.hbs", { files: fileArr, currentDir: dir });
 });
@@ -320,13 +324,27 @@ app.get("/delete/*", (req, res) => {
 //* SHOW FILE
 app.get("/showfile/*", (req, res) => {
   const filePath = req.params[0] || "";
+  const fileExtension = path.parse(filePath).ext.slice(1);
 
-  const fileContent = fs.readFileSync(path.join(uploadDir, filePath), {
-    encoding: "utf8",
-    flag: "r",
-  });
+  const referer = req.headers.referer || "/";
 
-  res.render("showfile.hbs", { fileContent, currentDir: filePath });
+  //* HANDLE IMAGES
+  if (["jpg"].includes(fileExtension)) {
+    return res.render("showImage.hbs", { currentDir: filePath });
+  }
+
+  //* HANDLE TEXT FILES
+  if (["txt", "js", "css", "html", "json"].includes(fileExtension)) {
+    const fileContent = fs.readFileSync(path.join(uploadDir, filePath), {
+      encoding: "utf8",
+      flag: "r",
+    });
+
+    return res.render("showfile.hbs", { fileContent, currentDir: filePath });
+  }
+
+  //* DEFAULT GATEWAY
+  return res.redirect(referer);
 });
 
 app.get("/preview/*", (req, res) => {
@@ -404,8 +422,7 @@ app.post("/update-color-themes", (req, res) => {
 
 app.post("/update-theme", (req, res) => {
   const theme = req.body;
-  if (!theme || theme == {})
-    return res.status(400).json({ message: "No theme provided" });
+  if (!theme) return res.status(400).json({ message: "No theme provided" });
 
   console.log(theme);
 

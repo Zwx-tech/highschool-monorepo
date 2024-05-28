@@ -241,3 +241,28 @@ p {
   background-color: var(--new-hover-color) !important;
   border-color: var(--new-hover-color) !important;
 }
+.image-preview__wrapper {
+  --filter-wrapper-size: 10rem;
+  position: relative;
+}
+
+canvas#image-preview {
+  width: 100%;
+}
+
+/* .fillter__wrapper.visible + canvas#image-preview {
+  width: calc(100% - var(--filter-wrapper-size));
+} */
+.fillter__wrapper {
+  width: 0;
+  position: absolute;
+  background-color: red;
+  top: 0;
+  bottom: 0;
+
+  transition: 0.2s ease;
+}
+
+.fillter__wrapper.visible {
+  width: var(--filter-wrapper-size);
+}

@@ -1,0 +1,93 @@
+<div class="row page-body">
+  <div
+    class="col-2 text-center py-2 bg-body-tertiary d-flex flex-column px-4 gap-3"
+    style="min-height: 100vh;"
+  >
+    <h6 class="mt-2 text-start">filemanager</h6>
+    <a
+      href="/"
+      role="button"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-house"></i> home</a>
+
+    <button
+      id="btn-filter"
+      role="button"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-sliders"></i> filters</button>
+    <a
+      href="#"
+      role="button"
+      data-bs-toggle="modal"
+      data-bs-target="#renameCurrent"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-pencil-square"></i> rename file</a>
+    <button
+      id="btn-save-theme"
+      role="button"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-floppy"></i> save</button>
+  </div>
+  <div class="col-10 p-3">
+    <div class="current-dir__wrapper w-full mb-4">
+      <a href="/" class="home-route route">
+        <i class="bi bi-eye"></i>
+        preview
+      </a>
+      {{#each (getRouteElements currentDir) as |route|}}
+        <div class="route-separator">/</div>
+        <a href="/filemanager/{{path}}" class="route">
+          {{route.name}}
+        </a>
+      {{/each}}
+    </div>
+    <div class="image-preview__wrapper">
+        <div class="fillter__wrapper">
+
+        </div>
+        <canvas id="image-preview">
+
+        </canvas>        
+    </div>
+    </div>
+</div>
+
+<script defer>
+    const imgCanvas = document.querySelector("#image-preview");
+    const ctx = imgCanvas.getContext("2d");
+
+    const filterBtn = document.querySelector('#btn-filter');
+    const filterSidebar = document.querySelector('.fillter__wrapper');
+
+    const previewedImage = new Image()
+    previewedImage.src = "http://localhost:3000/upload/{{ currentDir }}";
+
+    
+    //* DISPLAY IMAGE TO THE CANVAS 
+    previewedImage.onload = () => {
+        const imgWidth = previewedImage.width;
+        const imgHeight = previewedImage.height;
+
+        const aspectRation = `${imgWidth} / ${imgHeight}`;
+        imgCanvas.style.aspectRation = aspectRation;
+        
+        imgCanvas.width = imgWidth;
+        imgCanvas.height = imgHeight;
+
+        ctx.drawImage(
+            previewedImage, 
+            0,
+            0,
+            imgWidth,
+            imgHeight
+        );
+    }
+
+    filterBtn.addEventListener('click', () => {
+        filterSidebar.classList.toggle('visible')
+    })
+
+
+
+
+</script>
