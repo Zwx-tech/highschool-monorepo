@@ -242,25 +242,78 @@ p {
   border-color: var(--new-hover-color) !important;
 }
 .image-preview__wrapper {
-  --filter-wrapper-size: 10rem;
+  --filter-wrapper-size: clamp(10rem, 10vw, 20rem);
+  display: flex;
+  align-items: start;
   position: relative;
+  gap: 1rem;
 }
 
 canvas#image-preview {
-  width: 100%;
+  width: calc(95% - var(--filter-wrapper-size));
+  transition: 0.2s ease;
+  border: 1px solid #000;
 }
 
-/* .fillter__wrapper.visible + canvas#image-preview {
-  width: calc(100% - var(--filter-wrapper-size));
-} */
 .fillter__wrapper {
-  width: 0;
-  position: absolute;
-  background-color: red;
+  --btn-padding: 0.75rem;
+  width: 0rem;
+  height: 100%;
+  /* position: absolute; */
+  background-color: rgba(0, 0, 0, 0.5);
   top: 0;
   bottom: 0;
-
+  overflow-x: hidden;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   transition: 0.2s ease;
+  transition-property: width;
+  padding: var(--btn-padding) 0;
+  gap: var(--btn-padding);
+}
+
+.fillter__wrapper > button {
+  position: relative;
+  width: calc(100% - 2 * var(--btn-padding));
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  display: grid;
+  place-items: center;
+  height: calc((var(--filter-wrapper-size) - 2 * var(--btn-padding)) / 4 * 3);
+  min-height: 6rem;
+  background-size: cover;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  isolation: isolate;
+  padding: 0;
+}
+
+.fillter__wrapper > button > span {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: 0.2s ease;
+}
+
+.fillter__wrapper > button:hover > span {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.fillter__wrapper > button > div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-size: cover;
+  background-clip: content-box;
+  z-index: -1;
 }
 
 .fillter__wrapper.visible {

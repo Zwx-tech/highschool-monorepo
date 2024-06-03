@@ -10,6 +10,8 @@ const defaultFileContent = require("./data/fileDefaultContent.json");
 
 const defaultFileContentSupportList = Object.keys(defaultFileContent);
 
+const filters = require("./data/filters.json");
+
 console.log(supportedFileExtensions);
 
 //* express set up
@@ -329,8 +331,8 @@ app.get("/showfile/*", (req, res) => {
   const referer = req.headers.referer || "/";
 
   //* HANDLE IMAGES
-  if (["jpg"].includes(fileExtension)) {
-    return res.render("showImage.hbs", { currentDir: filePath });
+  if (["jpg", "png"].includes(fileExtension)) {
+    return res.render("showImage.hbs", { currentDir: filePath, filters });
   }
 
   //* HANDLE TEXT FILES
@@ -432,6 +434,41 @@ app.post("/update-theme", (req, res) => {
     "utf-8"
   );
   res.status(200).json({ message: "Theme updated" });
+});
+
+app.post("/save-image", (req, res) => {
+  //* handle file upload
+  const form = new formidable.IncomingForm({
+    keepExtensions: true,
+    multiples: false,
+  });
+  form.uploadDir = uploadDir;
+
+  //* Redirect back to url req came from
+  const referer = req.headers.referer || "/";
+
+  form.parse(req, function (Ierr, fields, inputs) {
+    const currentDir = fields.currentDir || ""; //* extract currentDir from fields
+    const imagePath = fields.path || "";
+
+    form.uploadDir = path.join(
+      __dirname,
+      "static",
+      "upload",
+      currentDir,
+      "../"
+    );
+
+    const image = inputs.image; //* extract data from input
+
+    if (!image) {
+      res.redirect(referer);
+      return;
+    }
+
+    fs.renameSync(image.path, path.join(__dirname, "static", imagePath));
+    res.redirect(referer);
+  });
 });
 
 //* static
