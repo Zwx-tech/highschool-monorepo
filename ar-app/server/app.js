@@ -6,15 +6,36 @@ const wss = new WebSocket.Server({ port: PORT }, () => {
   console.log(`ws startuje na porcie ${PORT}`);
 });
 
-//reakcja na podłączenie klienta i odesłanie komunikatu
+sendToAllButMe = (data, ws) => {
+  wss.clients.forEach((client) => {
+    if (client !== ws && client.readyState === WebSocket.OPEN) {
+      client.send(data);
+    }
+  });
+};
+
+sendToAll = (data) => {
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(data);
+    }
+  });
+};
 
 wss.on("connection", (ws, req) => {
-  //adres ip klienta
-
-  const clientip = req.connection.remoteAddress; //reakcja na komunikat od klienta
+  const clientip = req.connection.remoteAddress;
+  console.log(`Client connected: ${clientip}`);
 
   ws.on("message", (message) => {
-    console.log("serwer odbiera z klienta " + clientip + ": ", message);
-    ws.send("serwer odsyła do klienta -> " + message);
+    console.log(`Received message from ${clientip}: ${message}`);
+    sendToAllButMe(message, ws);
   });
+
+  ws.on("close", () => {
+    console.log(`Client disconnected: ${clientip}`);
+  });
+});
+
+wss.on("error", (error) => {
+  console.error("WebSocket server error:", error);
 });
