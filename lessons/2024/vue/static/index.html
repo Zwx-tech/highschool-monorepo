@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Ćwiczenia vue</h1>
+    <div id="app"></div>
+  </body>
+  <script defer>
+    async function loadAndDisplayData() {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      try {
+        const data = await fetch("/get-lessons", options);
+        const lessonsNames = await data.json();
+        console.log(lessonsNames);
+
+        displayLessons(lessonsNames);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    function displayLessons(data) {
+      const appRef = document.querySelector("#app");
+      for (const l of Object.keys(data)) {
+        const lTitle = document.createElement("h2");
+        lTitle.innerText = l;
+        appRef.appendChild(lTitle);
+        for (const pageName of data[l]) {
+          createLink(pageName, appRef);
+        }
+      }
+    }
+
+    function createLink(pageName, appRef) {
+      const linkRef = document.createElement("a");
+      const linkTitle = pageName.replace(".html", "");
+      linkRef.href = `/${pageName}`;
+      linkRef.innerText = linkTitle;
+      appRef.appendChild(linkRef);
+    }
+
+    loadAndDisplayData();
+  </script>
+</html>
