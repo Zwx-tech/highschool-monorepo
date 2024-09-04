@@ -39,12 +39,9 @@
     <div id="app">
       <div class="flex items-center gap-2 pb-4">
         <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
-        <h1>{{ title }}</h1>
+        <h1 class="" v-text="title"></h1>
       </div>
-      <p>
-        Interpolacja danych z obiektu data - w podwójnych nawiasach {{ oraz aktualizacja wartości po ich
-        zmianie
-      </p>
+      <p v-text="description"></p>
     </div>
   </body>
   <script>
@@ -52,6 +49,8 @@
       data() {
         return {
           title: "Dyrektywy VueJS",
+          description: `dyrektywa v-text zamiast brak interpretacji <b>HTML</b> ale jest
+aktualizacja po zmianie wartości`,
         };
       },
     }).mount("#app");

@@ -39,12 +39,9 @@
     <div id="app">
       <div class="flex items-center gap-2 pb-4">
         <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
-        <h1>{{ title }}</h1>
+        <h1 v-once>{{ title }}</h1>
       </div>
-      <p>
-        Interpolacja danych z obiektu data - w podwójnych nawiasach {{ oraz aktualizacja wartości po ich
-        zmianie
-      </p>
+      <p>Dyrektywa v-once - działa raz -> bez aktualizacji wartości</p>
     </div>
   </body>
   <script>

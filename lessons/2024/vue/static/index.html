@@ -3,12 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+            },
+          },
+        },
+      };
+    </script>
   </head>
   <body>
-    <h1>Ćwiczenia vue</h1>
-    <div id="app"></div>
+    <div class="min-w-[40rem] lg:w-[75vw] mx-auto">
+      <div class="flex items-center gap-2 mt-2 mb-8">
+        <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
+        <h1>Ćwiczenia VueJS</h1>
+      </div>
+      <div id="app"></div>
+    </div>
   </body>
+  <style type="text/tailwindcss">
+    @layer base {
+      body {
+        @apply p-4;
+      }
+      h1 {
+        @apply text-4xl mb-1 text-primary;
+      }
+      h2 {
+        @apply text-xl mb-1 tracking-tight font-semibold text-gray-500;
+      }
+      hr {
+        @apply border-secondary my-4;
+      }
+    }
+
+    @layer utilities {
+      .lesson-link {
+        @apply py-2 mr-3 px-5 bg-gradient-to-br from-secondary to-accent saturate-100 hover:saturate-0 rounded-lg tracking-widest text-white  transition-all ease-linear duration-200;
+      }
+      .link-container {
+        @apply py-1 flex flex-wrap;
+      }
+    }
+  </style>
   <script defer>
     async function loadAndDisplayData() {
       const options = {
@@ -17,7 +63,9 @@
           "Content-Type": "application/json",
         },
       };
+
       try {
+        //* fetch lesson data them display it
         const data = await fetch("/get-lessons", options);
         const lessonsNames = await data.json();
         console.log(lessonsNames);
@@ -30,22 +78,34 @@
 
     function displayLessons(data) {
       const appRef = document.querySelector("#app");
-      for (const l of Object.keys(data)) {
-        const lTitle = document.createElement("h2");
-        lTitle.innerText = l;
-        appRef.appendChild(lTitle);
-        for (const pageName of data[l]) {
-          createLink(pageName, appRef);
+      for (const lessonName of Object.keys(data)) {
+        //* Extract lesson title
+        const lessonTitle = document.createElement("h2");
+        lessonTitle.innerText = lessonName;
+        appRef.appendChild(lessonTitle);
+        //* Create link container
+        const linkContainerRef = document.createElement("div");
+        linkContainerRef.className = "link-container";
+        appRef.appendChild(linkContainerRef);
+        //* Extract links to excercises and place them inside linkContainer
+        for (const pageName of data[lessonName]) {
+          createLink(pageName, lessonName, linkContainerRef);
         }
+
+        //* Add devider
+        const deviderRef = document.createElement("hr");
+        appRef.appendChild(deviderRef);
       }
     }
 
-    function createLink(pageName, appRef) {
+    function createLink(pageName, lessonName, containerRef) {
       const linkRef = document.createElement("a");
       const linkTitle = pageName.replace(".html", "");
-      linkRef.href = `/${pageName}`;
+      linkRef.href = `/${lessonName}/${pageName}`;
+      linkRef.target = "_blank";
+      linkRef.className = "lesson-link";
       linkRef.innerText = linkTitle;
-      appRef.appendChild(linkRef);
+      containerRef.appendChild(linkRef);
     }
 
     loadAndDisplayData();
