@@ -12,9 +12,9 @@ app.get("/get-lessons", (req, res) => {
   const lessonsNames = fs.readdirSync(path.join(__dirname, "static", "cwiczenia"));
   const response = {};
 
-  for (const l of lessonsNames) {
-    const excresieNames = fs.readdirSync(path.join(__dirname, "static", "cwiczenia", l));
-    response[l] = excresieNames;
+  for (const lessonName of lessonsNames) {
+    const exerciseNames = fs.readdirSync(path.join(__dirname, "static", "cwiczenia", lessonName));
+    response[lessonName] = exerciseNames;
   }
 
   res.send(response);
