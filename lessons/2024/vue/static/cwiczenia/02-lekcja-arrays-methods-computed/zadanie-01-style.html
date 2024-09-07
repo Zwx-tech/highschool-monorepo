@@ -41,17 +41,47 @@
   <body>
     <div id="app">
       <div class="flex items-center gap-4 pb-4">
-        <img class="aspect-square h-12 pb-1" src="/img/golden-vue.svg" alt="V" />
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/golden-vue.svg" alt="V" />
+        </a>
         <h1>{{ title }}</h1>
+      </div>
+      <div class="flex flex-col gap-2 w-40">
+        <div
+          class="grid place-items-center w-40 aspect-square rounded-md text-white text-4xl"
+          :class="getTimerColor"
+        >
+          {{ timer }}
+        </div>
       </div>
     </div>
   </body>
-  <script>
-    Vue.createApp({
+  <script defer is="script">
+    const app = Vue.createApp({
       data() {
         return {
           title: "Zadanie style",
+          interval: null,
+          timer: 0,
         };
+      },
+      methods: {
+        start() {
+          this.timer = 0; //* Reset timer
+          this.interval = setInterval(() => {
+            this.timer++; //* Increment timer
+          }, 1000);
+        },
+        stop() {
+          clearInterval(this.interval);
+        },
+      },
+      computed: {
+        getTimerColor() {
+          const res = this.timer % 2 === 0 ? "bg-green-200" : "bg-red-200";
+          console.log(res);
+          return this.timer % 2 === 0 ? "bg-green-200" : "bg-red-200";
+        },
       },
     }).mount("#app");
   </script>

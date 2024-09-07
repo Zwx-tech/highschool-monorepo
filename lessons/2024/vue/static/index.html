@@ -34,6 +34,9 @@
   </body>
   <style type="text/tailwindcss">
     @layer base {
+      html {
+        @apply bg-background;
+      }
       body {
         @apply p-4;
       }
@@ -92,14 +95,14 @@
         const linkContainerRef = document.createElement("div");
         linkContainerRef.className = "link-container";
         appRef.appendChild(linkContainerRef);
-        //* Extract links to excercises and place them inside linkContainer
+        //* Extract links to exercises and place them inside linkContainer
         for (const pageName of data[lessonName]) {
           createLink(pageName, lessonName, linkContainerRef);
         }
 
-        //* Add devider
-        const deviderRef = document.createElement("hr");
-        appRef.appendChild(deviderRef);
+        //* Add divider
+        const dividerRef = document.createElement("hr");
+        appRef.appendChild(dividerRef);
       }
     }
 
@@ -108,7 +111,7 @@
       const linkTitle = pageName.replace(".html", "");
       const isTask = linkTitle.includes("zadanie");
       linkRef.href = `/${lessonName}/${pageName}`;
-      linkRef.target = "_blank";
+      // linkRef.target = "_blank";
       linkRef.className = isTask ? "lesson-link task-link" : "lesson-link";
       linkRef.innerText = linkTitle;
       containerRef.appendChild(linkRef);

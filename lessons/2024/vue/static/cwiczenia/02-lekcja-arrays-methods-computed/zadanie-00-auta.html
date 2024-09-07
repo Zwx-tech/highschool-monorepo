@@ -41,17 +41,43 @@
   <body>
     <div id="app">
       <div class="flex items-center gap-4 pb-4">
-        <img class="aspect-square h-12 pb-1" src="/img/golden-vue.svg" alt="V" />
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/golden-vue.svg" alt="V" />
+        </a>
         <h1>{{ title }}</h1>
+      </div>
+      <div class="flex gap-4">
+        <div v-for="car in carData" :class="getCarTileColor(car)" class="flex-1 p-4">
+          <p class="mb-2">{{ getCarInfo(car) }}</p>
+          <img class="aspect-square object-cover" :src="getCarImg(car)" alt="car" />
+        </div>
       </div>
     </div>
   </body>
   <script>
-    Vue.createApp({
+    const app = Vue.createApp({
       data() {
         return {
           title: "Zadanie autka",
+          carData: [
+            { brand: "Mercedes", model: "Benz", year: 1963 },
+            { brand: "Opel", model: "Corsa", year: 1999 },
+            { brand: "Audi", model: "A4", year: 2019 },
+            { brand: "Mercedes", model: "Benz", year: 2002 },
+            { brand: "Opel", model: "Corsa", year: 2010 },
+          ],
         };
+      },
+      methods: {
+        getCarInfo(car) {
+          return `${car.brand}-${car.model}-${car.year}`;
+        },
+        getCarImg(car) {
+          return `/img/${car.brand}-${car.model}.webp`;
+        },
+        getCarTileColor(car) {
+          return car.year > 2000 ? "bg-green-200" : "bg-red-200";
+        },
       },
     }).mount("#app");
   </script>
