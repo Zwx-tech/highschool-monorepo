@@ -107,11 +107,14 @@
     }
 
     function createLink(pageName, lessonName, containerRef) {
+      //* Create link element
       const linkRef = document.createElement("a");
       const linkTitle = pageName.replace(".html", "");
       const isTask = linkTitle.includes("zadanie");
+      //* Combine lesson name and page name to create a href
+      //* Like so lekcja-arrays-methods-computed + 06-computed-props-cd = /lekcja-arrays-methods-computed/06-computed-props-cd
       linkRef.href = `/${lessonName}/${pageName}`;
-      // linkRef.target = "_blank";
+      //* Style it
       linkRef.className = isTask ? "lesson-link task-link" : "lesson-link";
       linkRef.innerText = linkTitle;
       containerRef.appendChild(linkRef);
