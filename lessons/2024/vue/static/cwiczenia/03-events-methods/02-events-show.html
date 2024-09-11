@@ -15,6 +15,9 @@
               primary: "#5db692",
               secondary: "#86e3be",
               accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
             },
           },
         },
@@ -29,6 +32,18 @@
           @apply text-3xl mb-2 text-primary;
         }
       }
+
+      @layer utilities {
+        button {
+          @apply py-2 px-5 bg-gradient-to-br from-secondary to-accent saturate-100 hover:saturate-0 rounded-lg tracking-widest text-white  transition-all ease-linear duration-200;
+        }
+        button.btn-special {
+          @apply bg-gradient-to-br from-goldenPrimary to-goldenSecondary;
+        }
+        .btn-container {
+          @apply py-1 flex gap-3 flex-wrap;
+        }
+      }
     </style>
     <title>Document</title>
   </head>
@@ -38,21 +53,27 @@
         <a href="/">
           <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
         </a>
-        <h1>{{ title }}</h1>
+        <h1 v-text="title"></h1>
       </div>
-      <p>
-        Interpolacja danych z obiektu data - w podwójnych nawiasach {{ oraz aktualizacja wartości po ich
-        zmianie
-      </p>
+      <button @click="() => this.isVisible = !this.isVisible">{{ this.isVisible ? "ukryj" : "pokaz"}}</button>
+      <div
+        v-show="isVisible"
+        class="mt-2 flex items-center justify-center border border-primary text-primary aspect-square w-[40rem]"
+      >
+        Element
+      </div>
     </div>
   </body>
   <script>
-    Vue.createApp({
+    const app = Vue.createApp({
       data() {
         return {
-          title: "Dyrektywy VueJS",
+          title: "Events - v-show",
+          isVisible: true,
         };
       },
+      methods: {},
+      computed: {},
     }).mount("#app");
   </script>
 </html>

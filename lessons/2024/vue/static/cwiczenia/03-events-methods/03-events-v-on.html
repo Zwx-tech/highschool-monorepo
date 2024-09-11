@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-primary;
+        }
+        .active {
+          @apply text-goldenPrimary text-xl;
+        }
+      }
+
+      @layer utilities {
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-2 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
+        </a>
+        <h1 v-text="title"></h1>
+      </div>
+      <ul class="flex flex-col gap-2 list-disc">
+        <li class="flex gap-2 items-center" v-for="(item, i) in array" :class="{ 'active': item.status}">
+          {{item.name}}
+          <input type="checkbox" v-model="item.status" />
+        </li>
+      </ul>
+
+      <div class="mt-12 max-w-[30rem]">
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+          >Search</label
+        >
+        <div class="relative">
+          <input
+            ref="inputRef"
+            type="search"
+            id="default-search"
+            class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Add new alement..."
+            v-on:keyup.enter="addNewElement"
+            required
+          />
+          <button
+            @click="addNewElement"
+            type="button"
+            class="text-white absolute end-2.5 bottom-2.5 bg-primary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-primary font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          title: "Events - v-on",
+          array: [
+            { name: "element 1", status: true },
+            { name: "element 2", status: false },
+            { name: "element 3", status: false },
+          ],
+        };
+      },
+      methods: {
+        addNewElement() {
+          const elementName = this.$refs.inputRef.value;
+          this.array.push({
+            name: elementName,
+            status: false,
+          });
+          //* Clear inpt value
+          this.$refs.inputRef.value = "";
+        },
+      },
+      computed: {},
+    }).mount("#app");
+  </script>
+</html>

@@ -131,6 +131,8 @@
             "          title: \"New Lesson\",",
             "        };",
             "      },",
+			"       methods: {},",
+			"       computed: {}",
             "    }).mount(\"#app\");",
             "  </script>",
             "</html>",
