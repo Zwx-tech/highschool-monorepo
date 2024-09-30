@@ -29,11 +29,17 @@
           @apply p-8;
         }
         h1 {
-          @apply text-3xl mb-2 text-primary;
+          @apply text-3xl mb-2 text-goldenDark;
         }
       }
 
       @layer utilities {
+        button {
+          @apply py-2 px-5 bg-gradient-to-br from-goldenPrimary to-goldenSecondary saturate-100 hover:saturate-0 rounded-lg tracking-widest text-white	transition-all ease-linear duration-200;
+        }
+        button:disabled {
+          @apply bg-none bg-gray-200;
+        }
       }
     </style>
     <title>Document</title>
@@ -42,7 +48,7 @@
     <div id="app">
       <div class="flex items-center gap-2 pb-4">
         <a href="/">
-          <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
+          <img class="aspect-square h-12 pb-1" src="/img/golden-vue.svg" alt="V" />
         </a>
         <h1 v-text="title"></h1>
       </div>
@@ -52,9 +58,11 @@
     const app = Vue.createApp({
       data() {
         return {
-          title: "New Lesson",
+          title: "New Excersie",
         };
       },
+      methods: {},
+      computed: {},
     }).mount("#app");
   </script>
 </html>
