@@ -64,10 +64,11 @@
               <th scope="col" class="px-6 py-3">Product name</th>
               <th scope="col" class="px-6 py-3">Price</th>
               <th scope="col" class="px-6 py-3">Action</th>
+              <th scope="col" class="px-6 py-3">Comment</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(product, id) in products" class="odd:bg-white even:bg-gray-50 border-b">
+            <tr v-for="(product, id) in products" class="odd:bg-white even:bg-gray-50 border-b" :key="">
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ id }}</th>
               <td class="px-6 py-4">{{ product.name }}</td>
               <td class="px-6 py-4">{{ product.price }}</td>
@@ -76,9 +77,23 @@
                   {{ product.selected ? "W koszyku" : "Dodaj do koszyka"}}
                 </button>
               </td>
+              <td>
+                <input
+                  class="bg-transparent p-2 outline-none"
+                  type="text"
+                  placeholder="add comment"
+                  v-model="product.comment"
+                />
+              </td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="flex mt-4 p-2 rounded-lg justify-center gap-2 shadow-md">
+        <button class="btn-special" @click="sortByName(true)">WG A-Z</button>
+        <button class="btn-special" @click="sortByName(false)">WG Z-A</button>
+        <button class="btn-special" @click="sortByPrice()">WG ceny</button>
+        <button class="btn-special" @click="sortBySelected()">WG koszyka</button>
       </div>
     </div>
   </body>
@@ -86,18 +101,32 @@
     const app = Vue.createApp({
       data() {
         return {
-          title: "Sklep 01",
+          title: "Sklep 02",
           products: [
-            { name: "książka", price: 100, selected: false },
-            { name: "płyta CD", price: 200, selected: false },
-            { name: "mleko", price: 300, selected: true },
-            { name: "buty", price: 400, selected: true },
+            { id: 0, name: "książka", price: 100, selected: false, comment: "" },
+            { id: 1, name: "płyta CD", price: 200, selected: false, comment: "" },
+            { id: 2, name: "mleko", price: 300, selected: true, comment: "" },
+            { id: 3, name: "buty", price: 400, selected: true, comment: "" },
           ],
         };
       },
       methods: {
         handleAddToCartClick(product, id) {
           this.products[id].selected = !product.selected;
+        },
+        sortByName(reversed) {
+          this.products.sort((a, b) => {
+            if (reversed) {
+              return a.name.localeCompare(b.name);
+            }
+            return b.name.localeCompare(a.name);
+          });
+        },
+        sortByPrice() {
+          this.products.sort((a, b) => a.price - b.price);
+        },
+        sortBySelected() {
+          this.products.sort((a, b) => a.selected - b.selected);
         },
       },
       computed: {},

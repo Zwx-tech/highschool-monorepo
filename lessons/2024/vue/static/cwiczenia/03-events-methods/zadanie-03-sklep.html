@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-goldenDark;
+        }
+      }
+
+      @layer utilities {
+        button {
+          @apply py-2 px-5 bg-gradient-to-br from-secondary to-accent saturate-100 hover:saturate-0 rounded-lg tracking-widest text-white  transition-all ease-linear duration-200;
+        }
+        button.btn-special {
+          @apply bg-gradient-to-br from-goldenPrimary to-goldenSecondary;
+        }
+        .btn-container {
+          @apply py-1 flex gap-3 flex-wrap;
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-4 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/golden-vue.svg" alt="V" />
+        </a>
+        <h1>{{ title }}</h1>
+      </div>
+      <div class="flex gap-4">
+        <template v-for="(products, shopName) of shops" :key="shopName">
+          <div class="flex-1">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+              <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3">ID</th>
+                    <th scope="col" class="px-6 py-3">Product name</th>
+                    <th scope="col" class="px-6 py-3">Price</th>
+                    <th scope="col" class="px-6 py-3">Availability</th>
+                    <th scope="col" class="px-6 py-3">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template v-for="(product, id) in products" :key="product.id">
+                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        {{ id }}
+                      </th>
+                      <td class="px-6 py-4">{{ product.name }}</td>
+                      <td class="px-6 py-4">{{ product.price }}</td>
+                      <td>
+                        {{ product.avaliableIn ? `Available in: ${product.avaliableIn}` : "Available" }}
+                      </td>
+                      <td class="px-6 py-4">
+                        <button @click="handleAddToCartClick(product)" class="btn-special">
+                          {{ product.selected ? "W koszyku" : "Dodaj do koszyka"}}
+                        </button>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+            <div class="flex mt-4 p-2 rounded-lg justify-center gap-2 shadow-md">
+              <button class="btn-special" @click="sortByName(products, true)">WG A-Z</button>
+              <button class="btn-special" @click="sortByName(products, false)">WG Z-A</button>
+              <button class="btn-special" @click="sortByPrice(products)">WG ceny</button>
+              <button class="btn-special" @click="sortBySelected(products)">WG koszyka</button>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          title: "Sklep 03",
+          shops: {
+            "Akcesoria komputerowe": [
+              { id: 0, name: "Personal Computer", price: 100, selected: false, comment: "", avaliableIn: "" },
+              { id: 1, name: "Laptop", price: 200, selected: false, comment: "", avaliableIn: "2 weeks" },
+              { id: 2, name: "Monitor", price: 300, selected: true, comment: "", avaliableIn: "" },
+              {
+                id: 3,
+                name: "Computer mouse",
+                price: 400,
+                selected: true,
+                comment: "",
+                avaliableIn: "1 day",
+              },
+            ],
+            "Akcesoria fotograficzne": [
+              {
+                id: 0,
+                name: "Body Nikon D300S",
+                price: 100,
+                selected: false,
+                comment: "",
+                avaliableIn: "",
+              },
+              { id: 1, name: "Lenses", price: 200, selected: false, comment: "", avaliableIn: "5 hours" },
+              {
+                id: 2,
+                name: "Camera stand",
+                price: 300,
+                selected: true,
+                comment: "",
+                avaliableIn: "",
+              },
+              { id: 3, name: "Photo bag", price: 400, selected: true, comment: "", avaliableIn: "5 hours" },
+              {
+                id: 4,
+                name: "Memery cards",
+                price: 400,
+                selected: true,
+                comment: "",
+                avaliableIn: "",
+              },
+            ],
+          },
+        };
+      },
+      methods: {
+        handleAddToCartClick(product) {
+          product.selected = !product.selected;
+        },
+        sortByName(products, reversed) {
+          products.sort((a, b) => {
+            if (reversed) {
+              return a.name.localeCompare(b.name);
+            }
+            return b.name.localeCompare(a.name);
+          });
+        },
+        sortByPrice(products) {
+          products.sort((a, b) => a.price - b.price);
+        },
+        sortBySelected(products) {
+          products.sort((a, b) => a.selected - b.selected);
+        },
+      },
+      computed: {},
+    }).mount("#app");
+  </script>
+</html>
