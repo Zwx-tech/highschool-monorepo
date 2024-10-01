@@ -55,9 +55,16 @@
       <form class="w-fit bg-gray-50 rounded-lg p-6 flex gap-8 items-start" action="/fiction" @submit.prevent>
         <div class="flex flex-col gap-2">
           <h2 class="text-3xl">Akcesoria</h2>
-          <label v-for="(product, id) in products" class="ml-4 text-2xl">
-            <input type="checkbox" class="accent-primary p-1" v-model="product.checked" /> {{ product.name }}
-          </label>
+          <div
+            v-for="(product, id) in products"
+            class="ml-4 text-xl bg-gray-200 px-4 py-3 rounded-lg border-[.15rem] border-accent"
+          >
+            <label>
+              <input type="checkbox" class="accent-primary p-1" v-model="product.checked" /> {{ product.name
+              }}
+            </label>
+            <p class="text-lg text-accent uppercase font-medium">{{ displayPrice(product )}}</p>
+          </div>
         </div>
         <div class="flex flex-col gap-2">
           <h2 class="text-3xl">Opcja odbioru</h2>
@@ -74,6 +81,14 @@
               <label class="ml-4 text-2xl" :for="`option-${option.option}`"> {{ option.option }} </label>
             </div>
           </template>
+          <select
+            v-model="selectedOption"
+            class="my-4 border-primary border-[.15rem] rounded-lg p-2 outline-none text-primary"
+          >
+            <option value="" disabled>Wybierz opcje</option>
+            <option v-for="(option, id) in options" :value="option.option" v-text="option.option"></option>
+          </select>
+          <p>Sposób dostawy: {{ selectedOption }}</p>
         </div>
         <div class="flex flex-col gap-2">
           <h2 class="text-3xl">Potwierdzenie</h2>
@@ -103,7 +118,16 @@
           userConfirment: false,
         };
       },
-      methods: {},
+      methods: {
+        displayPrice(product) {
+          const currencyMap = {
+            PLN: "Złotych",
+            GBP: "Funtów",
+            USD: "Dolarów",
+          };
+          return `${product.price} ${currencyMap[product.currency]}`;
+        },
+      },
       computed: {},
     }).mount("#app");
   </script>

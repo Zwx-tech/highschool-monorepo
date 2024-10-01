@@ -74,6 +74,14 @@
               <label class="ml-4 text-2xl" :for="`option-${option.option}`"> {{ option.option }} </label>
             </div>
           </template>
+          <select
+            v-model="selectedOption"
+            class="my-4 border-primary border-[.15rem] rounded-lg p-2 outline-none text-primary"
+          >
+            <option value="" disabled>Wybierz opcje</option>
+            <option v-for="(option, id) in options" :value="option.option" v-text="option.option"></option>
+          </select>
+          <p>Sposób dostawy: {{ selectedOption }}</p>
         </div>
         <div class="flex flex-col gap-2">
           <h2 class="text-3xl">Potwierdzenie</h2>

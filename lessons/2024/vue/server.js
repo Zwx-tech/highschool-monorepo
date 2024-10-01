@@ -20,6 +20,12 @@ app.get("/get-lessons", (req, res) => {
   res.send(response);
 });
 
+app.get("/exerciseData/:dataName", (req, res) => {
+  const { dataName } = req.params;
+  const data = fs.readFileSync(path.join(__dirname, "static", "data", `${dataName}.json`), "utf-8");
+  res.send(data);
+});
+
 app.listen(PORT, function () {
   console.log("start serwera na porcie " + PORT);
 });

@@ -1,0 +1,27 @@
+{
+  "products": [
+    { "name": "Mouse", "selected": false },
+    { "name": "Keyboard", "selected": false },
+    { "name": "Monitor", "selected": false },
+    { "name": "Headphones", "selected": false },
+    { "name": "Microphone", "selected": false },
+    { "name": "Webcam", "selected": false },
+    { "name": "Speakers", "selected": false },
+    { "name": "Printer", "selected": false },
+    { "name": "Scanner", "selected": false },
+    { "name": "Projector", "selected": false },
+    { "name": "Laptop", "selected": false },
+    { "name": "Windows", "selected": false },
+    { "name": "Memory", "selected": false }
+  ],
+  "deliveryOptions": [
+    { "name": "DPD", "image": "/dpd.webp" },
+    { "name": "inPOST", "image": "/inPOST.png" },
+    { "name": "Poczta Polska", "image": "/PocztaPolska.png" }
+  ],
+  "paymentOptions": [
+    { "name": "Blik", "image": "/blik.png" },
+    { "name": "PayPal", "image": "/PayPal.png" },
+    { "name": "GPay", "image": "/GPay.png" }
+  ]
+}
