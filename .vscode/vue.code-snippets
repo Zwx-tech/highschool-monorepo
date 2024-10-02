@@ -62,6 +62,9 @@
 					"\t\t\t\t\ttitle: \"Test\",",
 					"\t\t\t\t};",
 				"\t\t\t},",
+				"\t\t\tmethods: {},",
+				"\t\t\tcomputed: {},",
+				"\t\t\tcomponents: {},",
 				"\t\t}).mount(\"#app\");",
 			"\t</script>",
 			"</html>"
@@ -139,6 +142,7 @@
 				"\t\t\t},",
 				"\t\t\tmethods: {},",
 				"\t\t\tcomputed: {},",
+				"\t\t\tcomponents: {},",
 				"\t\t}).mount(\"#app\");",
 			"\t</script>",
 			"</html>",
@@ -215,9 +219,29 @@
 				"\t\t\t},",
 				"\t\t\tmethods: {},",
 				"\t\t\tcomputed: {},",
+				"\t\t\tcomponents: {},",
 				"\t\t}).mount(\"#app\");",
 			"\t</script>",
 			"</html>",
+        ]
+    },
+
+	"New vue component": {
+        "prefix": "!vcom",
+        "title": "New vue component",
+        "description": "This will create a component template using VueJS.",
+        "body": [
+           "const ${1:ComponentName} = {",
+			"\t  template: `<div>{{title}}</div>`,",
+			"\t  props: [],",
+			"\t  data() {",
+				"\t\treturn {",
+				"\t\t  title: \"Component\",",
+				"\t\t};",
+			"\t  },",
+			"\t  methods: {},",
+			"\t  computed: {},",
+			"\t};"
         ]
     }
 }

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-primary;
+        }
+      }
+
+      @layer utilities {
+        button {
+          @apply py-2 px-5 bg-gradient-to-br from-secondary to-accent saturate-100 hover:saturate-0 rounded-lg tracking-widest text-white	transition-all ease-linear duration-200;
+        }
+        button:disabled {
+          @apply bg-none bg-gray-200;
+        }
+        .card {
+          @apply rounded-lg p-4 w-fit;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-2 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
+        </a>
+        <h1 v-text="title"></h1>
+      </div>
+      <div class="flex gap-4">
+        <items-component></items-component>
+        <change-title-component></change-title-component>
+        <add-item-component></add-item-component>
+      </div>
+    </div>
+  </body>
+  <script>
+    const ItemComponent = {
+      template: `<div>{{title}}</div>`,
+      props: [],
+      data() {
+        return {
+          title: "Component",
+        };
+      },
+      methods: {},
+      computed: {},
+    };
+    const ChangeTitleComponent = {
+      template: `<div>{{title}}</div>`,
+      props: [],
+      data() {
+        return {
+          title: "Component",
+        };
+      },
+      methods: {},
+      computed: {},
+    };
+    const AddItemComponent = {
+      template: `<div>{{title}}</div>`,
+      props: [],
+      data() {
+        return {
+          title: "Component",
+        };
+      },
+      methods: {},
+      computed: {},
+    };
+    const app = Vue.createApp({
+      data() {
+        return {
+          title: "New Lesson",
+        };
+      },
+      methods: {},
+      computed: {},
+      components: {
+        "items-component": ItemComponent,
+        "change-title-component": ChangeTitleComponent,
+        "add-item-component": AddItemComponent,
+      },
+    }).mount("#app");
+  </script>
+</html>
