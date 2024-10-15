@@ -45,7 +45,11 @@
 
     <!-- Move the template to the head -->
     <template id="testComponent">
-      <div>{{ title }}</div>
+      <div class="flex flex-col gap-2">
+        <h2 class="text-xl">{{title}}</h2>
+        <p class="text-lg font-medium text-goldenSecondary">{{ this.value}}</p>
+        <button @click="() => parentCallback(this.value)">Update parent</button>
+      </div>
     </template>
 
     <title>Document</title>
@@ -58,19 +62,22 @@
         </a>
         <h1 v-text="title"></h1>
       </div>
-
-      <!-- Mount the component here -->
-      <component-name></component-name>
+      <h2 class="text-3xl mb-4">
+        Current parent value <span class="text-goldenPrimary">{{ parentValue }}</span>
+      </h2>
+      <div class="flex gap-4">
+        <component-name v-for="v in items" :value="v" :parent-callback="setParentValue"></component-name>
+      </div>
     </div>
 
     <!-- Vue App Script -->
     <script>
-      // Define the component with the template ID
       const ComponentName = {
         template: "#testComponent", // Reference the template by its ID
+        props: ["value", "parentCallback"],
         data() {
           return {
-            title: "Component", // This is the title inside the component
+            title: "Component",
           };
         },
       };
@@ -79,13 +86,21 @@
       const app = Vue.createApp({
         data() {
           return {
-            title: "New Exercise", // This is the title in the main app
+            title: "Parent child communication V2",
+            items: [1000, 2000, 3000],
+            parentValue: 0,
           };
         },
-        components: {
-          "component-name": ComponentName, // Register the component
+        methods: {
+          setParentValue(value) {
+            this.parentValue = value * value;
+          },
         },
-      }).mount("#app"); // Mount the Vue app to the #app div
+        computed: {},
+        components: {
+          "component-name": ComponentName,
+        },
+      }).mount("#app");
     </script>
   </body>
 </html>
