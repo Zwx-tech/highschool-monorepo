@@ -41,8 +41,11 @@
           @apply bg-none bg-gray-200;
         }
         .card {
-          @apply rounded-lg p-4 w-fit;
+          @apply rounded-lg py-4 pr-8 px-4  w-fit;
           box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        }
+        input[type="text"] {
+          @apply p-2 border-2 border-primary rounded-lg;
         }
       }
     </style>
@@ -57,53 +60,92 @@
         <h1 v-text="title"></h1>
       </div>
       <div class="flex gap-4">
-        <items-component></items-component>
-        <change-title-component></change-title-component>
-        <add-item-component> </add-item-component>
+        <items-component :element-list="elementList"></items-component>
+        <change-title-component
+          :global-title="title"
+          :update-title="(newTitle) => {this.title=newTitle}"
+        ></change-title-component>
+        <add-item-component :add-card="(c) => this.addCard(c)"></add-item-component>
       </div>
     </div>
   </body>
   <script>
     const ItemComponent = {
-      template: `<div>{{title}}</div>`,
-      props: [],
+      template: `
+      <div class="card">
+        <h2 class="text-xl">{{title}}</h2>
+        <ul>
+          <li v-for="element in elementList" :key="element.name" class="my-3 px-4">
+            <label class="p-1">
+              <!-- ITS SO FUNNY THAT THIS IS WORKING -->
+              {{element.name}} <input type="checkbox" class="accent-primary mr-2" v-model="element.checked" />
+            </label>
+          </li>
+        </ul>
+      </div>`,
+      props: ["elementList"],
       data() {
         return {
-          title: "Component",
+          title: "Items component",
         };
       },
       methods: {},
       computed: {},
     };
     const ChangeTitleComponent = {
-      template: `<div>{{title}}</div>`,
-      props: [],
+      template: `<div class="card">
+        <h2 class="text-xl mb-4">{{title}}</h2>
+        <input type="text" @input="(e) => updateTitle(e.target.value)" :value="globalTitle" />
+        </div>`,
+      props: ["globalTitle", "updateTitle"],
       data() {
         return {
-          title: "Component",
+          title: "Change title component",
         };
       },
       methods: {},
       computed: {},
     };
     const AddItemComponent = {
-      template: `<div>{{title}}</div>`,
-      props: [],
+      template: `<div class="card">
+        <h2 class="text-xl mb-4">{{title}}</h2>
+        <div class="flex gap-4">
+          <input type="text" v-model="inputValue" class="p-2 m-0" />
+          <button @click="handleAddingCard">Add item</button>
+        </div>
+        </div>`,
+      props: ["addCard"],
       data() {
         return {
-          title: "Component",
+          title: "Add item component",
+          inputValue: "",
         };
       },
-      methods: {},
+      methods: {
+        handleAddingCard() {
+          console.log(this.$props);
+          this.$props.addCard(this.inputValue);
+          this.inputValue = "";
+        },
+      },
       computed: {},
     };
     const app = Vue.createApp({
       data() {
         return {
-          title: "New Lesson",
+          title: "Lesson 8 - components",
+          elementList: [
+            { name: "Element 1", checked: true },
+            { name: "Element 2", checked: false },
+            { name: "Element 3", checked: true },
+          ],
         };
       },
-      methods: {},
+      methods: {
+        addCard(newCard) {
+          this.elementList.push({ name: newCard, checked: false });
+        },
+      },
       computed: {},
       components: {
         "items-component": ItemComponent,
