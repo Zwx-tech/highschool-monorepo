@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-goldenDark;
+        }
+      }
+
+      @layer utilities {
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-4 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/golden-vue.svg" alt="V" />
+        </a>
+        <h1>{{ title }}</h1>
+      </div>
+      <div class="flex flex-col gap-2 w-40">
+        <div
+          class="grid place-items-center w-40 aspect-square rounded-md text-white text-4xl"
+          :class="getTimerColor"
+        >
+          {{ timer }}
+        </div>
+      </div>
+    </div>
+  </body>
+  <script defer is="script">
+    const app = Vue.createApp({
+      data() {
+        return {
+          title: "Zadanie style",
+          interval: null,
+          timer: 0,
+        };
+      },
+      methods: {
+        start() {
+          this.timer = 0; //* Reset timer
+          this.interval = setInterval(() => {
+            this.timer++; //* Increment timer
+          }, 1000);
+        },
+        stop() {
+          clearInterval(this.interval);
+        },
+      },
+      computed: {
+        getTimerColor() {
+          const res = this.timer % 2 === 0 ? "bg-green-200" : "bg-red-200";
+          console.log(res);
+          return this.timer % 2 === 0 ? "bg-green-200" : "bg-red-200";
+        },
+      },
+    }).mount("#app");
+  </script>
+</html>

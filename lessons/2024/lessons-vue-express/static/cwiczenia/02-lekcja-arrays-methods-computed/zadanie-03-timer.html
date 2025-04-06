@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-goldenDark;
+        }
+      }
+
+      @layer utilities {
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-4 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/golden-vue.svg" alt="V" />
+        </a>
+        <h1>{{ title }}</h1>
+      </div>
+      <div
+        class="relative border-gray-900 dark:bg-gray-800 dark:border-gray-800 border-[10px] rounded-[2.5rem] h-[213px] w-[208px]"
+      >
+        <div
+          class="h-[41px] w-[6px] bg-gray-800 dark:bg-gray-800 absolute -end-[16px] top-[40px] rounded-e-lg"
+        ></div>
+        <div
+          class="h-[32px] w-[6px] bg-gray-800 dark:bg-gray-800 absolute -end-[16px] top-[88px] rounded-e-lg"
+        ></div>
+        <div class="rounded-[2rem] overflow-hidden h-[193px] w-[188px] p-[.05rem]">
+          <div
+            class="rounded-[1.5rem] bg-gray-600 w-full h-full flex flex-col items-center justify-center text-white"
+          >
+            <p class="text-xl">{{ isWorkTime }}</p>
+            <p class="text-3xl">{{ minutes }}:{{ seconds }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          title: "Zadanie timer",
+          timer: 0,
+          interval: null,
+        };
+      },
+      methods: {
+        start() {
+          this.timer = 0; //* Reset timer
+          this.interval = setInterval(() => {
+            this.timer++; //* Increment timer
+          }, 1000);
+        },
+        pause() {
+          clearInterval(this.interval);
+          this.interval = null;
+        },
+        relapse() {
+          if (this.interval !== null) return;
+          this.interval = setInterval(() => {
+            this.timer++; //* Increment timer
+          }, 1000);
+        },
+      },
+      computed: {
+        isWorkTime() {
+          if (this.interval === null) return "Pasued";
+          const _isWorkTime = Math.floor(this.timer / 10) % 2 === 0;
+          return _isWorkTime ? "Pracuj" : "Odpoczywaj";
+        },
+        seconds() {
+          const _seconds = this.timer % 60;
+          return _seconds < 10 ? `0${_seconds}` : _seconds;
+        },
+        minutes() {
+          const _minutes = Math.floor(this.timer / 60);
+          return _minutes < 10 ? `0${_minutes}` : _minutes;
+        },
+      },
+    }).mount("#app");
+  </script>
+</html>

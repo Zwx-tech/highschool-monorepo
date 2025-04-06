@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-goldenDark;
+        }
+      }
+
+      @layer utilities {
+        button {
+          @apply py-2 px-5 bg-gradient-to-br from-secondary to-accent saturate-100 hover:saturate-0 rounded-lg tracking-widest text-white  transition-all ease-linear duration-200;
+        }
+        button.btn-special {
+          @apply bg-gradient-to-br from-goldenPrimary to-goldenSecondary;
+        }
+        .btn-container {
+          @apply py-1 flex gap-3 flex-wrap;
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-4 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/golden-vue.svg" alt="V" />
+        </a>
+        <h1>{{ title }}</h1>
+      </div>
+
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3">ID</th>
+              <th scope="col" class="px-6 py-3">Product name</th>
+              <th scope="col" class="px-6 py-3">Price</th>
+              <th scope="col" class="px-6 py-3">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(product, id) in products" class="odd:bg-white even:bg-gray-50 border-b">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ id }}</th>
+              <td class="px-6 py-4">{{ product.name }}</td>
+              <td class="px-6 py-4">{{ product.price }}</td>
+              <td class="px-6 py-4">
+                <button @click="handleAddToCartClick(product, id)" class="btn-special">
+                  {{ product.selected ? "W koszyku" : "Dodaj do koszyka"}}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          title: "Sklep 01",
+          products: [
+            { name: "książka", price: 100, selected: false },
+            { name: "płyta CD", price: 200, selected: false },
+            { name: "mleko", price: 300, selected: true },
+            { name: "buty", price: 400, selected: true },
+          ],
+        };
+      },
+      methods: {
+        handleAddToCartClick(product, id) {
+          this.products[id].selected = !product.selected;
+        },
+      },
+      computed: {},
+    }).mount("#app");
+  </script>
+</html>

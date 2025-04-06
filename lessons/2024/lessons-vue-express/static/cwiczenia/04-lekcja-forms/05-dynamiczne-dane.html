@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-primary;
+        }
+      }
+
+      @layer utilities {
+        button {
+          @apply py-2 px-5 bg-gradient-to-br from-secondary to-accent saturate-100 hover:saturate-0 rounded-lg tracking-widest text-white  transition-all ease-linear duration-200;
+        }
+        button:disabled {
+          @apply bg-none bg-gray-200;
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-2 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
+        </a>
+        <h1 v-text="title"></h1>
+      </div>
+      <form class="w-fit bg-gray-50 rounded-lg p-6 flex gap-8 items-start" action="/fiction" @submit.prevent>
+        <div class="flex flex-col gap-2">
+          <h2 class="text-3xl">Akcesoria</h2>
+          <div
+            v-for="(product, id) in products"
+            class="ml-4 text-xl bg-gray-200 px-4 py-3 rounded-lg border-[.15rem] border-accent"
+          >
+            <label>
+              <input type="checkbox" class="accent-primary p-1" v-model="product.checked" /> {{ product.name
+              }}
+            </label>
+            <p class="text-lg text-accent uppercase font-medium">{{ displayPrice(product )}}</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="text-3xl">Opcja odbioru</h2>
+          <template v-for="(option, id) in options">
+            <div class="flex items-center">
+              <input
+                type="radio"
+                name="fOdbioru"
+                :id="`option-${option.option}`"
+                class="accent-primary p-1"
+                :value="option.option"
+                v-model="selectedOption"
+              />
+              <label class="ml-4 text-2xl" :for="`option-${option.option}`"> {{ option.option }} </label>
+            </div>
+          </template>
+          <select
+            v-model="selectedOption"
+            class="my-4 border-primary border-[.15rem] rounded-lg p-2 outline-none text-primary"
+          >
+            <option value="" disabled>Wybierz opcje</option>
+            <option v-for="(option, id) in options" :value="option.option" v-text="option.option"></option>
+          </select>
+          <p>Sposób dostawy: {{ selectedOption }}</p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="text-3xl">Potwierdzenie</h2>
+          <label class="ml-4 text-2xl">
+            <input type="checkbox" class="accent-primary p-1" v-model="userConfirment" /> Potwierdzam zgodnosc
+            danych
+          </label>
+          <button :disabled="!userConfirment">Send</button>
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          title: "Form - v-model & checkbox",
+          products: [
+            { name: "Myszka", checked: false, price: 30, currency: "PLN" },
+            { name: "Laptop", checked: false, price: 2500, currency: "GBP" },
+            { name: "Komputer", checked: false, price: 4000, currency: "PLN" },
+            { name: "Monitor", checked: false, price: 1000, currency: "GBP" },
+            { name: "Głośniki", checked: false, price: 600, currency: "USD" },
+          ],
+          options: [{ option: "Kurier" }, { option: "Poczta" }, { option: "Osobiście" }, { option: "TEST" }],
+          selectedOption: "",
+          userConfirment: false,
+        };
+      },
+      methods: {
+        displayPrice(product) {
+          const currencyMap = {
+            PLN: "Złotych",
+            GBP: "Funtów",
+            USD: "Dolarów",
+          };
+          return `${product.price} ${currencyMap[product.currency]}`;
+        },
+      },
+      computed: {},
+    }).mount("#app");
+  </script>
+</html>

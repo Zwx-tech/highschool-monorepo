@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-primary;
+        }
+      }
+
+      @layer utilities {
+        button {
+          @apply py-2 px-5 bg-gradient-to-br from-secondary to-accent saturate-100 hover:saturate-0 rounded-lg tracking-widest text-white	transition-all ease-linear duration-200;
+        }
+        button:disabled {
+          @apply bg-none bg-gray-200;
+        }
+        .card {
+          @apply rounded-lg p-8 w-fit;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-2 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
+        </a>
+        <h1 v-text="title"></h1>
+      </div>
+      <button @click="setup">Set values in all compnents</button>
+      <div class="flex gap-4 mt-4">
+        <card-component :name="name" :age="age"></card-component>
+        <card-component :name="name" :age="age"></card-component>
+        <card-component :name="name" :age="age"></card-component>
+      </div>
+    </div>
+  </body>
+  <script>
+    const CardComponent = {
+      template: `<div class="card flex flex-col gap-4">
+        <h2 class="text-2xl">Moja wizytówka</h2>
+        <p><span>Imie: </span> {{ this.name ? this.name : "Deafult value" }}</p>
+        <p><span>Wiek: </span> {{ this.age ? this.age : "Deafult value"}}</p>
+        <pre> {{ JSON.stringify(this.$props, null, 5) }} </pre>
+        </div>`,
+      props: ["name", "age"],
+      data() {
+        return {
+          title: "Component",
+        };
+      },
+      methods: {},
+      computed: {},
+    };
+    const app = Vue.createApp({
+      data() {
+        return {
+          title: "New Lesson",
+          name: null,
+          age: null,
+        };
+      },
+      methods: {
+        setup() {
+          this.name = "Jan Nowak";
+          this.age = 25;
+        },
+      },
+      computed: {},
+      components: {
+        "card-component": CardComponent,
+      },
+    }).mount("#app");
+  </script>
+</html>
