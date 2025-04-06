@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const { product } = defineProps<{ product: any }>();
+const { product } = defineProps<{ product: Product }>();
 
 
 </script>

@@ -64,5 +64,4 @@ const promotionListModule: Module<PromotionListState, any> = {
 };
 
 const promotionListStoreKey: InjectionKey<Store<PromotionListState>> = Symbol();
-console.log("promotion list store", promotionListStoreKey);
 export { promotionListModule, promotionListStoreKey };

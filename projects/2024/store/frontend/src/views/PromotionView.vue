@@ -8,14 +8,20 @@ import ProductTile from '@/components/ProductTile.vue';
 const route = useRoute();
 const store = useStore();
 
-onMounted(() => {
-    console.log(store);
-    store.dispatch('fetchPromotion', route.params.id);
+onMounted(async () => {
+    await store.dispatch('fetchPromotion', route.params.id)
+    await store.dispatch('fetchPromotionProducts');
 });
 
 const promotion = computed<Promotion | null>(() => {
     if (!store.getters.getPromotionLoading)
         return store.getters.getPromotion;
+    return null
+});
+
+const promotionProducts = computed(() => {
+    if (!store.getters.getPromotionLoading)
+        return store.getters.getPromotionProducts;
     return null
 });
 
@@ -27,11 +33,8 @@ const promotion = computed<Promotion | null>(() => {
             class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <Loader />
         </div>
-        <div class="flex px-4 mt-4" v-if="promotion">
-            <ProductTile v-for="product in promotion.items" :key="product" :product="product" />
-        </div>
-        <div class="flex px-4 mt-4" v-if="promotion">
-            <ProductTile v-for="product in promotion.items" :key="product" :product="product" />
+        <div class="flex px-4 mt-4" v-if="promotionProducts">
+            <ProductTile v-for="product in promotionProducts" :key="product" :product="product" />
         </div>
     </main>
 </template>
