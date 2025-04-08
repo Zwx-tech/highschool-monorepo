@@ -61,39 +61,34 @@ const promotionModule: Module<PromotionState, any> = {
   // tu zapytania do serwera z pomocą naszego api
   actions: {
     fetchPromotion({ state, commit, getters }, promotionId: number) {
-      // najpierw ustawiamy stan ładowania na true (czyli dane się ładują, teraz mógłby się pokazywać loader)
-      commit("setPromotionLoading", true); // potem wywołujemy funkcję z api, która // odbiera dane z serwera (poprzez axios) i ustawia listę promocji w store // w razie błędu ustawia error w store (catch) // niezależnie od błędu lub jego braku (finally), kończy loading
-
+      // Start loading
+      commit("setPromotionLoading", true);
       state.promotionLoading = true;
-      getPromotion(promotionId)
-        .then((data: any) => {
-          commit("setPromotion", data);
-        })
-        .catch((error) => {
-          commit("setPromotionError", "server error!!!");
-        })
-        .finally(() => {
-          commit("setPromotionLoading", false); // potem wywołujemy funkcję z api, która // odbiera dane z serwera (poprzez axios) i ustawia listę promocji w store // w razie błędu ustawia error w store (catch) // niezależnie od błędu lub jego braku (finally), kończy loading
-          state.promotionLoading = false;
-        });
-    },
 
-    fetchPromotionProducts({ state, commit, getters }) {
-      if (state.promotionsObject === null) {
-        return;
-      }
-      const productIds = state.promotionsObject.items;
-      console.log(productIds);
-      const productPromises = productIds.map((productId) => getProduct(productId));
-      return Promise.all(productPromises)
+      getPromotion(promotionId)
+        .then((promotionData: any) => {
+          commit("setPromotion", promotionData);
+
+          const productIds = promotionData?.items;
+          if (!productIds || !Array.isArray(productIds)) {
+            return;
+          }
+
+          const productPromises = productIds.map((productId) => getProduct(productId));
+          return Promise.all(productPromises);
+        })
         .then((products) => {
-          commit("setPromotionProducts", products);
+          if (products) {
+            commit("setPromotionProducts", products);
+          }
         })
         .catch((error) => {
+          console.error("Error fetching promotion or products", error);
           commit("setPromotionError", "server error!!!");
         })
         .finally(() => {
           commit("setPromotionLoading", false);
+          state.promotionLoading = false;
         });
     },
   },

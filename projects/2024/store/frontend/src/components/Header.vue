@@ -19,7 +19,7 @@ import { RouterLink } from 'vue-router';
                     <RouterLink to="/not-found" exact>Login</RouterLink>
                 </li>
                 <li>
-                    <RouterLink to="/not-found" exact>Register</RouterLink>
+                    <RouterLink to="/register" exact>Register</RouterLink>
                 </li>
 
             </ul>
