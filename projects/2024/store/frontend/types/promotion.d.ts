@@ -35,3 +35,12 @@ type Product = {
   }[];
   comments: any[]; // You can define a Comment type if needed
 };
+
+type User = {
+  email: string;
+  password: string;
+};
+
+type ErrorMessage = {
+  message: string;
+};

@@ -1,25 +1,50 @@
 // src/index.ts
-import express, { Express, Request, Response } from "express";
+import express from "express";
+import { Request, Response, Express } from "express";
+import { connect } from "./db/connect";
 import dotenv from "dotenv";
-
+import cors from "cors";
+import cookieParser from "cookie-parser";
 import data from "./data/promotions.json";
+import { getUserByEmail, registerUser } from "./db/methods";
+import jwt from "jsonwebtoken";
+
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
+const db = await connect();
 
-/*
-      "image": "https://www.brickfanatics.com/wp-content/uploads/2023/09/LEGO-Icons-Winter-Village-10325-Alpine-Lodge-featured-1-1024x576.png",
-      "image": "httplos://www.lego.com/cdn/cs/set/assets/blt377341d120db9430/Hero_Banner_2024_-_Desktop.jpg?fit=crop&format=jpg&quality=80&width=1600&height=500&dpr=1",
-*/
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key";
+const SALT_ROUNDS = 10;
 
-//* Fix cors issue
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// Helper function to generate JWT
+function generateToken(payload: object): string {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+}
+
+function verifyToken(token: string) {
+  try {
+    return jwt.verify(token, JWT_SECRET);
+  } catch (error) {
+    console.error("Invalid token:", error);
+    return null;
+  }
+}
+
+if (!db) {
+  console.error("Failed to connect to the database");
+}
+
+app.use(cookieParser()); // Middleware to parse cookies
+app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded request bodies
+app.use(express.json()); // Middleware to parse JSON request bodies
+app.use(cors(corsOptions)); // Middleware to enable CORS
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
@@ -44,6 +69,74 @@ app.get("/product/:id", (req, res) => {
     res.status(404).send("Not found");
   }
   res.json(response);
+});
+
+// @ts-expect-error
+app.post("/register", async (req, res) => {
+  const { user } = req.body;
+
+  if (!user || !user.email || !user.password) {
+    return res.status(400).json({ message: "Invalid user data" });
+  }
+
+  try {
+    const result = await registerUser(db, user);
+
+    res.cookie("session", generateToken({ email: user.email }));
+
+    res.status(201).json(result);
+  } catch (error) {
+    res.status(500).json({ message: (error as Error).message });
+  }
+});
+
+//@ts-expect-error
+app.post("/login", async (req, res) => {
+  const { user } = req.body;
+
+  if (!user || !user.email || !user.password) {
+    return res.status(400).json({ message: "Invalid user data" });
+  }
+
+  try {
+    const result = getUserByEmail(db, user.email);
+    if (!result) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    const userData = await result;
+    if (!userData) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    if (userData.password !== user.password) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    res.cookie("session", generateToken({ email: user.email }));
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ message: (error as Error).message });
+  }
+});
+
+//@ts-expect-error
+app.get("/getUser", async (req, res) => {
+  const token = req.query.token as string | undefined;
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  const decoded = verifyToken(token);
+  if (!decoded) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  if (typeof decoded !== "object" || !("email" in decoded)) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  const user = await getUserByEmail(db, decoded.email);
+  if (!user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  res.status(200).json(user);
 });
 
 app.listen(port, () => {

@@ -1,5 +1,26 @@
 <script lang="ts" setup>
+import { computed, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const isAuthenticated = computed(() => {
+    return store.getters.isAuthenticated;
+})
+
+const userData = computed(() => {
+    return store.getters.getUser;
+})
+
+const userEmail = computed(() => {
+    return userData.value?.email || '';
+})  
+
+onMounted(() => {
+    if(!store.getters.isAuthenticated)
+    store.dispatch('autoAuth');
+})
 </script>
 
 <template>
@@ -15,13 +36,19 @@ import { RouterLink } from 'vue-router';
                 <li>
                     <RouterLink to="/not-found" exact>Not found</RouterLink>
                 </li>
-                <li class="ml-auto">
-                    <RouterLink to="/not-found" exact>Login</RouterLink>
+
+                <li class="ml-auto" v-if="!isAuthenticated">
+                    <RouterLink to="/login" exact>Login</RouterLink>
                 </li>
-                <li>
+                <li v-if="!isAuthenticated">
                     <RouterLink to="/register" exact>Register</RouterLink>
                 </li>
-
+                <li class="ml-auto text-gray-600" v-if="isAuthenticated">
+                    <span> {{ userEmail }}</span>
+                </li>
+                <li v-if="isAuthenticated">
+                    <button @click="store.dispatch('logout')">Logout</button>
+                </li>
             </ul>
             <hr class="border-black mt-5">
         </nav>

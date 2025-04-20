@@ -1,33 +1,32 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 // src/index.ts
-const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const promotions_json_1 = __importDefault(require("./data/promotions.json"));
-dotenv_1.default.config();
-const app = (0, express_1.default)();
+import express from "express";
+import { connect } from "./db/connect";
+import dotenv from "dotenv";
+import cors from "cors";
+import data from "./data/promotions.json";
+import { registerUser } from "./db/methods";
+const corsOptions = {
+    origin: true,
+    credentials: true,
+};
+dotenv.config();
+const app = express();
 const port = process.env.PORT || 3000;
-/*
-      "image": "https://www.brickfanatics.com/wp-content/uploads/2023/09/LEGO-Icons-Winter-Village-10325-Alpine-Lodge-featured-1-1024x576.png",
-      "image": "httplos://www.lego.com/cdn/cs/set/assets/blt377341d120db9430/Hero_Banner_2024_-_Desktop.jpg?fit=crop&format=jpg&quality=80&width=1600&height=500&dpr=1",
-*/
-//* Fix cors issue
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+const db = await connect();
+if (!db) {
+    console.error("Failed to connect to the database");
+}
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded request bodies
+app.use(express.json()); // Middleware to parse JSON request bodies
 app.get("/", (req, res) => {
     res.send("Express + TypeScript Server");
 });
 app.get("/promotions", (req, res) => {
-    res.json(promotions_json_1.default.promotions);
+    res.json(data.promotions);
 });
 app.get("/promotion/:id", (req, res) => {
-    const response = promotions_json_1.default.promotions.find((promotion) => promotion.id === req.params.id);
+    const response = data.promotions.find((promotion) => promotion.id === req.params.id);
     if (!response) {
         res.status(404).send("Not found");
     }
@@ -35,11 +34,26 @@ app.get("/promotion/:id", (req, res) => {
 });
 app.get("/product/:id", (req, res) => {
     // get zwraca produkty wyszukane przez id
-    const response = promotions_json_1.default.products.find((product) => product.id === req.params.id);
+    const response = data.products.find((product) => product.id === req.params.id);
     if (!response) {
         res.status(404).send("Not found");
     }
     res.json(response);
+});
+// @ts-expect-error
+app.post("/register", async (req, res) => {
+    const { user } = req.body;
+    if (!user || !user.email || !user.password) {
+        return res.status(400).json({ message: "Invalid user data" });
+    }
+    try {
+        const result = await registerUser(db, user);
+        res.status(201).json(result);
+    }
+    catch (error) {
+        console.error("Error registering user:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 });
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

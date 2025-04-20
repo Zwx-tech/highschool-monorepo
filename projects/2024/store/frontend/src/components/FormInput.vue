@@ -29,7 +29,7 @@ const inputId = `${serializedName}-input`;
       />
     
       <span
-        class="absolute text-gray-500 inset-y-0 start-3 -translate-y-5 bg-transparent px-0.5 text-sm font-medium transition-transform peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 peer-focus:bg-white"
+        class="absolute text-gray-500 inset-y-0 start-3 -translate-y-6 bg-transparent px-0.5 text-sm font-medium transition-transform peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 bg-white"
       >
         {{ placeholder }}
       </span>

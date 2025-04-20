@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+console.log(process.env.MONGODB_URI);
+
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017"; // Replace with your MongoDB connection string
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -27,5 +29,5 @@ export async function connect(): Promise<Db> {
     console.error("Error connecting to MongoDB:", error);
   }
 
-  return client.db("store"); // Replace with your database name
+  return client.db("store");
 }
