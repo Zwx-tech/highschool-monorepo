@@ -28,14 +28,14 @@ const promotionProducts = computed(() => {
 </script>
 
 <template>
-    <main class="min-h-[calc(92vh-4rem)] relative">
+    <main class="min-h-[calc(92vh-4rem)] relative ">
         <div v-if="store.getters.getPromotionLoading === true"
             class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <Loader />
         </div>
         <div class="w-full" v-if="promotion && !store.getters.getPromotionLoading">
             <PromotionTile class="mb-4" :promotion="promotion" />
-            <div class="flex px-4 mt-4" v-if="promotionProducts">
+            <div class="flex px-4 mt-4 " v-if="promotionProducts">
                 <ProductTile v-for="product in promotionProducts" :key="product" :product="product" />
             </div>
         </div>

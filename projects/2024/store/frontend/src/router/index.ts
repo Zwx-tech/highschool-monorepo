@@ -8,6 +8,7 @@ import AboutView from "@/views/AboutView.vue";
 import PromotionView from "@/views/PromotionView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import LoginView from "@/views/LoginView.vue";
+import ProductView from "@/views/ProductView.vue";
 
 //@ts-ignore
 const NotFoundView = () => import("@/views/NotFoundView.vue");
@@ -34,6 +35,11 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+    },
+    {
+      path: "/products",
+      name: "products",
+      component: ProductView,
     },
     {
       path: "/:pathMatch(.*)*",

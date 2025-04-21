@@ -40,6 +40,9 @@ const promotionListModule: Module<PromotionListState, any> = {
     getPromotionList(state) {
       return state.promotionsList;
     },
+    getPromotionListLoading(state) {
+      return state.promotionsLoading;
+    },
   },
 
   // tu zapytania do serwera z pomocą naszego api

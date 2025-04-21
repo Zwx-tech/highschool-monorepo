@@ -3,6 +3,7 @@ import { promotionListModule, promotionListStoreKey } from "./promotions";
 import { promotionModule, promotionStoreKey } from "./promotion";
 import type { App } from "vue";
 import userModule from "./user";
+import productModule from "./product";
 
 export function storeSetup(app: App) {
   const store = createStore({
@@ -10,6 +11,7 @@ export function storeSetup(app: App) {
       promotionListModule,
       promotionModule,
       userModule,
+      product: productModule,
     },
   });
   app.use(store);

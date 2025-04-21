@@ -129,6 +129,7 @@ app.get("/getUser", async (req, res) => {
   if (!decoded) {
     return res.status(401).json({ message: "Unauthorized" });
   }
+  //* Love u ts
   if (typeof decoded !== "object" || !("email" in decoded)) {
     return res.status(401).json({ message: "Unauthorized" });
   }
@@ -137,6 +138,36 @@ app.get("/getUser", async (req, res) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
   res.status(200).json(user);
+});
+
+//@ts-expect-error
+app.get("/products", (req, res) => {
+  const { search, category, sortBy, sortOrder } = req.query;
+
+  if (!search && !category && !sortBy && !sortOrder) {
+    return res.json(data.products);
+  }
+  const filteredProducts = data.products.filter((product) => {
+    const nameMatch = search ? product.name.toLowerCase().startsWith((search as string).toLowerCase()) : true;
+    if (!category) return nameMatch;
+    const categoryMatch = category ? product.category === category : true;
+    return nameMatch && categoryMatch;
+  });
+
+  const sortedProducts = filteredProducts.sort((a, b) => {
+    if (sortBy && sortOrder) {
+      const order = sortOrder === "asc" ? 1 : -1;
+      return a.price > b.price ? order : -order;
+    }
+    return 0;
+  });
+
+  res.status(200).json(sortedProducts);
+});
+
+//* It's hardcoded for now
+app.get("/categories", (req, res) => {
+  res.json(["PHONE", "TABLET", "LAPTOP", "DESKTOP"]);
 });
 
 app.listen(port, () => {

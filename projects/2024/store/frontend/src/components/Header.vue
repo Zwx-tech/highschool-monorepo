@@ -31,6 +31,9 @@ onMounted(() => {
                     <RouterLink to="/" exact>Home</RouterLink>
                 </li>
                 <li>
+                    <RouterLink to="/products" exact>Search</RouterLink>
+                </li>
+                <li>
                     <RouterLink to="/about" exact>About</RouterLink>
                 </li>
                 <li>

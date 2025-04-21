@@ -41,6 +41,13 @@ type User = {
   password: string;
 };
 
+type SearchParams = {
+  category: string;
+  search: string;
+  _sort: string;
+  _order: "asc" | "desc";
+};
+
 type ErrorMessage = {
   message: string;
 };

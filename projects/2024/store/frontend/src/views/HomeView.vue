@@ -16,11 +16,11 @@ const promotions = computed(() => !store.state.promotionsLoading ? store.getters
 
 <template>
   <main class="min-h-[calc(92vh-4rem)] relative">
-    <div v-if="store.state.promotionsLoading"
+    <div v-if="store.getters.getPromotionListLoading"
       class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <Loader />
     </div>
-    <RouterLink v-for="promotion in promotions" :to="`/promotion/${promotion.id}`" :key="promotion.id">
+    <RouterLink v-if="!store.getters.getPromotionListLoading"  v-for="promotion in promotions" :to="`/promotion/${promotion.id}`" :key="promotion.id">
       <PromotionTile :promotion="promotion" />
     </RouterLink>
   </main>

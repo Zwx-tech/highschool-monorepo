@@ -26,7 +26,7 @@
       "id": "5ea08604c5254c8643359963",
       "category": "DESKTOP",
       "name": "Diginetic",
-      "image": "desktop1.jpg",
+      "image": "desktop1.webp",
       "price": 652,
       "rate": 1.8,
       "ratesNumber": 101,
@@ -43,7 +43,7 @@
         {
           "name": "Bunga",
           "description": "Sint duis veniam irure eiusmod laboris consequat nisi id est voluptate. Culpa esse id do sit quis officia eiusmod sit et consectetur.",
-          "photo": "desktop3.jpg"
+          "photo": "desktop3.webp"
         }
       ],
       "comments": []
@@ -52,7 +52,7 @@
       "id": "5ea0860429790ae50c4ff1be",
       "category": "DESKTOP",
       "name": "Telpod",
-      "image": "desktop2.jpg",
+      "image": "desktop2.webp",
       "price": 596,
       "rate": 3.41,
       "ratesNumber": 64,
@@ -69,7 +69,7 @@
         {
           "name": "Talendula",
           "description": "Culpa sit cillum labore voluptate occaecat adipisicing amet laborum qui. Tempor labore quis occaecat laborum reprehenderit consequat qui.",
-          "photo": "desktop2.jpg"
+          "photo": "desktop2.webp"
         }
       ],
       "comments": []
@@ -78,7 +78,7 @@
       "id": "5ea086044623f65e83a0fecc",
       "category": "DESKTOP",
       "name": "Zentility",
-      "image": "desktop2.jpg",
+      "image": "desktop2.webp",
       "price": 980,
       "rate": 2.14,
       "ratesNumber": 104,
@@ -95,7 +95,7 @@
         {
           "name": "Applica",
           "description": "Qui velit exercitation occaecat ut aute pariatur minim tempor exercitation dolor in aute mollit sit. Et esse nisi nulla in deserunt non quis adipisicing.",
-          "photo": "desktop3.jpg"
+          "photo": "desktop3.webp"
         }
       ],
       "comments": [
@@ -120,7 +120,7 @@
       "id": "5ea08604dd0221b86c6fea89",
       "category": "DESKTOP",
       "name": "Netility",
-      "image": "desktop2.jpg",
+      "image": "desktop2.webp",
       "price": 1590,
       "rate": 2.79,
       "ratesNumber": 122,
@@ -137,7 +137,7 @@
         {
           "name": "Chillium",
           "description": "Ea tempor dolore eu pariatur nisi laboris velit consequat quis non ullamco occaecat nulla. Quis eu laboris in commodo in esse sit.",
-          "photo": "desktop1.jpg"
+          "photo": "desktop1.webp"
         }
       ],
       "comments": [
@@ -162,7 +162,7 @@
       "id": "5ea08604fb9e6efa95c1637b",
       "category": "DESKTOP",
       "name": "Stralum",
-      "image": "desktop1.jpg",
+      "image": "desktop1.webp",
       "price": 1596,
       "rate": 1.9,
       "ratesNumber": 53,
@@ -179,7 +179,7 @@
         {
           "name": "Gazak",
           "description": "Do esse culpa id occaecat sunt occaecat et. Tempor ullamco ut incididunt tempor minim mollit magna veniam eiusmod.",
-          "photo": "desktop3.jpg"
+          "photo": "desktop3.webp"
         }
       ],
       "comments": [
@@ -209,7 +209,7 @@
       "id": "5ea08604f87b1c72673c908a",
       "category": "DESKTOP",
       "name": "Digial",
-      "image": "desktop3.jpg",
+      "image": "desktop3.webp",
       "price": 1666,
       "rate": 1.77,
       "ratesNumber": 52,
@@ -226,7 +226,7 @@
         {
           "name": "Corecom",
           "description": "Cillum mollit cillum aliquip nisi ad occaecat velit occaecat est commodo. Ipsum nisi aliquip culpa exercitation culpa amet incididunt consectetur veniam commodo deserunt et.",
-          "photo": "desktop3.jpg"
+          "photo": "desktop3.webp"
         }
       ],
       "comments": [
@@ -256,7 +256,7 @@
       "id": "5ea08604908d4059d260f60c",
       "category": "DESKTOP",
       "name": "Nebulean",
-      "image": "desktop3.jpg",
+      "image": "desktop3.webp",
       "price": 602,
       "rate": 2.87,
       "ratesNumber": 104,
@@ -273,7 +273,7 @@
         {
           "name": "Dyno",
           "description": "Eu ex magna et amet anim. Ad magna ex officia consectetur officia labore.",
-          "photo": "desktop2.jpg"
+          "photo": "desktop2.webp"
         }
       ],
       "comments": [
@@ -293,7 +293,7 @@
       "id": "5ea086048c22c9f1a6a38866",
       "category": "DESKTOP",
       "name": "Grupoli",
-      "image": "desktop1.jpg",
+      "image": "desktop1.webp",
       "price": 1874,
       "rate": 2.69,
       "ratesNumber": 44,
@@ -310,7 +310,7 @@
         {
           "name": "Multiflex",
           "description": "Aliquip incididunt excepteur do officia irure in magna. Commodo ullamco commodo officia consequat.",
-          "photo": "desktop1.jpg"
+          "photo": "desktop1.webp"
         }
       ],
       "comments": [
@@ -325,7 +325,7 @@
       "id": "5ea086047b365d39f73c38f0",
       "category": "DESKTOP",
       "name": "Zedalis",
-      "image": "desktop2.jpg",
+      "image": "desktop2.webp",
       "price": 627,
       "rate": 2.74,
       "ratesNumber": 19,
@@ -342,7 +342,7 @@
         {
           "name": "Isologix",
           "description": "Occaecat nostrud in Lorem minim aliquip pariatur. Elit qui duis ipsum commodo nisi ea veniam ad excepteur exercitation cupidatat occaecat velit.",
-          "photo": "desktop1.jpg"
+          "photo": "desktop1.webp"
         }
       ],
       "comments": [
@@ -372,7 +372,7 @@
       "id": "5ea086045eaa8527e2d4e716",
       "category": "DESKTOP",
       "name": "Dogtown",
-      "image": "desktop3.jpg",
+      "image": "desktop3.webp",
       "price": 1622,
       "rate": 3.55,
       "ratesNumber": 66,
@@ -389,7 +389,7 @@
         {
           "name": "Zillidium",
           "description": "Id sit quis labore magna do occaecat tempor veniam do cillum duis aliquip dolore veniam. Officia cupidatat ipsum consequat incididunt in enim amet tempor tempor id.",
-          "photo": "desktop2.jpg"
+          "photo": "desktop2.webp"
         }
       ],
       "comments": [
@@ -409,7 +409,7 @@
       "id": "5ea086042fe1849026b57ecd",
       "category": "DESKTOP",
       "name": "Oronoko",
-      "image": "desktop2.jpg",
+      "image": "desktop2.webp",
       "price": 1318,
       "rate": 4.56,
       "ratesNumber": 143,
@@ -426,7 +426,7 @@
         {
           "name": "Datagen",
           "description": "Proident ea et voluptate cupidatat sunt. Ullamco amet fugiat sint dolor do laborum sit labore adipisicing quis.",
-          "photo": "desktop3.jpg"
+          "photo": "desktop3.webp"
         }
       ],
       "comments": [
@@ -461,7 +461,7 @@
       "id": "5ea08604071ac63a7b01df54",
       "category": "DESKTOP",
       "name": "Orbean",
-      "image": "desktop2.jpg",
+      "image": "desktop2.webp",
       "price": 1964,
       "rate": 4.96,
       "ratesNumber": 38,
@@ -478,7 +478,7 @@
         {
           "name": "Liquidoc",
           "description": "Officia aliqua eu cillum irure reprehenderit consectetur. Deserunt reprehenderit sit adipisicing tempor irure adipisicing excepteur id magna sint exercitation.",
-          "photo": "desktop3.jpg"
+          "photo": "desktop3.webp"
         }
       ],
       "comments": [
@@ -513,7 +513,7 @@
       "id": "5ea0860482c32cb673e2025d",
       "category": "DESKTOP",
       "name": "Comvex",
-      "image": "desktop1.jpg",
+      "image": "desktop1.webp",
       "price": 1477,
       "rate": 3.53,
       "ratesNumber": 133,
@@ -530,7 +530,7 @@
         {
           "name": "Portaline",
           "description": "Deserunt eu ad excepteur in nostrud. Velit cupidatat tempor dolor proident culpa proident voluptate sint ut incididunt nulla nulla.",
-          "photo": "desktop3.jpg"
+          "photo": "desktop3.webp"
         }
       ],
       "comments": [
@@ -555,7 +555,7 @@
       "id": "5ea0862d154e976e7f1c7989",
       "category": "LAPTOP",
       "name": "Infotrips",
-      "image": "laptop3.jpg",
+      "image": "laptop3.webp",
       "price": 1420,
       "rate": 4.05,
       "ratesNumber": 69,
@@ -571,7 +571,7 @@
         {
           "name": "Mantro",
           "description": "Veniam qui amet Lorem ullamco. Occaecat mollit nisi eiusmod cupidatat dolore occaecat est.",
-          "photo": "laptop2.jpg"
+          "photo": "laptop2.webp"
         }
       ],
       "comments": []
@@ -580,7 +580,7 @@
       "id": "5ea0862d375b0aedea67a001",
       "category": "LAPTOP",
       "name": "Opticon",
-      "image": "laptop2.jpg",
+      "image": "laptop2.webp",
       "price": 1055,
       "rate": 2.36,
       "ratesNumber": 108,
@@ -596,7 +596,7 @@
         {
           "name": "Darwinium",
           "description": "Culpa esse sunt pariatur incididunt enim cupidatat officia incididunt ex ut consectetur labore anim consectetur. Consectetur ex mollit deserunt dolore exercitation fugiat.",
-          "photo": "laptop2.jpg"
+          "photo": "laptop2.webp"
         }
       ],
       "comments": [
@@ -611,7 +611,7 @@
       "id": "5ea0862d6851b168cc811c44",
       "category": "LAPTOP",
       "name": "Amtap",
-      "image": "laptop2.jpg",
+      "image": "laptop2.webp",
       "price": 1306,
       "rate": 1.61,
       "ratesNumber": 28,
@@ -627,7 +627,7 @@
         {
           "name": "Zaya",
           "description": "Enim labore eiusmod eiusmod nisi nulla in occaecat tempor. Duis et minim sit sint eu magna elit culpa anim eu velit cillum sint.",
-          "photo": "laptop2.jpg"
+          "photo": "laptop2.webp"
         }
       ],
       "comments": []
@@ -636,7 +636,7 @@
       "id": "5ea0862dbbd2520b2c9b7570",
       "category": "LAPTOP",
       "name": "Lexicondo",
-      "image": "laptop3.jpg",
+      "image": "laptop3.webp",
       "price": 1550,
       "rate": 4.8,
       "ratesNumber": 109,
@@ -652,7 +652,7 @@
         {
           "name": "Hairport",
           "description": "Adipisicing excepteur voluptate enim duis ex do ex. Dolore ex reprehenderit ex cupidatat laborum proident veniam ut nisi pariatur mollit.",
-          "photo": "laptop2.jpg"
+          "photo": "laptop2.webp"
         }
       ],
       "comments": [
@@ -672,7 +672,7 @@
       "id": "5ea0862da19f5884d8dc29f6",
       "category": "LAPTOP",
       "name": "Austex",
-      "image": "laptop2.jpg",
+      "image": "laptop2.webp",
       "price": 1873,
       "rate": 3.66,
       "ratesNumber": 141,
@@ -688,7 +688,7 @@
         {
           "name": "Optique",
           "description": "Voluptate exercitation minim consequat labore ut. Et reprehenderit elit officia aliqua esse id magna nostrud sint.",
-          "photo": "laptop2.jpg"
+          "photo": "laptop2.webp"
         }
       ],
       "comments": [
@@ -703,7 +703,7 @@
       "id": "5ea0862d831987d0538ac6cd",
       "category": "LAPTOP",
       "name": "Centregy",
-      "image": "laptop1.jpg",
+      "image": "laptop1.webp",
       "price": 1535,
       "rate": 1.06,
       "ratesNumber": 138,
@@ -719,7 +719,7 @@
         {
           "name": "Furnigeer",
           "description": "Cupidatat voluptate deserunt aute deserunt exercitation id quis nisi est labore adipisicing. Aliquip ut qui sunt adipisicing magna.",
-          "photo": "laptop1.jpg"
+          "photo": "laptop1.webp"
         }
       ],
       "comments": [
@@ -749,7 +749,7 @@
       "id": "5ea0862d792fdabacd539f42",
       "category": "LAPTOP",
       "name": "Eclipto",
-      "image": "laptop2.jpg",
+      "image": "laptop2.webp",
       "price": 534,
       "rate": 4.56,
       "ratesNumber": 48,
@@ -765,7 +765,7 @@
         {
           "name": "Xsports",
           "description": "In sit ad tempor deserunt nostrud eu qui nulla incididunt commodo. Cillum consequat consequat irure laboris in est pariatur proident non consequat laboris.",
-          "photo": "laptop2.jpg"
+          "photo": "laptop2.webp"
         }
       ],
       "comments": [
@@ -795,7 +795,7 @@
       "id": "5ea0862d56001dd08bbbddab",
       "category": "LAPTOP",
       "name": "Zialactic",
-      "image": "laptop2.jpg",
+      "image": "laptop2.webp",
       "price": 1886,
       "rate": 2.44,
       "ratesNumber": 65,
@@ -811,7 +811,7 @@
         {
           "name": "Polarium",
           "description": "Eiusmod consectetur eiusmod mollit voluptate est minim officia fugiat Lorem. Non irure ea est Lorem.",
-          "photo": "laptop2.jpg"
+          "photo": "laptop2.webp"
         }
       ],
       "comments": [
@@ -826,7 +826,7 @@
       "id": "5ea0862d8b5c5bc19ff6ce40",
       "category": "LAPTOP",
       "name": "Verton",
-      "image": "laptop3.jpg",
+      "image": "laptop3.webp",
       "price": 1846,
       "rate": 2.61,
       "ratesNumber": 74,
@@ -842,7 +842,7 @@
         {
           "name": "Zeam",
           "description": "Velit aliqua occaecat sunt amet ea dolore. In aliqua dolor velit nostrud ut aliqua voluptate mollit consequat fugiat proident elit ipsum nulla.",
-          "photo": "laptop3.jpg"
+          "photo": "laptop3.webp"
         }
       ],
       "comments": [
@@ -857,7 +857,7 @@
       "id": "5ea0862d1bfa8ee7e3614316",
       "category": "LAPTOP",
       "name": "Zaggles",
-      "image": "laptop1.jpg",
+      "image": "laptop1.webp",
       "price": 1571,
       "rate": 2.52,
       "ratesNumber": 65,
@@ -873,7 +873,7 @@
         {
           "name": "Cemention",
           "description": "Commodo reprehenderit nisi cillum dolor elit culpa magna. Duis commodo reprehenderit id fugiat qui esse laboris elit est duis pariatur.",
-          "photo": "laptop2.jpg"
+          "photo": "laptop2.webp"
         }
       ],
       "comments": [
@@ -908,7 +908,7 @@
       "id": "5ea0862dbf69cbcadb558c00",
       "category": "LAPTOP",
       "name": "Interodeo",
-      "image": "laptop1.jpg",
+      "image": "laptop1.webp",
       "price": 1670,
       "rate": 4.42,
       "ratesNumber": 53,
@@ -924,7 +924,7 @@
         {
           "name": "Slax",
           "description": "Nostrud ullamco eiusmod proident laborum commodo nulla nostrud tempor sit do magna. Amet mollit veniam magna incididunt ex ea ut laboris cupidatat exercitation minim mollit adipisicing aliqua.",
-          "photo": "laptop2.jpg"
+          "photo": "laptop2.webp"
         }
       ],
       "comments": []
@@ -933,7 +933,7 @@
       "id": "5ea0862d365f04ad55d6b9e3",
       "category": "LAPTOP",
       "name": "Rugstars",
-      "image": "laptop3.jpg",
+      "image": "laptop3.webp",
       "price": 1453,
       "rate": 4.23,
       "ratesNumber": 141,
@@ -949,7 +949,7 @@
         {
           "name": "Vinch",
           "description": "Sint minim velit exercitation id labore proident laborum ipsum aliquip consectetur fugiat qui eu proident. Ad mollit aliqua veniam sit laborum aute laborum nisi mollit incididunt reprehenderit.",
-          "photo": "laptop2.jpg"
+          "photo": "laptop2.webp"
         }
       ],
       "comments": [
@@ -964,7 +964,7 @@
       "id": "5ea0862ddf2a7cfe7ad12fc3",
       "category": "LAPTOP",
       "name": "Zolavo",
-      "image": "laptop3.jpg",
+      "image": "laptop3.webp",
       "price": 892,
       "rate": 2.59,
       "ratesNumber": 137,
@@ -980,7 +980,7 @@
         {
           "name": "Rameon",
           "description": "Proident laborum anim et veniam consectetur. Non magna esse nostrud sint occaecat aliquip eiusmod et amet amet.",
-          "photo": "laptop3.jpg"
+          "photo": "laptop3.webp"
         }
       ],
       "comments": []
@@ -989,7 +989,7 @@
       "id": "5ea0862d032008c57faca86c",
       "category": "LAPTOP",
       "name": "Quordate",
-      "image": "laptop2.jpg",
+      "image": "laptop2.webp",
       "price": 1371,
       "rate": 3.97,
       "ratesNumber": 122,
@@ -1005,7 +1005,7 @@
         {
           "name": "Pushcart",
           "description": "Est ad culpa ex ad commodo in nulla. Culpa aliqua excepteur anim nulla dolor dolore aute reprehenderit.",
-          "photo": "laptop3.jpg"
+          "photo": "laptop3.webp"
         }
       ],
       "comments": [
@@ -1025,7 +1025,7 @@
       "id": "5ea0868c723f851df99fae99",
       "category": "PHONE",
       "name": "Noralex",
-      "image": "phone3.jpg",
+      "image": "phone3.webp",
       "price": 516,
       "rate": 2.07,
       "ratesNumber": 34,
@@ -1041,7 +1041,7 @@
         {
           "name": "Bleeko",
           "description": "Elit aute aute amet ex qui ex minim nisi aliquip. Eiusmod qui id ea commodo magna ex.",
-          "photo": "phone1.jpg"
+          "photo": "phone1.webp"
         }
       ],
       "comments": [
@@ -1071,7 +1071,7 @@
       "id": "5ea0868c94f1472dfcf9df89",
       "category": "PHONE",
       "name": "Helixo",
-      "image": "phone2.jpg",
+      "image": "phone2.webp",
       "price": 1191,
       "rate": 3.27,
       "ratesNumber": 105,
@@ -1087,7 +1087,7 @@
         {
           "name": "Senmei",
           "description": "Eu esse incididunt occaecat quis do eu non ut aliqua quis. Amet aliquip irure ea qui.",
-          "photo": "phone1.jpg"
+          "photo": "phone1.webp"
         }
       ],
       "comments": []
@@ -1096,7 +1096,7 @@
       "id": "5ea0868c6d907e676fe49cb7",
       "category": "PHONE",
       "name": "Valpreal",
-      "image": "phone1.jpg",
+      "image": "phone1.webp",
       "price": 965,
       "rate": 4.67,
       "ratesNumber": 116,
@@ -1112,7 +1112,7 @@
         {
           "name": "Balooba",
           "description": "Amet voluptate aliquip reprehenderit veniam do mollit fugiat irure consequat quis. Consequat enim minim et culpa nulla voluptate non veniam est.",
-          "photo": "phone2.jpg"
+          "photo": "phone2.webp"
         }
       ],
       "comments": [
@@ -1132,7 +1132,7 @@
       "id": "5ea0868cacb77493068ee704",
       "category": "PHONE",
       "name": "Printspan",
-      "image": "phone3.jpg",
+      "image": "phone3.webp",
       "price": 768,
       "rate": 1.84,
       "ratesNumber": 29,
@@ -1148,7 +1148,7 @@
         {
           "name": "Kineticut",
           "description": "Magna cillum cupidatat cupidatat qui veniam velit consequat. Officia aliqua aute duis laboris dolor anim elit.",
-          "photo": "phone2.jpg"
+          "photo": "phone2.webp"
         }
       ],
       "comments": [
@@ -1178,7 +1178,7 @@
       "id": "5ea0868ca94cbcca123fac53",
       "category": "PHONE",
       "name": "Voipa",
-      "image": "phone2.jpg",
+      "image": "phone2.webp",
       "price": 904,
       "rate": 4.63,
       "ratesNumber": 148,
@@ -1194,7 +1194,7 @@
         {
           "name": "Fangold",
           "description": "Dolor esse velit in eiusmod irure cupidatat duis minim id ex Lorem. Laborum in ad non ea anim occaecat eu.",
-          "photo": "phone1.jpg"
+          "photo": "phone1.webp"
         }
       ],
       "comments": [
@@ -1224,7 +1224,7 @@
       "id": "5ea0868cb841e4a27c6d90aa",
       "category": "PHONE",
       "name": "Imperium",
-      "image": "phone3.jpg",
+      "image": "phone3.webp",
       "price": 1202,
       "rate": 3.4,
       "ratesNumber": 107,
@@ -1240,7 +1240,7 @@
         {
           "name": "Artiq",
           "description": "Duis enim adipisicing nulla adipisicing duis dolor eiusmod cillum ex aliquip. Anim culpa tempor tempor irure veniam elit amet commodo qui ad occaecat pariatur.",
-          "photo": "phone3.jpg"
+          "photo": "phone3.webp"
         }
       ],
       "comments": [
@@ -1270,7 +1270,7 @@
       "id": "5ea0868c030fad1de259c416",
       "category": "PHONE",
       "name": "Freakin",
-      "image": "phone1.jpg",
+      "image": "phone1.webp",
       "price": 1354,
       "rate": 4.92,
       "ratesNumber": 98,
@@ -1286,7 +1286,7 @@
         {
           "name": "Geekology",
           "description": "Quis proident sunt ad ex ad. Lorem nostrud id aute nostrud officia dolore dolore qui quis fugiat.",
-          "photo": "phone1.jpg"
+          "photo": "phone1.webp"
         }
       ],
       "comments": []
@@ -1295,7 +1295,7 @@
       "id": "5ea0868c4371f5875a6fe25d",
       "category": "PHONE",
       "name": "Musanpoly",
-      "image": "phone3.jpg",
+      "image": "phone3.webp",
       "price": 1033,
       "rate": 2.08,
       "ratesNumber": 128,
@@ -1311,7 +1311,7 @@
         {
           "name": "Protodyne",
           "description": "Dolore mollit commodo do Lorem ad dolore eu. Enim ipsum dolor magna in deserunt ex consequat esse magna ad aliquip.",
-          "photo": "phone3.jpg"
+          "photo": "phone3.webp"
         }
       ],
       "comments": [
@@ -1326,7 +1326,7 @@
       "id": "5ea0868c05fdebb92492a12c",
       "category": "PHONE",
       "name": "Medifax",
-      "image": "phone2.jpg",
+      "image": "phone2.webp",
       "price": 1655,
       "rate": 3.28,
       "ratesNumber": 147,
@@ -1342,7 +1342,7 @@
         {
           "name": "Acruex",
           "description": "Eu adipisicing laborum eiusmod officia veniam consectetur culpa sit magna. Labore ullamco labore non elit incididunt ad do et sint dolore sit amet aute.",
-          "photo": "phone2.jpg"
+          "photo": "phone2.webp"
         }
       ],
       "comments": [
@@ -1372,7 +1372,7 @@
       "id": "5ea0868c10a8cb46786d402e",
       "category": "PHONE",
       "name": "Waretel",
-      "image": "phone2.jpg",
+      "image": "phone2.webp",
       "price": 1304,
       "rate": 4.98,
       "ratesNumber": 69,
@@ -1388,7 +1388,7 @@
         {
           "name": "Fortean",
           "description": "Tempor aute cillum ut laboris. Aliquip eu consequat laborum quis elit.",
-          "photo": "phone2.jpg"
+          "photo": "phone2.webp"
         }
       ],
       "comments": [
@@ -1403,7 +1403,7 @@
       "id": "5ea0868cb6cd7209387138c3",
       "category": "PHONE",
       "name": "Parcoe",
-      "image": "phone1.jpg",
+      "image": "phone1.webp",
       "price": 581,
       "rate": 3.57,
       "ratesNumber": 32,
@@ -1419,7 +1419,7 @@
         {
           "name": "Handshake",
           "description": "Reprehenderit sint proident sit occaecat elit ex reprehenderit Lorem nulla aliquip qui qui nostrud. Ex fugiat enim sint ipsum officia dolor excepteur qui irure mollit exercitation ad eu sit.",
-          "photo": "phone1.jpg"
+          "photo": "phone1.webp"
         }
       ],
       "comments": []
@@ -1428,7 +1428,7 @@
       "id": "5ea086bf728772fa32c281ff",
       "category": "TABLET",
       "name": "Lexicondo",
-      "image": "tablet1.jpg",
+      "image": "tablet1.webp",
       "price": 505,
       "rate": 1.25,
       "ratesNumber": 54,
@@ -1444,7 +1444,7 @@
         {
           "name": "Comtent",
           "description": "Et et nulla sit sint. Sint reprehenderit ipsum ipsum ad nulla.",
-          "photo": "tablet1.jpg"
+          "photo": "tablet1.webp"
         }
       ],
       "comments": []
@@ -1453,7 +1453,7 @@
       "id": "5ea086bf259c02dbddcad133",
       "category": "TABLET",
       "name": "Cuizine",
-      "image": "tablet2.jpg",
+      "image": "tablet2.webp",
       "price": 1256,
       "rate": 2.51,
       "ratesNumber": 122,
@@ -1469,7 +1469,7 @@
         {
           "name": "Bovis",
           "description": "Ad veniam esse officia deserunt veniam reprehenderit. Mollit ex irure dolore quis duis ad deserunt.",
-          "photo": "tablet2.jpg"
+          "photo": "tablet2.webp"
         }
       ],
       "comments": [
@@ -1504,7 +1504,7 @@
       "id": "5ea086bfe22abe9c7a2d0d8d",
       "category": "TABLET",
       "name": "Acruex",
-      "image": "tablet3.jpg",
+      "image": "tablet3.webp",
       "price": 1689,
       "rate": 1.87,
       "ratesNumber": 139,
@@ -1520,7 +1520,7 @@
         {
           "name": "Unq",
           "description": "Sint nisi cupidatat tempor proident quis nostrud cupidatat esse irure sint adipisicing occaecat sit esse. Dolor deserunt deserunt duis ex duis velit veniam do laborum.",
-          "photo": "tablet2.jpg"
+          "photo": "tablet2.webp"
         }
       ],
       "comments": [
@@ -1550,7 +1550,7 @@
       "id": "5ea086bf51b835aacc30d9fd",
       "category": "TABLET",
       "name": "Buzzworks",
-      "image": "tablet3.jpg",
+      "image": "tablet3.webp",
       "price": 797,
       "rate": 4.83,
       "ratesNumber": 98,
@@ -1566,7 +1566,7 @@
         {
           "name": "Voipa",
           "description": "Dolore cupidatat esse Lorem aliquip dolor. Exercitation aliqua do velit laboris velit sit mollit incididunt reprehenderit pariatur exercitation ullamco aliqua voluptate.",
-          "photo": "tablet3.jpg"
+          "photo": "tablet3.webp"
         }
       ],
       "comments": [
@@ -1596,7 +1596,7 @@
       "id": "5ea086bf68419e055a9ef886",
       "category": "TABLET",
       "name": "Zounds",
-      "image": "tablet1.jpg",
+      "image": "tablet1.webp",
       "price": 1374,
       "rate": 2.07,
       "ratesNumber": 125,
@@ -1612,7 +1612,7 @@
         {
           "name": "Buzzopia",
           "description": "Ipsum consectetur aute culpa qui laborum sint officia cillum ad occaecat ullamco irure et. Ipsum commodo aliquip eiusmod pariatur cupidatat.",
-          "photo": "tablet1.jpg"
+          "photo": "tablet1.webp"
         }
       ],
       "comments": [
@@ -1627,7 +1627,7 @@
       "id": "5ea086bfd981139b3cef2918",
       "category": "TABLET",
       "name": "Geoform",
-      "image": "tablet1.jpg",
+      "image": "tablet1.webp",
       "price": 1133,
       "rate": 3.64,
       "ratesNumber": 104,
@@ -1643,7 +1643,7 @@
         {
           "name": "Izzby",
           "description": "Cupidatat et voluptate quis adipisicing. Nostrud excepteur ea ut sunt labore ea.",
-          "photo": "tablet1.jpg"
+          "photo": "tablet1.webp"
         }
       ],
       "comments": [
@@ -1658,7 +1658,7 @@
       "id": "5ea086bf1f7e5ef425ca4e58",
       "category": "TABLET",
       "name": "Typhonica",
-      "image": "tablet3.jpg",
+      "image": "tablet3.webp",
       "price": 1406,
       "rate": 2.41,
       "ratesNumber": 124,
@@ -1674,7 +1674,7 @@
         {
           "name": "Ozean",
           "description": "Aliquip ad amet laboris commodo id. Ullamco tempor sunt dolor proident fugiat proident incididunt anim excepteur tempor esse ea adipisicing est.",
-          "photo": "tablet2.jpg"
+          "photo": "tablet2.webp"
         }
       ],
       "comments": [
@@ -1689,7 +1689,7 @@
       "id": "5ea086bf7c9d8bea7a0f9ec8",
       "category": "TABLET",
       "name": "Medalert",
-      "image": "tablet1.jpg",
+      "image": "tablet1.webp",
       "price": 842,
       "rate": 2.96,
       "ratesNumber": 110,
@@ -1705,7 +1705,7 @@
         {
           "name": "Surelogic",
           "description": "Anim proident quis ut eiusmod esse duis minim consectetur excepteur. Commodo cupidatat consectetur culpa laborum veniam dolor enim amet officia voluptate velit cillum ipsum.",
-          "photo": "tablet3.jpg"
+          "photo": "tablet3.webp"
         }
       ],
       "comments": [
@@ -1720,7 +1720,7 @@
       "id": "5ea086bfe8a4b08d56f8a4c0",
       "category": "TABLET",
       "name": "Imaginart",
-      "image": "tablet1.jpg",
+      "image": "tablet1.webp",
       "price": 722,
       "rate": 2.49,
       "ratesNumber": 76,
@@ -1736,7 +1736,7 @@
         {
           "name": "Combogen",
           "description": "Aute aliqua pariatur non cillum esse elit ullamco sint aliqua. Amet consequat dolor consectetur magna deserunt.",
-          "photo": "tablet3.jpg"
+          "photo": "tablet3.webp"
         }
       ],
       "comments": [
@@ -1761,7 +1761,7 @@
       "id": "5ea086bf2bea1fd7ed0f8f9c",
       "category": "TABLET",
       "name": "Primordia",
-      "image": "tablet1.jpg",
+      "image": "tablet1.webp",
       "price": 752,
       "rate": 1.35,
       "ratesNumber": 54,
@@ -1777,7 +1777,7 @@
         {
           "name": "Ovium",
           "description": "In nulla labore aliqua aliquip sint cupidatat culpa. Enim velit cillum minim eiusmod ex culpa excepteur non.",
-          "photo": "tablet2.jpg"
+          "photo": "tablet2.webp"
         }
       ],
       "comments": [
@@ -1792,7 +1792,7 @@
       "id": "5ea086bff90b58490bbd699d",
       "category": "TABLET",
       "name": "Baluba",
-      "image": "tablet3.jpg",
+      "image": "tablet3.webp",
       "price": 820,
       "rate": 2.74,
       "ratesNumber": 29,
@@ -1808,7 +1808,7 @@
         {
           "name": "Isoswitch",
           "description": "Amet do ipsum ut quis labore tempor consequat esse ad consectetur minim minim sit exercitation. Nisi velit aliquip tempor aute et nisi non.",
-          "photo": "tablet1.jpg"
+          "photo": "tablet1.webp"
         }
       ],
       "comments": [

@@ -46,4 +46,15 @@ function getUser() {
     ?.split("=")[1];
   return get(`http://${basePath}/getUser?token=${token}`) as Promise<Response>;
 }
-export { getPromotions, getPromotion, getProduct, registerUser, loginUser, getUser };
+
+function getFilteredProducts(params?: SearchParams) {
+  if (!params) {
+    return get(`http://${basePath}/products`);
+  }
+
+  const { category, search, _sort, _order } = params;
+  return get(
+    `http://${basePath}/products?category=${category}&search=${search}&sortBy=${_sort}&sortOrder=${_order}`
+  );
+}
+export { getPromotions, getPromotion, getProduct, registerUser, loginUser, getUser, getFilteredProducts };
