@@ -157,6 +157,7 @@ app.get("/products", (req, res) => {
   const sortedProducts = filteredProducts.sort((a, b) => {
     if (sortBy && sortOrder) {
       const order = sortOrder === "asc" ? 1 : -1;
+      if (sortBy === "name") return a.name.localeCompare(b.name) * order;
       return a.price > b.price ? order : -order;
     }
     return 0;

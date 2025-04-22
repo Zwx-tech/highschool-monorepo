@@ -56,12 +56,18 @@ const userModule: Module<UserState, any> = {
       }
     },
     async autoAuth({ commit }) {
-      const user = await getUser();
-      if (user) {
-        commit("setUser", user);
-      } else {
+      commit("setLoading", true);
+      try {
+        const user = await getUser();
+        if (user) {
+          commit("setUser", user);
+        } else {
+          commit("logout");
+        }
+      } catch (error) {
         commit("logout");
       }
+      commit("setLoading", false);
     },
     logout({ commit }) {
       commit("setUser", null);

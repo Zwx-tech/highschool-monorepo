@@ -1,12 +1,17 @@
 <script lang="ts" setup>
 import { computed, onMounted } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 const store = useStore();
+const router = useRouter();
 
 const isAuthenticated = computed(() => {
     return store.getters.isAuthenticated;
+})
+
+const isAuthLoading = computed(() => {
+    return store.getters.getLoading;
 })
 
 const userData = computed(() => {
@@ -17,10 +22,23 @@ const userEmail = computed(() => {
     return userData.value?.email || '';
 })  
 
+//* Check authentication status on page load and after each route change
 onMounted(() => {
     if(!store.getters.isAuthenticated)
     store.dispatch('autoAuth');
-})
+});
+
+router.afterEach(() => {
+    if(!store.getters.isAuthenticated)
+    store.dispatch('autoAuth');
+});
+
+
+const textColor = computed(() => {
+    return isAuthLoading.value ? 'text-gray-400' : 'text-black';
+});
+
+
 </script>
 
 <template>
@@ -40,10 +58,10 @@ onMounted(() => {
                     <RouterLink to="/not-found" exact>Not found</RouterLink>
                 </li>
 
-                <li class="ml-auto" v-if="!isAuthenticated">
+                <li :class="`ml-auto ${textColor}`" v-if="!isAuthenticated">
                     <RouterLink to="/login" exact>Login</RouterLink>
                 </li>
-                <li v-if="!isAuthenticated">
+                <li :class="textColor" v-if="!isAuthenticated">
                     <RouterLink to="/register" exact>Register</RouterLink>
                 </li>
                 <li class="ml-auto text-gray-600" v-if="isAuthenticated">
