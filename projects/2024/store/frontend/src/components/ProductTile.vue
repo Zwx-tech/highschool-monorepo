@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import Rating from '@/components/Rating.vue';
 
 const { product } = defineProps<{ product: Product }>();
@@ -14,6 +15,13 @@ const isModalOpen = ref(false);
 // Function to toggle modal visibility
 function toggleModal() {
   isModalOpen.value = !isModalOpen.value;
+}
+
+const router = useRouter();
+
+// Function to navigate to the product page
+function goToProductPage() {
+  router.push(`/product/${product.id}`);
 }
 </script>
 
@@ -77,15 +85,18 @@ function toggleModal() {
         </div>
         <p class="font-bold text-lg text-gray-900 mb-4">Price: {{ product.price }} zł</p>
         <p class="text-gray-600 mb-4">Category: {{ product.category }}</p>
-        <button class="flex gap-3 py-2 px-4 bg-orange-400 rounded-[2rem] w-full">
+        <button class="flex gap-3 py-2 px-4 bg-orange-400 rounded-[2rem] w-full mb-4">
           <img src="/assets/shopping-bag.svg" alt="" class="w-5 h-5" />
           Dodaj do koszyka
+        </button>
+        <!-- Link to Product Page -->
+        <button
+          class="flex gap-3 py-2 px-4 bg-gray-700 text-white rounded-[2rem] w-full"
+          @click="goToProductPage"
+        >
+          View Full Details
         </button>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-/* Add any additional styles for responsiveness or layout */
-</style>

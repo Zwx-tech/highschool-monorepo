@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-//static load
+// Static load
 //@ oznacza katalog /src
 
 import HomeView from "@/views/HomeView.vue";
@@ -9,6 +9,7 @@ import PromotionView from "@/views/PromotionView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import LoginView from "@/views/LoginView.vue";
 import ProductView from "@/views/ProductView.vue";
+import SingleProductView from "@/views/SingleProductView.vue"; // Import the SingleProductView
 
 //@ts-ignore
 const NotFoundView = () => import("@/views/NotFoundView.vue");
@@ -40,6 +41,11 @@ const router = createRouter({
       path: "/products",
       name: "products",
       component: ProductView,
+    },
+    {
+      path: "/product/:id", // Add route for single product view
+      name: "SingleProductView",
+      component: SingleProductView,
     },
     {
       path: "/:pathMatch(.*)*",
