@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+#app {
+  width: 60vw;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+}
