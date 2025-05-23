@@ -14,11 +14,11 @@ const idToPosition = (id: number) => {
 };
 
 export class DisplayDriver {
-  animatioFrame: number = 0;
+  animationFrame: number = 0;
   ctx: CanvasRenderingContext2D;
   spriteSheet: HTMLImageElement;
-
   static instance: DisplayDriver | null = null;
+  private renderCount: number = 0; // Add this line
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
@@ -66,6 +66,10 @@ export class DisplayDriver {
     return tileId;
   }
 
+  enemySpriteFrame(animationFrame: number) {
+    return 15 * 16 + (animationFrame % 4);
+  }
+
   clear() {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
   }
@@ -77,10 +81,24 @@ export class DisplayDriver {
 
   displayMap() {
     const gameState = GameState.instance;
+    // Increment animation frame every 8 renders
+    this.renderCount = (this.renderCount + 1) % 18;
+    if (this.renderCount === 0) {
+      this.animationFrame++;
+    }
+
     for (let i = 0; i < gameState.mapHeight; i++) {
       for (let j = 0; j < gameState.mapWidth; j++) {
         this.displaySprite(this.mapTile(gameState.map[i][j]), j * 16, i * 16);
       }
+    }
+    // Draw enemies with animation
+    for (const enemy of gameState.enemys) {
+      this.displaySprite(
+        this.enemySpriteFrame(this.animationFrame),
+        enemy.pos.x * 16,
+        enemy.pos.y * 16
+      );
     }
   }
 }

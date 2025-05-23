@@ -9,7 +9,6 @@ if (!$server) {
 $clients = array($server); // tablica klientów
 $write = NULL;
 $except = NULL;
-
 function generateRandomMap($n, $m)
 {
     $map = [];
@@ -18,16 +17,51 @@ function generateRandomMap($n, $m)
     for ($i = 0; $i < $n; $i++) {
         $row = [];
         for ($j = 0; $j < $m; $j++) {
-            if ($i === 0 || $i === $n - 1 || $j === 0 || $j === $m - 1) {
+            if ($i === 0 || $i === $n - 1 || $j === 0 || $j === $m - 1 || ($i % 2 === 0 && $j % 2 === 0)) {
                 $row[] = 1; // Wall
             } else {
-                $row[] = rand(0, 2); // Randomly choose between 0 (empty), 1 (wall), or 2 (brick)
+                $row[] = rand(0, 4) === 2 ? 2 : 0;
             }
         }
         $map[] = $row;
     }
 
     return $map;
+}
+
+// Server setup
+$randomMap = generateRandomMap(10, 20);
+
+// Number of enemies
+$enemyCount = 12;
+$enemies = [];
+
+// Helper: Find empty positions for enemies
+function getEmptyPositions($map, $count)
+{
+    $positions = [];
+    $rows = count($map);
+    $cols = count($map[0]);
+    $empty = [];
+    for ($i = 1; $i < $rows - 1; $i++) {
+        for ($j = 1; $j < $cols - 1; $j++) {
+            if ($map[$i][$j] === 0) {
+                $empty[] = [$i, $j];
+            }
+        }
+    }
+    shuffle($empty);
+    return array_slice($empty, 0, $count);
+}
+
+// Initialize enemies at random empty positions
+$enemyPositions = getEmptyPositions($randomMap, $enemyCount);
+foreach ($enemyPositions as $idx => $pos) {
+    $enemies[] = [
+        "id" => $idx,
+        "x" => $pos[1],
+        "y" => $pos[0]
+    ];
 }
 
 while (true) {
@@ -51,9 +85,6 @@ while (true) {
         $data = ["msg" => "Nastąpiło połączenie"];
 
         send_message($clients, mask(json_encode($data))); //połączenie -> aktualne dane
-
-        // Generate a random map with dimensions 10x10
-        $randomMap = generateRandomMap(10, 20);
 
         $data = [
             "type" => "map",
@@ -87,6 +118,12 @@ while (true) {
         $response = mask($unmasked);
         send_message($clients, $response);
     }
+
+    // Broadcast enemy positions every tick
+    send_message($clients, mask(json_encode([
+        "type" => "enemies",
+        "enemies" => $enemies
+    ])));
 
     send_message($clients, mask(json_encode(["msg" => "tick"])));
 }

@@ -1,5 +1,6 @@
 import "./style.css";
 import { GameState } from "./util/state";
+import { Enemy } from "./types/types"; // Add this import
 import { _init, _update } from "./util/update";
 
 let wsUri = "ws://localhost:46089";
@@ -24,6 +25,15 @@ function init() {
         if (msg.type === "map") {
           GameState.updateGameState(msg.map);
           console.log("Map received and updated:", msg.map);
+        }
+        // Handle enemies update
+        if (msg.type === "enemies" && Array.isArray(msg.enemies)) {
+          // Convert PHP {x, y} to TS {pos: {x, y}}
+          GameState.instance.enemys = msg.enemies.map(
+            (e: { x: number; y: number }) => ({
+              pos: { x: e.x, y: e.y },
+            })
+          );
         }
       } catch (error) {
         console.error("Error parsing WebSocket message:", error);
