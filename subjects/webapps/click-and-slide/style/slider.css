@@ -1,0 +1,35 @@
+.slider__wrapper {
+    width: 100%;
+    justify-content: center;
+    padding-top: 1em;
+    display: flex;
+}
+#prev-btn, #next-btn {
+  --arrow-size: 2.7em; 
+  --arrow-color: #eee; 
+    background-color: transparent;
+  border: none;
+  display: block;
+  cursor: pointer;
+  background-size: cover;
+}
+#prev-btn {
+    transform: rotate(180deg);
+}
+.slider {
+  --slider-img-size: 8rem;
+  height: var(--slider-img-size);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.slider__track {
+    display: flex;
+    width: fit-content;
+}
+
+.slider__track img {
+  width: var(--slider-img-size);
+  aspect-ratio: 1 / 1;
+}

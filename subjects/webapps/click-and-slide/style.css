@@ -1,0 +1,135 @@
+@import url('style/modal.css');
+@import url('style/slider.css');
+:root {
+    --size: 35vw;
+    --img: url('img/0.webp');
+    --light: hsl(220, 50%, 90%);
+    --primary: hsl(255, 30%, 55%);
+    --focus: hsl(210, 90%, 50%);
+    --border-color: hsla(0, 0%, 100%, .2);
+    --global-background: hsl(220, 25%, 10%);
+    --background: linear-gradient(to right, hsl(210, 30%, 20%), hsl(255, 30%, 25%));
+    --background-2: linear-gradient(to right, hsla(210, 30%, 20%, .2), hsla(255, 30%, 25%, .2));
+    --shadow-1: hsla(236, 50%, 50%, .3);
+    --shadow-2: hsla(236, 50%, 50%, .4);
+    --shadow-3: hsla(236, 50%, 50%, .15);
+}   
+html {
+    background: var(--global-background);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', sans-serif;
+    color: var(--light);
+}
+body {
+    padding-top: 10vh;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+.game__wrapper {
+    position: relative;
+    /* transform: translateX(-8rem); */
+    width: var(--size);
+    aspect-ratio: 1 / 1;
+}
+.game__wrapper > #pf {
+    width: var(--size);
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: .5rem;
+}
+.game__wrapper > #pf::before {
+    /* box-shadow: 0 0 2.4rem .2rem var(--shadow-3); */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    background: var(--background-2);
+}
+.button__wrapper {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(calc(-100% - 2.5rem), -50%);
+    flex-direction: column;
+    display: flex;
+    gap: .8rem;
+    width: 10rem;
+    justify-content: center;
+}
+.button__wrapper > button {
+    box-shadow: rgba(200, 200, 200, 0.1) 0px .1rem .5rem;
+    padding: .5rem 0;
+    width: 100%;
+    border: none;
+    background-color: #3e3e3e;
+    color: #fff;
+    font-size: 1rem;
+    color: var(--light);
+    background: var(--background);
+    box-shadow: .4rem .4rem 2.4rem .2rem var(--shadow-1);
+    border-radius: 100rem;
+    padding: .8rem 1.5rem;
+    transition: .2s;
+}
+#pf > div {
+    --n: 3;
+    --bg-x: 0%;
+    --bg-y: 0%;
+    transition-property: left, top;
+    transition: .2s ease;
+    position: absolute;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    cursor: pointer;
+    /* border: 2px solid #fff; */
+}
+.red {
+    background-color: red;
+}
+#pf > div::before {
+    content: '';
+    display: block;
+    background-image: var(--img);
+    background-size: var(--size);
+    width: calc(var(--size));
+    aspect-ratio: 1 / 1;
+    transform: translate(var(--bg-x), var(--bg-y));
+}
+
+.scoreboard {
+    position: absolute;
+    right: -8rem;
+    top: 50%;
+    transform: translate(100%, -50%);
+    height: var(--size);
+    background: var(--background-2);
+    padding: 0 6rem;
+    border-radius: .5rem;
+}
+.scoreboard > h2 {
+    text-align: center;
+    color: #fff;
+}
+
+.timer{
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    color: #fff;
+    display: flex;
+    gap: .2rem;
+}
+
+.timer > * {
+    background-repeat: no-repeat;
+    width: 1rem;
+    height: 1.2rem;
+}
+.timer__dot { background-image: url('font/cyferki/dot.gif'); width: .5rem}
+.timer__colon { background-image: url('font/cyferki/colon.gif'); width: .5rem}
+.timer__num { background-image: url('font/cyferki/c0.gif'); }
