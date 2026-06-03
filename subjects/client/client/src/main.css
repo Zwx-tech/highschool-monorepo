@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: Montserrat, "Open Sans", sans-serif;
+}
+
+@layer components {
+    .match {
+      @apply bg-green-500 border-green-600 text-white;
+    }
+    .some {
+      @apply bg-yellow-500 border-yellow-600 text-white;
+    }
+    .none {
+      @apply bg-gray-500 border-gray-600 text-white;
+    }
+    .null {
+      @apply bg-gray-100 border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white;
+    }
+    .contrast  .null, .contrast .none, .contrast .some, .contrast .match{
+      @apply  border-black;
+    }
+    .dark {
+      @apply bg-gray-700 border-gray-600 text-white;
+    }
+    .contrast button {
+      border: solid 2px #000;
+    }
+    .contrast input[type="text"] {
+      border: solid 2px #000;
+    }
+    .contrast select {
+      border: solid 1px #000;
+    }
+    .contrast.dark button {
+      border: solid 2px #fff200;
+    }
+    .contrast.dark select {
+      border: solid 1px #fff200;
+    }
+    .contrast.dark input[type="text"] {
+      border: solid 2px #fff200;
+    }
+    .contrast {
+      color: #21e6fc !important;
+    }
+}
