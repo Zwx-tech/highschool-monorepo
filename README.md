@@ -7,7 +7,7 @@ This is only a fraction of what we've done durring 5 years however i haven't use
 ## Table of Contents
 
 | Subject | Project Name | Path | 
-| :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- |
 | **WEBAPPS** | [webapps-course](#webapps-course) | [`/subjects/webapps/webapps-course`](./subjects/webapps/webapps-course) | 
 | **WEBAPPS** | [click-and-slide](#click-and-slide) | [`/subjects/webapps/click-and-slide`](./subjects/webapps/click-and-slide) | 
 | **WEBAPPS** | [speedway](#speedway) | [`/subjects/webapps/speedway`](./subjects/webapps/speedway) | 
