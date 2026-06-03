@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/7.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="script.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+        <div class="window active glass ">
+            <div class="title-bar">
+                <div class="title-bar-text">Gra żużel - Stanisław Dębicki</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body has-space">
+                <canvas width="1200" height="600"></canvas>
+            </div>
+        </div>
+        <div class="window active scoreboard" id="scoreboardID" style="max-width: 300px">
+            <div class="title-bar">
+              <div class="title-bar-text">A window with contents</div>
+              <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+              </div>
+            </div>
+            <div class="window-body has-space">
+              <div class="scoreboard__content">
+                <h3>Scoreboard</h3>
+                <ul>
+                    <!-- <li>Gracz 1 - Okrążenie:  4 / 5</li> -->
+                </ul>
+              </div>
+            </div>
+        </div>
+        <div class="window active form-window">
+            <div class="title-bar">
+                <div class="title-bar-text">Gra żużel - Stanisław Dębicki</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body has-space">
+                <form id="player-form">
+                    <section class="tabs">
+                        <menu role="tablist" aria-label="Sample Tabs">
+                          <button role="tab" aria-controls="tab-A" aria-selected="true">Players</button>
+                          <button role="tab" aria-controls="tab-B">Game</button>
+                        </menu>
+                        <article role="tabpanel" id="tab-A">
+                            <div class="taba__wrapper">
+                                <fieldset class="player player-card" id="player-1">
+                                    <div class="player-card__header">
+                                        <img src="./img/car-1.png" />
+                                        <h2>Player 1</h2>
+                                    </div>
+                                    <h5>Player</h5>
+                                    <div class="field-row">
+                                        <label for="player-1-nickname">Nickname</label>
+                                        <input id="player-1-nickname" type="text">
+                                    </div>
+                                    <h5>Controls</h5>
+                                    <div class="field-row">
+                                        <label for="player-1-l" style="width: max-content;">Key left</label>
+                                        <input id="player-1-l" class="key-input" type="text">
+                                    </div>
+                                    <div class="field-row">
+                                        <label for="player-1-r">Key right</label>
+                                        <input id="player-1-r" class="key-input" type="text">
+                                    </div>
+                                </fieldset>
+                                <fieldset class="player"></fieldset>
+                                <fieldset class="player"></fieldset>
+                                <fieldset class="player"></fieldset>
+                            </div>
+                            <div class="button__wrapper">
+                                <button class="add-player__button" type="button">Add player</button>
+                                <button class="remove-player__button" type="button">Remove last</button>
+                                <button  class="start__button">Start!</button>
+                            </div>
+                        </article>
+                        <article role="tabpanel" id="tab-B" hidden>
+                            <p>About game</p>
+                        </article>
+                    </section>
+                </form>
+            </div>
+        </div>
+        <div class="window active window-result" style="display: none;">
+            <div class="title-bar">
+              <div class="title-bar-text">A window with contents</div>
+              <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+              </div>
+            </div>
+            <div class="window-body has-space" style="text-align: center;">
+              <p>There's so much room for activities!</p>
+            </div>
+          </div>
+</body>
+</html>
