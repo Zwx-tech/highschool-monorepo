@@ -1,0 +1,42 @@
+[
+    {
+        "title": "Question 1",
+        "anserws": [
+            "Anserw 1",
+            "Anserw 2",
+            "Anserw 3",
+            "Correct anserw "
+        ],
+        "correctAnserw": 3
+    },
+    {
+        "title": "Question 2",
+        "anserws": [
+            "Anserw 4",
+            "Anserw 5",
+            "Anserw 6",
+            "Correct anserw "
+        ],
+        "correctAnserw": 3
+    },
+    {
+        "title": "Question 3",
+        "anserws": [
+            "Anserw 7",
+            "Anserw 8",
+            "Anserw 9",
+            "Correct anserw "
+        ],
+        "correctAnserw": 3
+    },
+    {
+        "title": "Question 4",
+        "anserws": [
+            "Anserw 1",
+            "Anserw 2",
+            "Anserw 3",
+            "Correct anserw "
+        ],
+        "correctAnserw": 3
+    }
+]
