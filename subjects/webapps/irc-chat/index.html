@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <script
+      type="text/javascript"
+      src="https://os.alfajango.com/js/jquery-1.9.1.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      media="all"
+      href="https://os.alfajango.com/css/jquery.cssemoticons.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://os.alfajango.com/js/jquery.cssemoticons.min.js"
+    ></script>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IRC</title>
+  </head>
+  <body>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="wrapper">
+      <div id="app">
+        <div class="chat">
+        </div>
+        <form class="message-input">
+          <input type="text" name="messageContent"/>
+          <button>
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M4.75 19.25L12 4.75L19.25 19.25L12 15.75L4.75 19.25Z"
+              />
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M12 15.5V12.75"
+              />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
