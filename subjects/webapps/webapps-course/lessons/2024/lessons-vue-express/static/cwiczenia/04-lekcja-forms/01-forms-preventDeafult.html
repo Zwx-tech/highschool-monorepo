@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8 w-full;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-primary;
+        }
+      }
+
+      @layer utilities {
+        button {
+          @apply py-2 px-5 bg-gradient-to-br from-secondary to-accent saturate-100 hover:saturate-0 rounded-lg tracking-widest text-white  transition-all ease-linear duration-200;
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-2 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
+        </a>
+        <h1 v-text="title"></h1>
+      </div>
+      <form
+        class="w-full bg-gray-50 rounded-lg p-6 flex gap-4 items-center"
+        action="/fiction"
+        @reset="formReset"
+        @submit="formSubmit"
+      >
+        <input
+          type="text"
+          id="large-input"
+          class="block w-fit mr-4 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+        <button type="reset">Reset</button>
+        <button type="submit">Send</button>
+        <label class="ml-4 text-2xl">
+          <input type="checkbox" class="accent-primary p-1" v-model="formDisabled" /> Form disabled
+        </label>
+      </form>
+      <p class="text-xl p-4">{{ formStatusInfo}}</p>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          title: "From - e.preventDeafult()",
+          formDisabled: true,
+          formStatusInfo: "info",
+        };
+      },
+      methods: {
+        formReset(e) {
+          console.log(123);
+          if (!this.formDisabled) {
+            return;
+          }
+          e.preventDefault();
+          this.formStatusInfo = "Nie można zresetować";
+        },
+        formSubmit(e) {
+          if (!this.formDisabled) {
+            return;
+          }
+          e.preventDefault();
+        },
+      },
+      computed: {},
+    }).mount("#app");
+  </script>
+</html>

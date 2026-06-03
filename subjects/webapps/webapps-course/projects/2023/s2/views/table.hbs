@@ -1,0 +1,31 @@
+<h1>SPRAWDZIAN</h1>
+<form action="/handleFliter" method="post">
+  <div class="radioWrappper">
+
+    {{#each radioList as |v|}}
+      <input type="radio" value="{{v}}" name="stars" id="stars{{v}}" /><label
+        for="stars{{v}}"
+      >{{v}}</label>
+    {{/each}}
+  </div>
+  <select>
+    <option selected disabled>--wybierz---</option>
+    {{#each selectList as |category|}}
+      <option>{{category}}</option>
+    {{/each}}
+  </select>
+  <button type="submit">
+    filtruj
+  </button>
+</form>
+<table>
+  <tr class="header">
+    <th>nazwa</th>
+    <th>kategoria</th>
+    <th>cena</th>
+    <th>ocena</th>
+  </tr>
+  {{#each data as |row|}}
+  {{> tableRow row=row}}
+  {{/each}}
+</table>

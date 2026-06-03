@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .click {
+            margin-top: 1rem;
+            width: 6rem;
+            aspect-ratio: 1 / 1;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="number" name="first" id="first">
+        <input type="number" name="second" id="second">
+        <select name="operation" id="operation">
+            <option value="suma">suma</option>
+            <option value="roznica">roznica</option>
+            <option value="mnozenie">mnozenie</option>
+            <option value="dzielenie">dzielenie</option>
+            <option value="wszystko">wszystko</option>
+        </select>
+        <div class="click">Klik</div>
+    </div>
+</body>
+<script defer>
+    const firstRef = document.querySelector("#first")
+    const secondRef = document.querySelector("#second")
+    const operationRef = document.querySelector("#operation")
+    document.querySelector('.click').addEventListener('click', () => {
+        const data = JSON.stringify({
+            first: firstRef.value,
+            second: secondRef.value,
+            operation: operationRef.value,
+        });
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: data
+        };
+
+        fetch('/handleFetch', options)
+        .then(res => res.json())
+        .then(data => alert(JSON.stringify(data, null, 5)))
+        .catch(error => console.log(error));
+    })
+</script>
+</html>

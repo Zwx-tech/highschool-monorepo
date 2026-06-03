@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .click {
+            margin-top: 1rem;
+            width: 6rem;
+            aspect-ratio: 1 / 1;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background-color: #f00;
+        }
+        p {
+            margin: 0;
+            margin-bottom: .5rem;;
+        }
+        .color-square {
+            width: 15rem;
+            aspect-ratio: 1 / 1;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p>Red</p>
+        <input type="range" name="red" id="red" min="0" max="255" value="0"> <br>
+        <p>Green</p>
+        <input type="range" name="green" id="green" min="0" max="255" value="0"> <br>
+        <p>Blue</p>
+        <input type="range" name="blue" id="blue" min="0" max="255" value="0"> <br>
+        <p>Alpha</p>
+        <input type="range" name="alpha" id="alpha" min="0" max="255" value="255">
+        <div class="color-square"></div>
+    </div>
+</body>
+<script defer>
+    const rangeRedRef = document.querySelector("#red");
+    const rangeGreenRef = document.querySelector("#blue");
+    const rangeBlueRef = document.querySelector("#green");
+    const rangeAlphaRef = document.querySelector("#alpha");
+    
+    const colorSquareRef = document.querySelector(".color-square");
+
+    const updateColor = async () => {
+        const data = await JSON.stringify({
+            red: rangeRedRef.value,
+            green: rangeGreenRef.value,
+            blue: rangeBlueRef.value,
+            alpha: rangeAlphaRef.value,
+        });
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: data
+        };
+
+        const response = await fetch('/handleFetch', options);
+        const { color } = await response.json();
+        colorSquareRef.style.background = color;
+    }
+    rangeRedRef.addEventListener('input', updateColor)
+    rangeGreenRef.addEventListener('input', updateColor)
+    rangeBlueRef.addEventListener('input', updateColor)
+    rangeAlphaRef.addEventListener('input', updateColor)
+</script>
+</html>

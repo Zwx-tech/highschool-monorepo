@@ -1,0 +1,47 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .click {
+            margin-top: 1rem;
+            width: 6rem;
+            aspect-ratio: 1 / 1;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="range" name="client" id="client" min="0" max="100"> <br>
+        <input type="range" name="server" id="server" min="0" max="200" style="width: 20rem;">
+    </div>
+</body>
+<script defer>
+    const rangeClientRef = document.querySelector("#client")
+    const rangeServerRef = document.querySelector("#server")
+    rangeClientRef.addEventListener('input', async () => {
+        const data = await JSON.stringify({
+            r: rangeClientRef.value
+        });
+
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: data
+        };
+
+        const response = await fetch('/handleFetch', options);
+        const { r } = await response.json();
+        rangeServerRef.value = r;
+    })
+</script>
+</html>

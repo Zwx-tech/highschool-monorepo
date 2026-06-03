@@ -1,0 +1,41 @@
+<div class="row page-body">
+  <div class="col-3 text-center py-2 bg-body-tertiary">
+    <h6 class="mt-2">
+      mutliupload
+    </h6>
+  </div>
+  <div class="col-9 py-2">
+    <form
+      action="/"
+      class="p-4 border rounded-3 mx-auto mt-5 d-flex flex-column gap-2"
+      style="width: max-content;"
+      enctype="multipart/form-data"
+      method="post"
+    >
+      <input
+        type="file"
+        name="uploadedFiles"
+        id="fileUploadInput"
+        class="d-none"
+        multiple
+        required
+      />
+      <label for="fileUploadInput" class="btn btn-secondary">
+        Select files to upload
+      </label>
+      <button
+        class="btn btn-secondary mx-auto px-4"
+        style="width: max-content;"
+        id="fileUploadButton"
+      >
+        upload
+      </button>
+    </form>
+  </div>
+</div>
+<script defer>
+  const fileUploadButtonRef = document.querySelector("#fileUploadButton");
+  document.getElementById("fileUploadInput").addEventListener("change",
+  function() { fileUploadButtonRef.innerHTML = `<p>upload ${this.files.length}
+  files</p>` });
+</script>

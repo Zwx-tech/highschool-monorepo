@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form {
+            background-color: greenyellow;
+            margin: 1rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            align-items: flex-start;
+        }
+        h1 {
+            padding: 0 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>zadanie: newsletter</h1>
+    <form action="/handleForm" method="POST">
+        <div>
+            <label for="nick">nick: </label>
+            <input type="text" name="nick"/> 
+        </div>
+        <div>
+            <label for="email">email: </label>
+            <input type="email" name="email"/>
+        </div>
+        <button style="margin-top: .5rem;" type="submit">Submit</button>
+    </form>
+    <a href="/deleteByCheckbox">Usuń przy użyciu checkboxów</a>
+</body>
+</html>

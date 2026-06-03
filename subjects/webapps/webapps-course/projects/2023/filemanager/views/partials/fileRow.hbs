@@ -1,0 +1,11 @@
+<tr>
+    <th scope="row">{{ file.id }}</th>
+    <td><i class="bi file-icon {{ file.icon }}"></i></td>
+    <td>{{ file.name }}</td>
+    <td>{{ file.size }}</td>
+    <td>{{ file.type }}</td>
+    <td> <a href="/show/?id={{file.id}}" role="button" class="btn btn-secondary py-1">show</a> </td>
+    <td> <a href="/info/?id={{file.id}}" role="button" class="btn btn-secondary py-1">info</a> </td>
+    <td> <a href="/dowland/?id={{file.id}}" role="button" class="btn btn-secondary py-1">dowland</a> </td>
+    <td> <a href="/delete/?id={{file.id}}" role="button" class="btn btn-secondary py-1">delete</a> </td>
+</tr>

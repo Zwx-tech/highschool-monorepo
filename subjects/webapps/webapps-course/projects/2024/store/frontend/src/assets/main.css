@@ -1,0 +1,9 @@
+@import "./base.css";
+
+html {
+  font-family: Helvetica, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}

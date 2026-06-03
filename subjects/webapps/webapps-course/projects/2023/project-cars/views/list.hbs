@@ -1,0 +1,33 @@
+<div class="container">
+  <h1 class="project-name">list car page</h1>
+  <table class="table mt-4">
+    <thead>
+     <tr>
+      <th scope="col">_id</th>
+      <th scope="col">ubezpieczony</th>
+      <th scope="col">benzyna</th>
+      <th scope="col">uszkodzony</th>
+      <th scope="col">napęd4x4</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+      {{#each cars as | car |}}
+      <tr>
+          <th>{{ car._id }}</th>
+          <td>{{ car.ubezpiecznie }}</td>
+          <td>{{ car.benzyna }}</td>
+          <td>{{ car.uszkodzony }}</td>
+          <td>{{ car.naped }}</td>
+          <td>
+            <button type="button" class="btn btn-dark"
+              onClick="alert(JSON.stringify({{car.alertData}}, null, 5))"
+            >
+              INFO
+            </button>
+          </td>
+      </tr>
+      {{/each}}
+    </tbody>  
+  </table>
+</div>

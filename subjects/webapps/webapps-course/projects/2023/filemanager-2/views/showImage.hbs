@@ -1,0 +1,157 @@
+<div class="row page-body">
+  <div
+    class="col-2 text-center py-2 bg-body-tertiary d-flex flex-column px-4 gap-3"
+    style="min-height: 100vh;"
+  >
+    <h6 class="mt-2 text-start">filemanager</h6>
+    <a
+      href="/"
+      role="button"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-house"></i> home</a>
+
+    <button
+      id="btn-filter"
+      role="button"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-sliders"></i> filters</button>
+    <a
+      href="#"
+      role="button"
+      data-bs-toggle="modal"
+      data-bs-target="#renameCurrent"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-pencil-square"></i> rename file</a>
+    <button
+      id="btn-save-image"
+      role="button"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-floppy"></i> save</button>
+  </div>
+  <div class="col-10 p-3">
+    <div class="current-dir__wrapper w-full mb-4">
+      <a href="/" class="home-route route">
+        <i class="bi bi-eye"></i>
+        preview
+      </a>
+      {{#each (getRouteElements currentDir) as |route|}}
+        <div class="route-separator">/</div>
+        <a href="/filemanager/{{path}}" class="route">
+          {{route.name}}
+        </a>
+      {{/each}}
+    </div>
+    <div class="image-preview__wrapper">
+        <div class="fillter__wrapper">
+          {{#each filters}}
+            <button onclick="applyFilter(`{{value}}`)">
+              <div style="filter: {{value}}; background-image: url(/upload/{{ ../currentDir }})"></div>
+              <span>{{name}}</span>
+            </button>
+          {{/each}}
+        </div>
+        <canvas id="image-preview"></canvas>        
+    </div>
+    </div>
+</div>
+
+<script defer>
+    const imgCanvas = document.querySelector("#image-preview");
+    const ctx = imgCanvas.getContext("2d");
+
+    const filterBtn = document.querySelector('#btn-filter');
+    const filterSidebar = document.querySelector('.fillter__wrapper');
+
+    const previewedImageSrc = "http://localhost:3000/upload/{{ currentDir }}";
+    
+    const saveBtn = document.querySelector('#btn-save-image');
+
+    const previewedImage = new Image()
+    previewedImage.src = previewedImageSrc;
+
+    
+    //* When we load image we do magic
+    previewedImage.onload = () => {
+        //* DISPLAY IMAGE TO THE CANVAS
+        const imgWidth = previewedImage.width;
+        const imgHeight = previewedImage.height;
+
+        imgCanvas.style.aspectRation = `${imgWidth} / ${imgHeight}`;
+        
+        imgCanvas.width = imgWidth;
+        imgCanvas.height = imgHeight;
+
+        ctx.drawImage(
+            previewedImage, 
+            0,
+            0,
+            imgWidth,
+            imgHeight
+        );
+
+        //* ADJUST SIZE OF FILTER PANEL
+        resizeFilterSidebar();
+    }
+
+    function applyFilter(filter) {
+      console.log("Applying filter");
+      ctx.filter = `${filter}`;
+      ctx.drawImage(
+          previewedImage, 
+          0,
+          0,
+          previewedImage.width,
+          previewedImage.height
+      );
+    }
+    
+    saveBtn.addEventListener('click', () => {
+      console.log("Saving image");
+        imgCanvas.toBlob(async (blob) => {
+                //* Not my code
+                let fm = new FormData()
+                fm.append("image", blob)
+                fm.append("currentDir", "{{ currentDir }}")
+                fm.append("path", "/upload/{{ currentDir }}")
+
+                // fetch
+
+                const res = await fetch("/save-image", {
+                    method: "POST",
+                    body: fm,
+                });
+
+                if(res.ok) {
+                    console.log("Image saved successfully");
+                    console.log("Redirecting to showfile");
+                    console.log("{{ currentDir }}");
+                    window.location.href = "/showfile/{{ currentDir }}"
+                } else {
+                    console.log("Image not saved");
+                }
+
+              });
+    });
+
+
+    //* Used to adjust the size of the filter panel, using the height of the canvas
+    function resizeFilterSidebar() {
+      const canvasHeight = imgCanvas.getClientRects()[0].height;
+      filterSidebar.style.maxHeight = `${canvasHeight}px`;
+      filterSidebar.style.height = `${canvasHeight}px`;
+    }
+
+    //* Event listeners
+    window.addEventListener("resize", () => {
+      //* Adjust size of filter panel
+        resizeFilterSidebar();
+    })
+
+    filterBtn.addEventListener('click', () => {
+        filterSidebar.classList.toggle('visible')
+    })
+
+
+
+
+</script>

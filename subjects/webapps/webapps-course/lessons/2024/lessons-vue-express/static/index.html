@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <div class="min-w-[40rem] lg:w-[75vw] mx-auto">
+      <div class="flex items-center gap-2 mt-2 mb-8">
+        <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
+        <h1>Ćwiczenia VueJS</h1>
+      </div>
+      <div id="app"></div>
+    </div>
+  </body>
+  <style type="text/tailwindcss">
+    @layer base {
+      html {
+        @apply bg-background;
+      }
+      body {
+        @apply p-4;
+      }
+      h1 {
+        @apply text-4xl mb-1 text-primary;
+      }
+      h2 {
+        @apply text-xl mb-1 tracking-tight font-semibold text-gray-500;
+      }
+      hr {
+        @apply border-secondary my-4;
+      }
+    }
+
+    @layer utilities {
+      .lesson-link {
+        @apply py-2 px-5 bg-gradient-to-br from-secondary to-accent saturate-100 hover:saturate-0 rounded-lg tracking-widest text-white  transition-all ease-linear duration-200;
+      }
+      .task-link {
+        @apply bg-gradient-to-br from-goldenPrimary to-goldenSecondary;
+      }
+      .link-container {
+        @apply py-1 flex gap-3 flex-wrap;
+      }
+    }
+  </style>
+  <script defer>
+    async function loadAndDisplayData() {
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      try {
+        //* fetch lesson data them display it
+        const data = await fetch("/get-lessons", options);
+        const lessonsNames = await data.json();
+        console.log(lessonsNames);
+
+        displayLessons(lessonsNames);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    function displayLessons(data) {
+      const appRef = document.querySelector("#app");
+      for (const lessonName of Object.keys(data)) {
+        //* Extract lesson title
+        const lessonTitle = document.createElement("h2");
+        lessonTitle.innerText = lessonName;
+        appRef.appendChild(lessonTitle);
+        //* Create link container
+        const linkContainerRef = document.createElement("div");
+        linkContainerRef.className = "link-container";
+        appRef.appendChild(linkContainerRef);
+        //* Extract links to exercises and place them inside linkContainer
+        for (const pageName of data[lessonName]) {
+          createLink(pageName, lessonName, linkContainerRef);
+        }
+
+        //* Add divider
+        const dividerRef = document.createElement("hr");
+        appRef.appendChild(dividerRef);
+      }
+    }
+
+    function createLink(pageName, lessonName, containerRef) {
+      //* Create link element
+      const linkRef = document.createElement("a");
+      const linkTitle = pageName.replace(".html", "");
+      const isTask = linkTitle.includes("zadanie");
+      //* Combine lesson name and page name to create a href
+      //* Like so lekcja-arrays-methods-computed + 06-computed-props-cd = /lekcja-arrays-methods-computed/06-computed-props-cd
+      linkRef.href = `/${lessonName}/${pageName}`;
+      //* Style it
+      linkRef.className = isTask ? "lesson-link task-link" : "lesson-link";
+      linkRef.innerText = linkTitle;
+      containerRef.appendChild(linkRef);
+    }
+
+    loadAndDisplayData();
+  </script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            box-sizing: border-box;
+        }
+        div {
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(75, 75, 255);
+            border-radius: 3rem;
+            padding: 2rem;
+            width: fit-content;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Form - file upload</h1>
+    <div>
+        <span>zdjęcie: <input id="fileUpload" type="file" required accept="image/*" name="imagetoupload"></span>
+        <button>Send</button>
+    </div>
+</body>
+<script>
+    const fileInputRef = document.querySelector("#fileUpload");
+    document.querySelector("button").addEventListener("click", (e) => {
+        e.preventDefault();
+        const fd = new FormData();
+        fd.append("file", fileInputRef.files[0]);
+        fetch("/handleUpload", {method: "post", body: fd})
+    })
+</script>
+</html>

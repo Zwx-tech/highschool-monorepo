@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-primary;
+        }
+        input,
+        select {
+          @apply bg-green-50 border border-primary text-primary
+             placeholder-primary text-sm rounded-lg 
+             focus:ring-secondary focus:border-secondary block p-1 outline-none;
+        }
+      }
+
+      @layer utilities {
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-2 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/vue.svg" alt="V" />
+        </a>
+        <h1>{{ title }}</h1>
+      </div>
+
+      <h2>Komunikat z pola txt: {{ message }}</h2>
+
+      <input v-model="message" type="text" class="mt-2 mb-4 w-[12rem]" />
+
+      <h5>Wybrane z selecta: {{ selected }}</h5>
+
+      <select v-model="selected" class="w-[12rem]">
+        <option>aaa</option>
+        <option>bbb</option>
+        <option>ccc</option>
+      </select>
+    </div>
+  </body>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          title: "Dyrektywy VueJS",
+          message: "Test",
+          selected: "aaa",
+        };
+      },
+    }).mount("#app");
+  </script>
+</html>

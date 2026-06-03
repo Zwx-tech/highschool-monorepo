@@ -1,0 +1,18 @@
+<h1>WYBRANE</h1>
+<button class="tableButton" style="margin: 1rem 0;">LIST/TABELA</button>
+<div class="wrapper table">
+  {{#each data as |row|}}
+    <div class="element">
+      <span class="title">{{row.title}}</span>
+      <span class="star">{{row.stars}}</span>
+    </div>
+  {{/each}}
+</div>
+
+<script>
+  const wrapper = document.querySelector('.wrapper'); const tableButton =
+  document.querySelector('.tableButton'); tableButton.addEventListener('click',
+  () => { if(wrapper.classList.contains('list')) {
+  wrapper.classList.remove('list'); wrapper.classList.add('table') } else {
+  wrapper.classList.remove('table'); wrapper.classList.add('list') } });
+</script>

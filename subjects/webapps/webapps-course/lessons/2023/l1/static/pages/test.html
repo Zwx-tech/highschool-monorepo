@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Test</h1>
+  </body>
+
+  <script defer>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          cors: "no-cors",
+        },
+        body: JSON.stringify({
+          r: 123,
+        }),
+      };
+
+      const req = await fetch("/psy", options);
+      const data = await req.json();
+      console.log(data);
+    });
+  </script>
+</html>

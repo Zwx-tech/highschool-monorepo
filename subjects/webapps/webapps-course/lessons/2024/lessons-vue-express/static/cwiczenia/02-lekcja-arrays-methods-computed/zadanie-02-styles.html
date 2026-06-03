@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              text: "#091c14",
+              background: "#f5fcf9",
+              primary: "#5db692",
+              secondary: "#86e3be",
+              accent: "#64e1af",
+              goldenPrimary: "#F6D108",
+              goldenSecondary: "#EDC211",
+              goldenDark: "#DAA521",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          @apply p-8;
+        }
+        h1 {
+          @apply text-3xl mb-2 text-goldenDark;
+        }
+      }
+
+      @layer utilities {
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="flex items-center gap-4 pb-4">
+        <a href="/">
+          <img class="aspect-square h-12 pb-1" src="/img/golden-vue.svg" alt="V" />
+        </a>
+        <h1>{{ title }}</h1>
+      </div>
+      <div class="flex gap-3">
+        <div
+          v-for="element in visibleElements"
+          class="grid place-items-center w-40 aspect-square rounded-md text-white text-4xl"
+          :class="{ 'bg-red-500': element.color === 'red', 'bg-green-500': element.color === 'green' }"
+        >
+          {{ element.id }}
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          title: "Zadanie styles",
+          timer: 0,
+          interval: null,
+          elements: [
+            { id: 0, color: "red" },
+            { id: 1, color: "green" },
+            { id: 2, color: "red" },
+            { id: 3, color: "green" },
+            { id: 4, color: "red" },
+          ],
+        };
+      },
+      methods: {
+        start() {
+          this.timer = 0; //* Reset timer
+          this.interval = setInterval(() => {
+            this.timer++; //* Increment timer
+          }, 1000);
+        },
+        stop() {
+          clearInterval(this.interval);
+        },
+      },
+      computed: {
+        visibleElements() {
+          const currentColor = this.timer % 2 === 0 ? "red" : "green";
+          return this.elements.filter((element) => element.color === currentColor);
+        },
+      },
+    }).mount("#app");
+  </script>
+</html>

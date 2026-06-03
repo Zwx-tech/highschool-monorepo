@@ -1,0 +1,11 @@
+[
+  { "name": "grayscale", "value": "grayscale(100%)" },
+  { "name": "sepia", "value": "sepia(100%)" },
+  { "name": "invert", "value": "invert(100%)" },
+  { "name": "hue-rotate", "value": "hue-rotate(90deg)" },
+  { "name": "saturate", "value": "saturate(7)" },
+  { "name": "brightness", "value": "brightness(0.4)" },
+  { "name": "contrast", "value": "contrast(150%)" },
+  { "name": "blur", "value": "blur(5px)" },
+  { "name": "none", "value": "brightness(1)" }
+]

@@ -1,0 +1,145 @@
+<div class="row page-body">
+  <div
+    class="col-2 text-center py-2 bg-body-tertiary d-flex flex-column px-4 gap-3"
+    style="min-height: 100vh;"
+  >
+    <h6 class="mt-2 text-start">filemanager</h6>
+    <a
+      href="/"
+      role="button"
+      class="btn btn-secondary py-2 text-start"
+    ><i class="bi bi-house"></i> home</a>
+    <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#addTheme" class="btn btn-secondary py-2 text-start"><i class="bi bi-pencil-square"></i> add theme</a>
+
+  </div>
+  <div class="col-10 p-3">
+    <div class="current-dir__wrapper w-full mb-4">
+      <a href="/" class="home-route route">
+        <i class="bi bi-eye"></i>
+        theme-preview
+      </a>
+    </div>
+    <form id="theme-form">
+      <div class="theme-preview__wrapper">
+        {{#each themes as |theme|}}
+          <div class="theme-preview">
+            <div class="input-group mb-3" style="width: 30rem;">
+              <span class="input-group-text" id="basic-addon1">{{theme.name}}</span>
+              <span class="input-group-text" id="basic-addon1">background-color:</span>
+              <input type="color" class="m-auto  
+                form-control form-control-color"  
+                id="{{theme.name}}-background" 
+                name="{{theme.name}}-backgroundColor"
+                value="{{theme.background}}"> 
+              <span class="input-group-text" id="basic-addon1">color:</span>
+              <input type="color" class="m-auto  
+                form-control form-control-color"  
+                style="width: 2rem;"
+                id="{{theme.name}}-color" 
+                name="{{theme.name}}-color"
+                value="{{theme.color}}"> 
+              </div>
+            </div>
+        {{/each}}
+          </div>
+      <button class="btn btn-secondary py-2 text-start mt-4" type="submit"> Save</button>
+    </form>
+    </div>
+</div>
+<div class="modal fade in" id="addTheme" tabindex="-1" aria-labelledby="addThemeLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addThemeLabel">Add File</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-theme-form">
+                    <div class="input-group mb-3">
+                        <div class="form-floating" style="flex-grow: 8">
+                            <input type="text" class="form-control" id="themeName" name="themeName" placeholder="New Theme Name">
+                            <label for="fileName">Theme Name</label>
+                        </div>
+                    </div>
+                    <div class="d-inline-flex gap-3 mt-4">
+                          <button class="btn btn-primary py-2" type="submit">Add</button>
+                          <button class="btn btn-primary py-2" type="button"  data-bs-dismiss="modal" aria-label="Close">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  const themeForm = document.getElementById('theme-form');
+  const addThemeForm = document.getElementById('add-theme-form');
+  const themesWrapper = document.querySelector('.theme-preview__wrapper');
+  const modal = document.getElementById('addTheme');
+
+  addThemeForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    console.log('submit');
+    const formData = new FormData(addThemeForm);
+    const themeName = formData.get('themeName');
+    const theme = {
+      name: themeName,
+      background: '#ffffff',
+      color: '#000000',
+    };
+
+    const themePreview = document.createElement('div');
+    themePreview.classList.add('theme-preview');
+    themePreview.innerHTML = `
+      <div class="input-group mb-3" style="width: 30rem;">
+        <span class="input-group-text" id="basic-addon1">${theme.name}</span>
+        <span class="input-group-text" id="basic-addon1">background-color:</span>
+        <input type="color" class="m-auto  
+          form-control form-control-color"  
+          id="${theme.name}-background" 
+          name="${theme.name}-backgroundColor"
+          value="${theme.background}"> 
+        <span class="input-group-text" id="basic-addon1">color:</span>
+        <input type="color" class="m-auto  
+          form-control form-control-color"  
+          style="width: 2rem;"
+          id="${theme.name}-color" 
+          name="${theme.name}-color"
+          value="${theme.color}"> 
+      </div>
+    `;
+
+    themesWrapper.appendChild(themePreview);
+
+    //* close modal
+    const modalInstance = bootstrap.Modal.getInstance(modal);
+    modalInstance.hide();
+  });
+
+  themeForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    //* It's really not a very readable code, but it works
+    //* So I'm not going to refactor it pffff
+    const formData = new FormData(themeForm);
+    console.log(formData);
+    const themes = {};
+    for (let [key, value] of formData.entries()) {
+      const [theme, property] = key.split('-');
+      if (!themes[theme]) {
+        themes[theme] = {};
+      }
+      themes[theme][property] = value;
+    }
+    
+    fetch('/update-color-themes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(themes),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+    
+    console.log(themes);
+  });
+</script>
