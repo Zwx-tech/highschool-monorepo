@@ -32,10 +32,5 @@ Flask-SQLAlchemy
 Flask-Bcrypt
 ```
 
-## License server
-```commandline
-https://zsl514.fls.jetbrains.com
-```
-
 ## License
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
