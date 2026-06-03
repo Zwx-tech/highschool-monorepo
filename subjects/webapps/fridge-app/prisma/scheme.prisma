@@ -1,0 +1,19 @@
+model Fridge {
+    id Int @id @default(autoincrement())
+    name String @unique
+    card_count Int
+    cards Card[]
+}
+
+
+model Card {
+    id Int @id @default(autoincrement())
+    fridge_id Int
+    fridge Fridge @relation(fields: [fridge_id], references     : [id])
+    content String
+    width Int
+    height Int
+    z_index Int
+    top Int 
+    left Int
+}
