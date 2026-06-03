@@ -10,7 +10,7 @@
     $DB_PASSWORD="PLACEHOLDER_PASSWORD";
     $DB_NAME="v-irc";
     $connection = mysqli_init();
-    $CA_FILE = __DIR__ . '/cacert-2023-12-12.pem';
+    $CA_FILE = __DIR__ . '/asdasfd.pem';
     $connection->ssl_set(NULL, NULL, $CA_FILE, NULL, NULL);
     $connection->real_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 
