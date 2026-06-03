@@ -1,7 +1,7 @@
 # High School Projects Monorepo
 
 A consolidated archive of my high school projects, organized by subject.
-This is only a fraction of what we've done durring 5 years however i haven't used git much back then therefore some of my project were lost 🫠.
+This is only a fraction of what we've done during five years; however, I didn't use git much back then, so some of my projects were lost 🫠.
 
 
 ## Table of Contents
@@ -25,11 +25,11 @@ This is only a fraction of what we've done durring 5 years however i haven't use
 | **SERVER** | [server-course](#server-course) | [`/subjects/server/server-course`](./subjects/server/server-course) | 
 
 
-## Descrptions
+## Descriptions
 
-I've decided to add a brief descriptions to each of project; i'ce choosen to do it here insted of creating individual readmes for each project since i think it will be more readeable this way.  
+I've decided to add a brief description to each project; I've chosen to do it here instead of creating individual READMEs for each project since it should be more readable this way.  
 
-It is also important to mention that techoonology was almost always imposed on us by teachers which isn't a bad thing although personally i would made a pew diffrent choices. 
+It is also important to mention that the technology stack was almost always imposed on us by teachers, which isn't a bad thing, although personally I would have made a few different choices. 
 
 ### Webapps course
 Educational materials, exercises, and full-stack projects from my high school web applications course, spanning 2023 to 2024.
@@ -40,39 +40,39 @@ Educational materials, exercises, and full-stack projects from my high school we
 - **project-cars (2023):** A dynamic database-driven cars inventory management app.
 - **store (2024):** A full-stack e-commerce project composed of a Vue 3/Tailwind CSS frontend and a Node.js/TypeScript backend API.
 
-**Build using:**  
+**Built using:**  
 Node.js, Express, Vue, Vite, Tailwind CSS, & TypeScript
 
 ### Click and slide
-Simple game involving sorting simple slading puzzle.
+A simple game involving solving a sliding puzzle.
 Can be played here:
 https://zwx-tech.github.io/click-and-slide/
 
-**Build using:**  
+**Built using:**  
 Javascript & Php  
 
 ### Speedway
-A 2D canvas-based racing game based on speedway motorsport, featuring customizable players and a live scoreboard, wrapped in a retro Windows 7 aesthetic.
+A 2D canvas-based racing game inspired by speedway motorsport, featuring customizable players and a live scoreboard, wrapped in a retro Windows 7 aesthetic.
 
-**Build using:**  
+**Built using:**  
 Javascript, HTML5 Canvas, & CSS (7.css)
 
 ### IRC Chat
 A retro IRC-style chat application utilizing long-polling to achieve real-time messaging between clients.
 
-**Build using:**  
+**Built using:**  
 TypeScript, jQuery, Vite, PHP, & MySQL
 
 ### Fridge app
 A virtual sticky note pinboard where users can create, drag, and position notes using the TinyMCE rich text editor.
 
-**Build using:**  
+**Built using:**  
 TypeScript, Vite, TinyMCE, PHP, & Prisma
 
 ### Space query
 An application that connects to the NASA Image API, allowing users to search and view media from outer space.
 
-**Build using:**  
+**Built using:**  
 Vue, Javascript, & Vite
 
 ### Native course
@@ -85,37 +85,37 @@ A compilation of mobile application assignments and projects from my native app 
 - **register:** An app showcasing form validation, authentication views, stack navigation, and backend interaction setup.
 - **ar-app:** A complex augmented reality app separated into mobile React Native/Expo viewports, a web client, and an express server backend.
 
-**Build using:**  
+**Built using:**  
 React Native & Expo
 
 ### Memory game
 A classic card-matching memory game built natively for iOS.
 
-**Build using:**  
+**Built using:**  
 Swift & UIKit (Storyboard)
 
 ### File explorer
 A desktop file manager program capable of directory navigation, basic file/folder actions (create, delete, rename, copy, move), and viewing/editing `.txt` files.
 
-**Build using:**  
+**Built using:**  
 Python, Tkinter, & Tcl (Azure theme)
 
 ### Todo list
 A desktop todo list manager with deadline tracking, overdue task coloring, and database persistence.
 
-**Build using:**  
+**Built using:**  
 Python, CustomTkinter, & SQLite
 
 ### Weather app
 A desktop weather viewer that loads and displays live synoptic meteorological data for Polish cities.
 
-**Build using:**  
+**Built using:**  
 Python, Tkinter, & IMGW Synoptic API
 
 ### Bomberman
 A real-time multiplayer Bomberman game driven by a custom PHP WebSocket server.
 
-**Build using:**  
+**Built using:**  
 TypeScript, Vite, PHP, WebSockets, & HTML5 Canvas
 
 ### Svelte course
@@ -127,13 +127,13 @@ Practical exercises and projects for building Svelte application interfaces, fea
 - **countries:** A countries information portal rendering country details and stats dynamically.
 - **PokeApp:** A Pokemon quiz and dashboard utilizing Svelte stores (`store.ts`) and modular layout components.
 
-**Build using:**  
+**Built using:**  
 SvelteKit, Tailwind CSS, & TypeScript
 
 ### Svelte course 2
 A feature-rich clone of the popular Wordle word-guessing game, including support for custom game lengths and themes.
 
-**Build using:**  
+**Built using:**  
 SvelteKit, Tailwind CSS, & TypeScript
 
 ### Server course
@@ -146,5 +146,5 @@ Educational curriculum and project materials for back-end web development, teach
 - **04-Grades:** A gradebook application structure to model, display, and manage student grades.
 - **05-Users:** A complete user management module featuring registration, secure login sessions, user databases, and access control levels.
 
-**Build using:**  
+**Built using:**  
 Python, Flask, Django, Jinja, & Bootstrap
